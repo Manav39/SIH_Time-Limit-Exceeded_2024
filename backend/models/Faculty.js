@@ -6,13 +6,12 @@ const FacultySchema = new mongoose.Schema({
   // Inherit fields from UserSchema
   ...UserSchema.obj,
   id: {
-    type: String,
+    type: Number,
     required: true,
     unique: true, // Ensure unique faculty IDs
   },
   department: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Department", // Reference to the Department model
+    type: String,
     required: true, // Ensure that every faculty is associated with a department
   },
 });

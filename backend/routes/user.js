@@ -16,7 +16,7 @@ const findUserByEmail = async (email) => {
 
 router.post("/register", async (req, res) => {
   try {
-    const { role, email, name, password, department } = req.body;
+    const { role, email, name, password,id, department } = req.body;
     let UserModel;
      if (role === "faculty") UserModel = Faculty;
     if (role === "admin") UserModel = Admin;
@@ -28,13 +28,15 @@ router.post("/register", async (req, res) => {
     const existingUser = await UserModel.findOne({ email });
     if (existingUser) return res.status(400).json({ status: "error", error: "Duplicate email" });
 
-    // Hash the password and create the user
+    // Hash the password and create the 
+    console.log(UserModel)
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await UserModel.create({
       name,
       email,
       password: hashedPassword,
-      ...( { department }),
+      id,
+      department,
     });
 
     return res.status(201).json({
