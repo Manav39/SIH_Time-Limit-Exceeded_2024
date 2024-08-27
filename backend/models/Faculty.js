@@ -5,7 +5,7 @@ const UserSchema = require("./User"); // Import the User schema
 const FacultySchema = new mongoose.Schema({
   // Inherit fields from UserSchema
   ...UserSchema.obj,
-  facultyId: {
+  id: {
     type: String,
     required: true,
     unique: true, // Ensure unique faculty IDs

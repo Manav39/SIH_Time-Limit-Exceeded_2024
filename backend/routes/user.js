@@ -1,30 +1,24 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const Student = require("../models/Student");
 const Faculty = require("../models/Faculty");
 const Admin = require("../models/Admin");
 const DepartmentCoordinator = require("../models/DeptCoord");
 const router = express.Router();
 
-// Utility function to find user by email across different models
+
 const findUserByEmail = async (email) => {
-  let user = await Student.findOne({ email });
-  if (!user) user = await Faculty.findOne({ email });
+  let user = await Faculty.findOne({ email });
   if (!user) user = await Admin.findOne({ email });
   if (!user) user = await DepartmentCoordinator.findOne({ email });
   return user;
 };
 
-// Signup or Register route (creating a user with role)
 router.post("/register", async (req, res) => {
   try {
     const { role, email, name, password, department } = req.body;
-
-    // Determine the model to use based on the role
     let UserModel;
-    if (role === "student") UserModel = Student;
-    if (role === "faculty") UserModel = Faculty;
+     if (role === "faculty") UserModel = Faculty;
     if (role === "admin") UserModel = Admin;
     if (role === "department_coordinator") UserModel = DepartmentCoordinator;
 
@@ -40,7 +34,7 @@ router.post("/register", async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      ...(role === "student" || role === "faculty" ? { department } : {}),
+      ...( { department }),
     });
 
     return res.status(201).json({
@@ -68,10 +62,10 @@ router.post("/login", async (req, res) => {
       {
         email: user.email,
         name: user.name,
-        role: user.constructor.modelName.toLowerCase(), // Add role to token payload
+        role: user.constructor.modelName.toLowerCase(), 
       },
       "secret123",
-      { expiresIn: "1h" } // Token expiration time for security
+      { expiresIn: "1h" } 
     );
 
     return res.status(200).json({ status: "ok", user, token });
