@@ -85,8 +85,14 @@ router.post("/register", async (req, res) => {
 // Login route
 router.post("/login", async (req, res) => {
   try {
-    const { email, password } = req.body;
-    const user = await findUserByEmail(email);
+    const { User, email, password } = req.body;
+    let userModel;
+
+    if(User==="department_coordinator") userModel = DepartmentCoordinator;
+    else if(User==="admin") userModel = Admin;
+    else userModel = USER;
+
+    const user = await userModel.findOne({email});
 
     if (!user) return res.status(404).json({ status: "error", error: "User not found" });
 
