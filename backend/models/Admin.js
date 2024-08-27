@@ -1,14 +1,19 @@
 const mongoose = require("mongoose");
-const UserSchema = require("./User");
 
 // Define the Admin schema by extending the User schema
 const AdminSchema = new mongoose.Schema({
-  // Inherit fields from UserSchema
-  ...UserSchema.obj,
-  adminId: {
+  name: {
     type: String,
     required: true,
+  },
+  email: {
+    type: String,
     unique: true,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
   },
 });
 

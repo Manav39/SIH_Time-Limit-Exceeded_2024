@@ -1,13 +1,25 @@
 const mongoose = require("mongoose");
-const UserSchema = require("./User"); // Import the User schema
 
 // Define the DepartmentCoordinator schema by extending the User schema
 const DepartmentCoordinatorSchema = new mongoose.Schema({
   // Inherit fields from UserSchema
-  ...UserSchema.obj,
+  name: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
   department: {
     type: String,
     required: true,
+    unique:true,
   },
   approvedData: [
     {

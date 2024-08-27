@@ -1,14 +1,15 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const Faculty = require("../models/Faculty");
+const USER = require("../models/User");
+// const Faculty = require("../models/Faculty");
 const Admin = require("../models/Admin");
 const DepartmentCoordinator = require("../models/DeptCoord");
 const router = express.Router();
 
 
 const findUserByEmail = async (email) => {
-  let user = await Faculty.findOne({ email });
+  let user = await USER.findOne({ email });
   if (!user) user = await Admin.findOne({ email });
   if (!user) user = await DepartmentCoordinator.findOne({ email });
   return user;
@@ -16,9 +17,12 @@ const findUserByEmail = async (email) => {
 
 router.post("/register", async (req, res) => {
   try {
-    const { role, email, name, password,id, department } = req.body;
+    const { role, email, name, password, department} = req.body;
+
+    console.log("email is",email);
     let UserModel;
-     if (role === "faculty") UserModel = Faculty;
+    //  if (role === "faculty") UserModel = Faculty;
+    if(role === "user") UserModel = USER;
     if (role === "admin") UserModel = Admin;
     if (role === "department_coordinator") UserModel = DepartmentCoordinator;
 
@@ -31,18 +35,47 @@ router.post("/register", async (req, res) => {
     // Hash the password and create the 
     console.log(UserModel)
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await UserModel.create({
-      name,
-      email,
-      password: hashedPassword,
-      id,
-      department,
-    });
 
-    return res.status(201).json({
-      message: "User Registration Successful",
-      user,
-    });
+    if(role==="user"){   // if user i.e student or faculty
+      const user = await UserModel.create({
+        name,
+        email,
+        password: hashedPassword,
+      });
+
+      return res.status(201).json({   
+        message: "User Registration Successful",
+        user,
+      });
+
+    }
+    else if(role==="admin") {  //admin registration
+      const user = await UserModel.create({
+        name,
+        email,
+        password: hashedPassword,
+      });
+
+      return res.status(201).json({
+        message: "User Registration Successful",
+        user,
+      });
+    }
+    else if (role==="department_coordinator"){  //department_coordinator registration
+      console.log("in dep coor....", email);
+      const user = await UserModel.create({
+        name,
+        email,
+        password: hashedPassword,
+        department,
+      });
+
+      return res.status(201).json({
+        message: "User Registration Successful",
+        user,
+      });
+    }
+    
   } catch (err) {
     console.error("Error while registering User: ", err);
     return res.status(500).json({ status: "error", error: "Server error" });

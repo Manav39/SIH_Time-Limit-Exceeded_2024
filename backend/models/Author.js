@@ -4,7 +4,7 @@ const UserSchema = require("./User");
 // Define the Author schema by extending the User schema
 const AuthorSchema = new mongoose.Schema({
   ...UserSchema.obj, // Spread the User schema fields
-  dept: {
+  department: {
     type: String,
     required: true,
   },
