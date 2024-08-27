@@ -14,11 +14,6 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  quote: {
-    type: String,
-  },
 });
 
-const USER = mongoose.model("user", UserSchema);
-
-module.exports = USER;
+module.exports = UserSchema;

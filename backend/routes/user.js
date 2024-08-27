@@ -1,84 +1,83 @@
 const express = require("express");
-const USER = require("../models/User");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const Student = require("../models/Student");
+const Faculty = require("../models/Faculty");
+const Admin = require("../models/Admin");
+const DepartmentCoordinator = require("../models/DeptCoord");
 const router = express.Router();
 
-router.post("/signup", async (req, res) => {
+// Utility function to find user by email across different models
+const findUserByEmail = async (email) => {
+  let user = await Student.findOne({ email });
+  if (!user) user = await Faculty.findOne({ email });
+  if (!user) user = await Admin.findOne({ email });
+  if (!user) user = await DepartmentCoordinator.findOne({ email });
+  return user;
+};
+
+// Signup or Register route (creating a user with role)
+router.post("/register", async (req, res) => {
   try {
-    const user = await USER.create({
-      email: req.body.email,
-      name: req.body.name,
+    const { role, email, name, password, department } = req.body;
+
+    // Determine the model to use based on the role
+    let UserModel;
+    if (role === "student") UserModel = Student;
+    if (role === "faculty") UserModel = Faculty;
+    if (role === "admin") UserModel = Admin;
+    if (role === "department_coordinator") UserModel = DepartmentCoordinator;
+
+    if (!UserModel) return res.status(400).json({ status: "error", error: "Invalid role" });
+
+    // Check for existing user
+    const existingUser = await UserModel.findOne({ email });
+    if (existingUser) return res.status(400).json({ status: "error", error: "Duplicate email" });
+
+    // Hash the password and create the user
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await UserModel.create({
+      name,
+      email,
+      password: hashedPassword,
+      ...(role === "student" || role === "faculty" ? { department } : {}),
     });
 
     return res.status(201).json({
-      message: "User Sign Up Successful",
-      user: user,
+      message: "User Registration Successful",
+      user,
     });
   } catch (err) {
-    console.error("Error while creating User : ", err);
+    console.error("Error while registering User: ", err);
+    return res.status(500).json({ status: "error", error: "Server error" });
   }
 });
 
-router.post("/register", async (req, res) => {
-  try {
-    const newpass = await bcrypt.hash(req.body.pass, 10);
-    const user = await USER.create({
-      name: req.body.name,
-      email: req.body.email,
-      password: newpass,
-    });
-    return res.json({ status: "ok" });
-  } catch (e) {
-    return res.json({ status: "error", error: "Duplicate email" });
-  }
-});
-
+// Login route
 router.post("/login", async (req, res) => {
-  const user = await USER.findOne({
-    email: req.body.email,
-  });
+  try {
+    const { email, password } = req.body;
+    const user = await findUserByEmail(email);
 
-  if (!user) return res.json({ status: "error", error: "user not found" });
+    if (!user) return res.status(404).json({ status: "error", error: "User not found" });
 
-  const isPasswordValid = await bcrypt.compare(req.body.pass, user.password);
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) return res.status(401).json({ status: "error", error: "Invalid password" });
 
-  if (isPasswordValid) {
     const token = jwt.sign(
       {
         email: user.email,
         name: user.name,
+        role: user.constructor.modelName.toLowerCase(), // Add role to token payload
       },
-      "secret123"
+      "secret123",
+      { expiresIn: "1h" } // Token expiration time for security
     );
-    return res.json({ status: "ok", user: user, token: token });
-  } else {
-    return res.json({ status: "error", msg: "user not found" });
-  }
-});
 
-router.get("/quote", async (req, res) => {
-  const token = req.headers["x-access-token"];
-  try {
-    const decoded = jwt.verify(token, "secret123");
-    const email = decoded.email;
-    const user = await USER.findOne({ email: email });
-    console.log(user);
-    return res.json({ status: "ok", quote: user.quote });
-  } catch (e) {
-    return res.json({ status: "error", error: "Invalid Token" });
-  }
-});
-
-router.post("/quote", async (req, res) => {
-  const token = req.headers["x-access-token"];
-  try {
-    const decoded = jwt.verify(token, "secret123");
-    const email = decoded.email;
-    await USER.updateOne({ email: email }, { $set: { quote: req.body.quote } });
-    return res.json({ status: "ok" });
-  } catch (e) {
-    return res.json({ status: "error", error: "Invalid Token" });
+    return res.status(200).json({ status: "ok", user, token });
+  } catch (err) {
+    console.error("Error during login: ", err);
+    return res.status(500).json({ status: "error", error: "Server error" });
   }
 });
 
