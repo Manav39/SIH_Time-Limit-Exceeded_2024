@@ -28,17 +28,17 @@ router.get('/allevent', async (req, res) => {
 });
 
 // Get a specific event by ID
-router.get('/events/:id', async (req, res) => {
-  try {
-    const event = await Event.findById(req.params.id).populate('participants');
-    if (!event) {
-      return res.status(404).send();
-    }
-    res.status(200).send(event);
-  } catch (error) {
-    res.status(500).send({ error: 'Error fetching event', details: error });
-  }
-});
+// router.get('/events/:id', async (req, res) => {
+//   try {
+//     const event = await Event.findById(req.params.id).populate('participants');
+//     if (!event) {
+//       return res.status(404).send();
+//     }
+//     res.status(200).send(event);
+//   } catch (error) {
+//     res.status(500).send({ error: 'Error fetching event', details: error });
+//   }
+// });
 
 // Update an event by ID
 router.patch('/updateevent/:id', async (req, res) => {

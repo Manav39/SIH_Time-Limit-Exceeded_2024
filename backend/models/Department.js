@@ -4,20 +4,23 @@ const DepartmentSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
+        unique:true,
     },
     hod: {
         type: String, // HoD's name as a simple string
         required: true,
+        unique:true
     },
     department_coordinator: {
         type: mongoose.Schema.Types.ObjectId, // Reference to DepartmentCoordinator model
         ref: "DepartmentCoordinator",
         required: true,
+        unique:true,
     },
     faculties: [
         {
             type: mongoose.Schema.Types.ObjectId, // References to Faculty model
-            ref: "Faculty"
+            ref: "User"
         }
     ],
     year_wise_intake: {
