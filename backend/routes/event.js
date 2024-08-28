@@ -3,11 +3,11 @@ const router = express.Router();
 const Event = require('../models/Event');
 
 // Create a new event
-router.post('/events', async (req, res) => {
+router.post('/addevent', async (req, res) => {
   try {
-    const { title, date, location, description, participants } = req.body;
+    const { name, department, date, images ,description, type  } = req.body;
 
-    const event = new Event({ title, date, location, description, participants });
+    const event = new Event({ name, department, date, images, description, type  });
     
     await event.save();
     
@@ -18,9 +18,9 @@ router.post('/events', async (req, res) => {
 });
 
 // Get all events
-router.get('/events', async (req, res) => {
+router.get('/allevent', async (req, res) => {
   try {
-    const events = await Event.find().populate('participants');
+    const events = await Event.find({});
     res.status(200).send(events);
   } catch (error) {
     res.status(500).send({ error: 'Error fetching events', details: error });
@@ -41,9 +41,9 @@ router.get('/events/:id', async (req, res) => {
 });
 
 // Update an event by ID
-router.patch('/events/:id', async (req, res) => {
+router.patch('/updateevent/:id', async (req, res) => {
   try {
-    const event = await Event.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true }).populate('participants');
+    const event = await Event.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
     if (!event) {
       return res.status(404).send();
     }
@@ -54,7 +54,7 @@ router.patch('/events/:id', async (req, res) => {
 });
 
 // Delete an event by ID
-router.delete('/events/:id', async (req, res) => {
+router.delete('/deleteevent/:id', async (req, res) => {
   try {
     const event = await Event.findByIdAndDelete(req.params.id);
     if (!event) {

@@ -31,7 +31,7 @@ const eventRoutes = require("./routes/event");
 app.use("/", userRoutes);
 app.use("/author", authorRoutes);
 app.use("/publications",  publicationRoutes);
-app.use("/event", eventRoutes);
+app.use("/events", eventRoutes);
 
 // Root route for testing the server
 app.get("/", (req, res) => {
