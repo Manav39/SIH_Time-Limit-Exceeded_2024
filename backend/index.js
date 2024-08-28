@@ -26,6 +26,7 @@ const authorRoutes = require("./routes/author");
 const publicationRoutes = require("./routes/publications");
 const eventRoutes = require("./routes/event");
 const departmentRoutes = require("./routes/department");
+const collegeRoutes = require("./routes/colleges");
 
 
 
@@ -34,6 +35,7 @@ app.use("/author", authorRoutes);
 app.use("/publications",  publicationRoutes);
 app.use("/events", eventRoutes);
 app.use("/departments", departmentRoutes);
+app.use("/colleges", collegeRoutes);
 
 // Root route for testing the server
 app.get("/", (req, res) => {
