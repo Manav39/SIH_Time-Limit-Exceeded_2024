@@ -46,7 +46,7 @@ const DepartmentSchema = new mongoose.Schema({
         conferences: [
             {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: "Publication"
+                ref: "Event"
             }
         ]
     }

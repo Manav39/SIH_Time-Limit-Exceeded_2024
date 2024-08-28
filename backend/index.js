@@ -23,11 +23,15 @@ connectToMongo(process.env.MONGO_URI || "mongodb+srv://tle:tle@tle.eryr0.mongodb
 // Import and use the user routes
 const userRoutes = require("./routes/user");
 const authorRoutes = require("./routes/author");
+const publicationRoutes = require("./routes/publications");
+const eventRoutes = require("./routes/event");
 
 
 
 app.use("/", userRoutes);
 app.use("/author", authorRoutes);
+app.use("/publications",  publicationRoutes);
+app.use("/event", eventRoutes);
 
 // Root route for testing the server
 app.get("/", (req, res) => {
