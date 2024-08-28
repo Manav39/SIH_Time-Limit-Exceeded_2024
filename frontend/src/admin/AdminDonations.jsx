@@ -23,7 +23,7 @@ const AdminDonations = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/auth/donations")
+      .get("http://localhost:8088/auth/donations")
       .then((res) => {
         console.log(res.data);
         setDonations(res.data);
@@ -34,7 +34,7 @@ const AdminDonations = () => {
   const handleDelete = async (id) => {
     try {
       const response = await axios.delete(
-        `http://localhost:3000/auth/donations/${id}`
+        `http://localhost:8088/auth/donations/${id}`
       );
       toast.warning(response.data.message);
       setDonations(donations.filter((donation) => donation.id !== id));

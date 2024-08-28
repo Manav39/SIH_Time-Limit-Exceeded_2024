@@ -1,29 +1,33 @@
 const express = require("express");
 const { connectToMongo } = require("./connect");
-const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 8088;
 
+const cors = require("cors");
+const corsOptions = {
+  origin: "http://localhost:5173",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
 
+app.use(cors(corsOptions));
 
-// Middleware setup
-app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-
-
 // Database connection
-connectToMongo(process.env.MONGO_URI || "mongodb+srv://tle:tle@tle.eryr0.mongodb.net/?retryWrites=true&w=majority&appName=TLE")
+connectToMongo(
+  process.env.MONGO_URI ||
+    "mongodb+srv://tle:tle@tle.eryr0.mongodb.net/?retryWrites=true&w=majority&appName=TLE"
+)
   .then(() => {
     console.log("Connected to MongoDB Atlas");
   })
   .catch((err) => {
     console.error("Error connecting to MongoDB Atlas:", err);
   });
-
 
 //creating routes
 const userRoutes = require("./routes/user");
@@ -34,19 +38,14 @@ const departmentRoutes = require("./routes/department");
 const collegeRoutes = require("./routes/colleges");
 const dataEntryRoutes = require("./routes/dataEntry");
 
-
-
 //routes
 app.use("/", userRoutes);
 app.use("/author", authorRoutes);
-app.use("/publications",  publicationRoutes);
+app.use("/publications", publicationRoutes);
 app.use("/events", eventRoutes);
 app.use("/departments", departmentRoutes);
 app.use("/colleges", collegeRoutes);
 app.use("/data-entries", dataEntryRoutes);
-
-
-
 
 // Root route for testing the server
 app.get("/", (req, res) => {

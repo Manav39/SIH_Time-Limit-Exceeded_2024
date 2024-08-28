@@ -38,16 +38,16 @@ const AdminHome = () => {
   });
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3000/auth/counts")
-      .then((res) => {
-        console.log("Counts data:", res.data);
-        setCounts(res.data);
-      })
-      .catch((err) => {
-        console.error(err);
-        alert("Failed to fetch counts");
-      });
+    // axios
+    //   .get("http://localhost:8088/auth/counts")
+    //   .then((res) => {
+    //     console.log("Counts data:", res.data);
+    //     setCounts(res.data);
+    //   })
+    //   .catch((err) => {
+    //     console.error(err);
+    //     alert("Failed to fetch counts");
+    //   });
   }, []);
 
   return (

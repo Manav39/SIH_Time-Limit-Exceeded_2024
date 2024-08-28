@@ -1,14 +1,15 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { FaPlus, FaEdit, FaTrash } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3000/auth/users")
+    axios
+      .get("http://localhost:8088/auth/users")
       .then((res) => {
         setUsers(res.data);
         console.log(users);
@@ -17,13 +18,14 @@ const AdminUsers = () => {
   }, []);
 
   const delUser = (id) => {
-    axios.delete(`http://localhost:3000/auth/user/${id}`)
+    axios
+      .delete(`http://localhost:8088/auth/user/${id}`)
       .then((res) => {
         toast.info(res.data.message);
-        setUsers(users.filter((e) => e.id !== id))
+        setUsers(users.filter((e) => e.id !== id));
       })
-      .catch((err) => console.log(err))
-  }
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div className="container-fluid mt-4">
@@ -52,10 +54,17 @@ const AdminUsers = () => {
                         <td>{user.email}</td>
                         <td>{user.type}</td>
                         <td className="text-center">
-                          <Link to="/dashboard/users/manage" state={{ status: "edit", data: user }} className="btn btn-primary btn-sm mr-2">
+                          <Link
+                            to="/dashboard/users/manage"
+                            state={{ status: "edit", data: user }}
+                            className="btn btn-primary btn-sm mr-2"
+                          >
                             <FaEdit /> Edit
                           </Link>
-                          <button onClick={() => delUser(user.id)} className="btn btn-danger btn-sm">
+                          <button
+                            onClick={() => delUser(user.id)}
+                            className="btn btn-danger btn-sm"
+                          >
                             <FaTrash /> Delete
                           </button>
                         </td>

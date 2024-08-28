@@ -41,11 +41,11 @@ const ManageDonations = ({ setHandleAdd }) => {
     try {
       if (location.state && location.state.action === "edit") {
         await axios
-          .put("http://localhost:3000/auth/managedonations", formData)
+          .put("http://localhost:8088/auth/managedonations", formData)
           .then((res) => toast.success(res.data.message));
       } else {
         await axios
-          .post("http://localhost:3000/auth/managedonations", formData)
+          .post("http://localhost:8088/auth/managedonations", formData)
           .then((res) => toast.success(res.data.message));
       }
       setFormData({
