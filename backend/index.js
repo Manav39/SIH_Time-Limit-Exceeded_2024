@@ -1,20 +1,18 @@
 const express = require("express");
 const { connectToMongo } = require("./connect");
 const cors = require("cors");
-const UserSchema = require("./routes/user");
-
 require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 8088;
 
+// Middleware setup
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-connectToMongo(
-  "mongodb+srv://tle:tle@tle.eryr0.mongodb.net/?retryWrites=true&w=majority&appName=TLE"
-)
+// Database connection
+connectToMongo(process.env.MONGO_URI || "mongodb+srv://tle:tle@tle.eryr0.mongodb.net/?retryWrites=true&w=majority&appName=TLE")
   .then(() => {
     console.log("Connected to MongoDB Atlas");
   })
@@ -22,12 +20,21 @@ connectToMongo(
     console.error("Error connecting to MongoDB Atlas:", err);
   });
 
-app.use("/", UserSchema);
+// Import and use the user routes
+const userRoutes = require("./routes/user");
+const authorRoutes = require("./routes/author");
 
+
+
+app.use("/", userRoutes);
+app.use("/author", authorRoutes);
+
+// Root route for testing the server
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+// Start the server
 app.listen(PORT, () => {
-  console.log(`Server is running`);
+  console.log(`Server is running on port ${PORT}`);
 });

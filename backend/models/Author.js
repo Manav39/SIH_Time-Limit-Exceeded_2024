@@ -3,7 +3,10 @@ const UserSchema = require("./User");
 
 // Define the Author schema by extending the User schema
 const AuthorSchema = new mongoose.Schema({
-  ...UserSchema.obj, // Spread the User schema fields
+  author:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:'UserSchema',
+  },
   department: {
     type: String,
     required: true,
