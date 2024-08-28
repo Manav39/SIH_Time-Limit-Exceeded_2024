@@ -33,7 +33,18 @@ const DepartmentCoordinatorSchema = new mongoose.Schema({
       ref: "DataEntry", // Reference to the model that stores the data pending approval
     },
   ],
-  // Additional fields can be added if needed
+    pendingPublications:[
+      {
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Publication",
+      }
+    ],
+    approvedPublications:[
+      {
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Publication",
+      }
+    ]
 });
 
 const DepartmentCoordinator = mongoose.model("DepartmentCoordinator", DepartmentCoordinatorSchema);
