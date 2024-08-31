@@ -25,8 +25,8 @@ const SidebarDeptCoord = ({ isOpen, toggleSidebar }) => {
       <ul className="sidebar-nav" id="sidebar-nav">
         <li onClick={toggleSidebar} className="nav-item">
           <Link
-            className={`nav-link ${isActive("/dashboard")}`}
-            to="/dashboard"
+            className={`nav-link ${isActive("/dashboard/deptcoord/depdash")}`}
+            to="/dashboard/deptcoord/depdash"
           >
             <FaHome />
             <span className="ms-1">Dashboard</span>
@@ -54,7 +54,9 @@ const SidebarDeptCoord = ({ isOpen, toggleSidebar }) => {
 
         <li onClick={toggleSidebar} className="nav-item">
           <Link
-            className={`nav-link ${isActive("/dashboard/deptcoord/pendingrequests")}`}
+            className={`nav-link ${isActive(
+              "/dashboard/deptcoord/pendingrequests"
+            )}`}
             to={"/dashboard/deptcoord/pendingrequests"}
           >
             <ImBooks />
@@ -64,7 +66,9 @@ const SidebarDeptCoord = ({ isOpen, toggleSidebar }) => {
 
         <li onClick={toggleSidebar} className="nav-item">
           <Link
-            className={`nav-link ${isActive("/dashboard/deptcoord/departmentdetails")}`}
+            className={`nav-link ${isActive(
+              "/dashboard/deptcoord/departmentdetails"
+            )}`}
             to={"/dashboard/deptcoord/departmentdetails"}
           >
             <RiSuitcaseFill />
@@ -72,17 +76,17 @@ const SidebarDeptCoord = ({ isOpen, toggleSidebar }) => {
           </Link>
         </li>
 
-
         <li onClick={toggleSidebar} className="nav-item">
           <Link
-            className={`nav-link ${isActive("/dashboard/deptcoord/departmentevents")}`}
+            className={`nav-link ${isActive(
+              "/dashboard/deptcoord/departmentevents"
+            )}`}
             to={"/dashboard/deptcoord/departmentevents"}
           >
             <IoCalendar />
             <span className="ms-1">Events</span>
           </Link>
         </li>
-
 
         {/* <li onClick={toggleSidebar} className="nav-item">
           <Link

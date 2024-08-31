@@ -1,13 +1,16 @@
-import React from 'react';
-import { FaUsers, FaBriefcase, FaRupeeSign } from 'react-icons/fa';
-import { IoCalendar, IoBookSharp } from 'react-icons/io5';
-import { MdForum } from 'react-icons/md';
+import React from "react";
+import { FaUsers, FaBriefcase, FaRupeeSign } from "react-icons/fa";
+import { IoCalendar, IoBookSharp } from "react-icons/io5";
+import { MdForum } from "react-icons/md";
 
 const InfoCard = ({ title, count, Icon, className }) => (
   <div className="col-xxl-4 col-xl-6">
     <div className={`card info-card ${className}`}>
       <div className="card-body">
-        <h5 className="card-title" dangerouslySetInnerHTML={{ __html: title }}></h5>
+        <h5
+          className="card-title"
+          dangerouslySetInnerHTML={{ __html: title }}
+        ></h5>
         <div className="d-flex align-items-center justify-content-center justify-content-sm-start">
           <div className="card-icon rounded-circle d-flex align-items-center justify-content-center">
             <Icon />
@@ -34,7 +37,11 @@ const DeptCoordDashboard = () => {
 
   return (
     <div className="container mt-5">
-      <h1 className="text-center mb-4">Department Coordinator Dashboard</h1>
+      <h1 className="text-center mb-4">
+        {localStorage.getItem("role")?.charAt(0).toUpperCase() +
+          localStorage.getItem("role")?.slice(1)}{" "}
+        Dashboard
+      </h1>
       <section className="section dashboard custommargin p-3">
         <div className="row">
           <InfoCard
@@ -77,6 +84,6 @@ const DeptCoordDashboard = () => {
       </section>
     </div>
   );
-}
+};
 
 export default DeptCoordDashboard;

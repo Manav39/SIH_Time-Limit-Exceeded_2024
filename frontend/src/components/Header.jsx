@@ -172,7 +172,7 @@ const Header = () => {
                         <Link
                           onClick={toggleMenu}
                           className="dropdown-item "
-                          to="dashboard"
+                          to="/dashboard/deptcoord/depdash"
                         >
                           <MdDashboard /> Dashboard
                         </Link>
