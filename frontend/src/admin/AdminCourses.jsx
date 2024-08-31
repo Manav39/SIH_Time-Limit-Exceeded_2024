@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 
 const AdminCourses = () => {
   const [courses, setCourses] = useState([]);
   const [name, setName] = useState({
-    course: '',
-    id: ''
+    course: "",
+    id: "",
   });
 
   useEffect(() => {
-    axios.get("http://localhost:3000/auth/courses")
+    axios
+      .get("http://localhost:8088/auth/courses")
       .then((res) => {
         setCourses(res.data);
       })
@@ -19,32 +20,33 @@ const AdminCourses = () => {
 
   const handleDelete = async (id) => {
     try {
-      const response = await axios.delete(`http://localhost:3000/auth/courses/${id}`);
+      const response = await axios.delete(
+        `http://localhost:8088/auth/courses/${id}`
+      );
       toast.warning(response.data.message);
-      setCourses(courses.filter(c => c.id !== id));
+      setCourses(courses.filter((c) => c.id !== id));
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
       toast.error("An error occurred");
     }
-  }
+  };
 
   const handleInput = (cname, cid) => {
     setName({
       course: cname,
-      id: cid
+      id: cid,
     });
   };
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(name);
     try {
       if (name.id) {
-        const res =  await axios.put(`http://localhost:3000/auth/courses`, name);
+        const res = await axios.put(`http://localhost:8088/auth/courses`, name);
         toast.success("Course updated successfully");
-        setCourses(prevCourses => {
-          const updatedCourses = prevCourses.map(course => {
+        setCourses((prevCourses) => {
+          const updatedCourses = prevCourses.map((course) => {
             if (course.id === name.id) {
               return { id: name.id, course: name.course };
             }
@@ -53,19 +55,19 @@ const AdminCourses = () => {
           return updatedCourses;
         });
       } else {
-
-        const res = await axios.post("http://localhost:3000/auth/courses", { course: name.course });
+        const res = await axios.post("http://localhost:8088/auth/courses", {
+          course: name.course,
+        });
         toast.success("Course saved successfully");
         const newCourse = { id: res.data, course: name.course };
         setCourses([...courses, newCourse]);
       }
-      setName({ ...name, course: '', id: '' }); 
+      setName({ ...name, course: "", id: "" });
     } catch (error) {
-      console.error('Error:', error);
-      toast.error('An error occurred');
+      console.error("Error:", error);
+      toast.error("An error occurred");
     }
   };
- 
 
   return (
     <div className="container-fluid">
@@ -73,11 +75,9 @@ const AdminCourses = () => {
       <div className="col-lg-12">
         <div className="row">
           <div className="col-md-4">
-            <form >
+            <form>
               <div className="card">
-                <div className="card-header">
-                  Course Form
-                </div>
+                <div className="card-header">Course Form</div>
                 <div className="card-body">
                   <input type="hidden" name="id" />
                   <div className="form-group">
@@ -87,7 +87,9 @@ const AdminCourses = () => {
                       className="form-control"
                       name="course"
                       value={name.course}
-                      onChange={(e) => setName({ ...name, course: e.target.value })}
+                      onChange={(e) =>
+                        setName({ ...name, course: e.target.value })
+                      }
                       required
                     />
                   </div>
@@ -97,7 +99,9 @@ const AdminCourses = () => {
                     <div className="col-md-6">
                       <button
                         className="btn btn-sm btn-primary btn-block"
-                        onClick={(e) => handleSubmit(e, { course: name.course })}
+                        onClick={(e) =>
+                          handleSubmit(e, { course: name.course })
+                        }
                       >
                         Save
                       </button>
@@ -123,7 +127,7 @@ const AdminCourses = () => {
                   </thead>
                   <tbody>
                     {courses.map((c, index) => (
-                      <tr  key={index}>
+                      <tr key={index}>
                         <td className="text-center">{index + 1}</td>
                         <td>{c.course}</td>
                         <td className="text-center">
@@ -153,6 +157,6 @@ const AdminCourses = () => {
       </div>
     </div>
   );
-}
+};
 
 export default AdminCourses;

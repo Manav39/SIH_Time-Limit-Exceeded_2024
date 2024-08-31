@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import { FaMapMarker } from "react-icons/fa";
 import axios from "axios";
-import { AuthProvider, useAuth } from '../../AuthContext';
-import { ToastContainer, toast } from 'react-toastify';
+import { AuthProvider, useAuth } from "../../AuthContext";
+import { ToastContainer, toast } from "react-toastify";
 
 const ViewDonations = ({ donation, closeModal }) => {
   const [amount, setAmount] = useState(0);
   const { isLoggedIn } = useAuth();
 
   const handlePay = async (e) => {
-    if(!amount || amount < 1) {
+    if (!amount || amount < 1) {
       toast.error("Please enter amount greater than Rs. 1");
       return;
     }
     const currency = "INR";
-    const response = await fetch("http://localhost:3000/pay", {
+    const response = await fetch("http://localhost:8088/pay", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -58,10 +58,10 @@ const ViewDonations = ({ donation, closeModal }) => {
     };
 
     await axios
-      .put("http://localhost:3000/auth/updatedonation", formData)
+      .put("http://localhost:8088/auth/updatedonation", formData)
       .then(async (res) => {
         await axios
-          .post("http://localhost:3000/auth/adddonor", formData2)
+          .post("http://localhost:8088/auth/adddonor", formData2)
           .then((res) => toast.success(res.data.message));
       });
   };
@@ -105,14 +105,20 @@ const ViewDonations = ({ donation, closeModal }) => {
               </div>
             </div>
           </div>
-          <div style={{ display: "flex", marginLeft: "50px", gap: "1rem", marginBottom: "35px" }}>
+          <div
+            style={{
+              display: "flex",
+              marginLeft: "50px",
+              gap: "1rem",
+              marginBottom: "35px",
+            }}
+          >
             <input
               onChange={(e) => setAmount(e.target.value * 100)}
               type="number"
               className="form-control"
               placeholder="Enter the amount you want to donate"
               style={{ width: "600px" }}
-              
             />
             <button
               className="btn btn-secondary"

@@ -9,7 +9,7 @@ const DonationDetail = () => {
   const { id } = useParams();
   useEffect(() => {
     axios
-      .post("http://localhost:3000/auth/donordetails", { id })
+      .post("http://localhost:8088/auth/donordetails", { id })
       .then((res) => {
         setDonors(res.data);
         console.log(res.data);

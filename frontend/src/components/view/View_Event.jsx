@@ -1,12 +1,11 @@
-
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FaCalendar } from "react-icons/fa";
-import { useAuth } from '../../AuthContext';
+import { useAuth } from "../../AuthContext";
 
 const ViewEvent = () => {
-  const { isLoggedIn } = useAuth()
+  const { isLoggedIn } = useAuth();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -25,15 +24,16 @@ const ViewEvent = () => {
       const userId = localStorage.getItem("user_id");
       const requestData = {
         event_id: eventId,
-        user_id: userId
+        user_id: userId,
       };
 
-      axios.post("http://localhost:3000/auth/eventcommits/check", requestData)
+      axios
+        .post("http://localhost:8088/auth/eventcommits/check", requestData)
         .then((res) => {
-          console.log(res.data)
-          setParticipated(res.data.eventCommit)
+          console.log(res.data);
+          setParticipated(res.data.eventCommit);
         })
-        .catch((err) => console.log(err))
+        .catch((err) => console.log(err));
     }
   }, [location.state]);
 
@@ -42,10 +42,11 @@ const ViewEvent = () => {
     const userId = localStorage.getItem("user_id");
     const requestData = {
       event_id: eventId,
-      user_id: userId
+      user_id: userId,
     };
 
-    axios.post("http://localhost:3000/auth/events/participate", requestData)
+    axios
+      .post("http://localhost:8088/auth/events/participate", requestData)
       .then((res) => {
         setParticipated(true);
       })
@@ -54,13 +55,13 @@ const ViewEvent = () => {
 
   const formatDate = (timestamp) => {
     const options = {
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric'
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+      hour: "numeric",
+      minute: "numeric",
     };
-    return new Date(timestamp).toLocaleDateString('en-US', options);
+    return new Date(timestamp).toLocaleDateString("en-US", options);
   };
 
   console.log(isLoggedIn);
@@ -87,8 +88,15 @@ const ViewEvent = () => {
                 <div className="row">
                   <div className="col-md-12 ">
                     <h4 className="text-center">{eventData.title}</h4>
-                    <p><i><FaCalendar className='me-2 text-info ' />{formatDate(eventData.schedule)}</i></p>
-                    <div dangerouslySetInnerHTML={{ __html: eventData.content }}></div>
+                    <p>
+                      <i>
+                        <FaCalendar className="me-2 text-info " />
+                        {formatDate(eventData.schedule)}
+                      </i>
+                    </p>
+                    <div
+                      dangerouslySetInnerHTML={{ __html: eventData.content }}
+                    ></div>
                   </div>
                 </div>
                 <div className="row">
@@ -97,17 +105,35 @@ const ViewEvent = () => {
                     {isLoggedIn ? (
                       <div className="text-center">
                         {participated ? (
-                          <span className="badge badge-primary" style={{ fontSize: "20px" }}>Committed to Participate</span>
+                          <span
+                            className="badge badge-primary"
+                            style={{ fontSize: "20px" }}
+                          >
+                            Committed to Participate
+                          </span>
                         ) : (
-                          <button className="btn btn-primary" onClick={handleParticipation}>Participate</button>
+                          <button
+                            className="btn btn-primary"
+                            onClick={handleParticipation}
+                          >
+                            Participate
+                          </button>
                         )}
                       </div>
                     ) : (
                       <div className="text-center">
-                        <span className="text-danger ">Please Login to participate</span>
+                        <span className="text-danger ">
+                          Please Login to participate
+                        </span>
                         <br />
-                        <button className="btn btn-primary mt-2" onClick={() => navigate("/login")}>Login</button>
-                      </div>)}
+                        <button
+                          className="btn btn-primary mt-2"
+                          onClick={() => navigate("/login")}
+                        >
+                          Login
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
