@@ -1,11 +1,9 @@
 import streamlit as st
 from newsletter_gen.crew import NewsletterGenCrew
-
-
 class NewsletterGenUI:
 
     def load_html_template(self):
-        with open("src/newsletter_gen/config/newsletter_template.html", "r") as file:
+        with open("newsletter_gen/config/newsletter_template.html", "r") as file:
             html_template = file.read()
 
         return html_template
@@ -17,6 +15,7 @@ class NewsletterGenUI:
             "html_template": self.load_html_template(),
         }
         return NewsletterGenCrew().crew().kickoff(inputs=inputs)
+        # inputs=inputs
 
     def newsletter_generation(self):
 
@@ -27,13 +26,7 @@ class NewsletterGenUI:
 
         if st.session_state.newsletter and st.session_state.newsletter != "":
             with st.container():
-                st.write("Newsletter generated successfully!")
-                st.download_button(
-                    label="Download HTML file",
-                    data=st.session_state.newsletter,
-                    file_name="newsletter.html",
-                    mime="text/html",
-                )
+                st.write(st.session_state.newsletter)
             st.session_state.generating = False
 
     def sidebar(self):
@@ -47,9 +40,9 @@ class NewsletterGenUI:
                 """
             )
 
-            st.text_input("Topic", key="topic", placeholder="USA Stock Market")
+            topic = st.text_input("Topic", key="topic", placeholder="USA Stock Market")
 
-            st.text_area(
+            message = st.text_area(
                 "Your personal message (to include at the top of the newsletter)",
                 key="personal_message",
                 placeholder="Dear readers, welcome to the newsletter!",
@@ -74,6 +67,8 @@ class NewsletterGenUI:
             st.session_state.generating = False
 
         self.sidebar()
+
+        
 
         self.newsletter_generation()
 

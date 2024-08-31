@@ -1,6 +1,6 @@
 import streamlit as st
 from crewai import Agent, Crew, Process, Task
-from tools.research import SearchAndContents, FindSimilar, GetContents
+from newsletter_gen.tools.research import SearchAndContents, FindSimilar, GetContents
 # from langchain_anthropic import ChatAnthropic
 from langchain_groq import ChatGroq
 from datetime import datetime
@@ -14,8 +14,8 @@ import yaml  # Add this import to handle YAML files
 class NewsletterGenCrew:
     """NewsletterGen crew"""
 
-    agents_config_path = "config/agents.yaml"
-    tasks_config_path = "config/tasks.yaml"
+    agents_config_path = "newsletter_gen/config/agents.yaml"
+    tasks_config_path = "newsletter_gen/config/tasks.yaml"
 
     def __init__(self):
         # Load configurations from YAML files
@@ -38,7 +38,7 @@ class NewsletterGenCrew:
 
     def llm(self):
         # llm = ChatAnthropic(model_name="claude-3-sonnet-20240229", max_tokens=4096)
-        llm = ChatGroq(model="llama3-70b-8192", api_key=os.getenv('GROQ_API_KEY'))
+        llm = ChatGroq(model="llama3-70b-8192", api_key="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")
         # llm = ChatGroq(model="mixtral-8x7b-32768")
         # llm = ChatGoogleGenerativeAI(model='gemini-1.5-pro', google_api_key=os.getenv("GOOGLE_API_KEY"))
         return llm
@@ -83,7 +83,9 @@ class NewsletterGenCrew:
 
     def researcher(self) -> Agent:
         return Agent(
-            config=self.agents_config["researcher"],
+            role=self.agents_config["researcher"]["role"],
+            goal=self.agents_config["researcher"]["goal"],
+            backstory=self.agents_config["researcher"]["backstory"],
             tool=[SearchAndContents(), FindSimilar(), GetContents()],
             verbose=True,
             llm=self.llm(),
@@ -92,7 +94,9 @@ class NewsletterGenCrew:
 
     def editor(self) -> Agent:
         return Agent(
-            config=self.agents_config["editor"],
+            role=self.agents_config["editor"]["role"],
+            goal=self.agents_config["editor"]["goal"],
+            backstory=self.agents_config["editor"]["backstory"],
             verbose=True,
             tool=[SearchAndContents(), FindSimilar(), GetContents()],
             llm=self.llm(),
@@ -101,7 +105,9 @@ class NewsletterGenCrew:
 
     def designer(self) -> Agent:
         return Agent(
-            config=self.agents_config["designer"],
+            role=self.agents_config["designer"]["role"],
+            goal=self.agents_config["designer"]["goal"],
+            backstory=self.agents_config["designer"]["backstory"],
             verbose=True,
             allow_delegation=False,
             llm=self.llm(),
@@ -110,23 +116,23 @@ class NewsletterGenCrew:
 
     def research_task(self) -> Task:
         return Task(
-            config=self.tasks_config["research_task"],
+            description=self.tasks_config["research_task"]["description"],
             agent=self.researcher(),
-            output_file=f"./logs/{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}_research_task.md",
+            expected_output=self.tasks_config["research_task"]["expected_output"]
         )
 
     def edit_task(self) -> Task:
         return Task(
-            config=self.tasks_config["edit_task"],
+            description=self.tasks_config["edit_task"]["description"],
             agent=self.editor(),
-            output_file=f"./logs/{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}_edit_task.md",
+            expected_output=self.tasks_config["edit_task"]["expected_output"]
         )
 
     def newsletter_task(self) -> Task:
         return Task(
-            config=self.tasks_config["newsletter_task"],
+            description=self.tasks_config["newsletter_task"]["description"],
             agent=self.designer(),
-            output_file=f"./logs/{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}_newsletter_task.html",
+            expected_output=self.tasks_config["newsletter_task"]["expected_output"]
         )
 
     def crew(self) -> Crew:
