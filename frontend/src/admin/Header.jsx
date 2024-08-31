@@ -51,7 +51,7 @@ const Header = ({ toggleSidebar }) => {
             >
               <BsThreeDotsVertical className="d-block d-md-none" />
               <span className="d-none d-md-block dropdown-toggle ps-2">
-                {localStorage.getItem("role")}x
+                {localStorage.getItem("role")}
               </span>
             </a>
 
