@@ -9,6 +9,10 @@ const DataEntrySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  verificationLink:{
+    type:String,
+    require:true
+  },
   submittedBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User", // Reference to the User model (could be Student, Faculty, etc.)

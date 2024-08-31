@@ -42,6 +42,12 @@ import NotFound from "./components/NotFound";
 import ManageDonations from "./admin/save/ManageDonations";
 import Donations from "./components/Donations";
 import Publications from "./components/user/Publication";
+import Faculties from "./departmentCoordinator/Faculties"
+import PendingRequest from "./departmentCoordinator/PendingRequest"
+import DepartmentDetails from "./departmentCoordinator/DepartmentDetails"
+import DepartmentEvent from "./departmentCoordinator/DepartmentEvent";
+import DeptCoordDashboard from "./departmentCoordinator/DeptCoordDashboard"
+
 
 function App() {
   return (
@@ -78,6 +84,12 @@ function AppRouter() {
         {isLoggedIn && (
           <Route path="/dashboard" element={<Dashboard />}>
             <Route path="" element={<AdminHome />} />
+         
+            <Route path="/dashboard/deptcoord/depdash" element={<DeptCoordDashboard />}></Route>
+            <Route path="deptcoord/faculties" element={<Faculties/>} />
+            <Route path="deptcoord/pendingrequests" element={<PendingRequest/>} />
+            <Route path="deptcoord/departmentdetails" element={<DepartmentDetails/>} />
+            <Route path="deptcoord/departmentevents" element={<DepartmentEvent/>} />
             <Route path="/dashboard/publications" element={<Publications />} />
             <Route path="/dashboard/users" element={<AdminUsers />} />
             <Route path="/dashboard/gallery" element={<AdminGallery />} />
@@ -102,6 +114,14 @@ function AppRouter() {
             <Route path="/dashboard/alumni/view" element={<ViewAlumni />} />
           </Route>
         )}
+         
+
+         {/* <Route path="" element={<DeptCoordHome />} /> */}
+        
+
+  
+
+
         <Route path="events/view" element={<View_Event />} />
         {isLoggedIn && <Route path="account" element={<MyAccount />} />}
         <Route path="forum/view" element={<View_Forum />} />

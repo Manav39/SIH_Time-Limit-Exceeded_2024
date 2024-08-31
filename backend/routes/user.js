@@ -16,7 +16,7 @@ const findUserByEmail = async (email) => {
 
 router.post("/register", async (req, res) => {
   try {
-    const { role, email, name, password, department } = req.body;
+    const { role, email, name, password, department, type} = req.body;
 
     console.log(req.body);
     let UserModel;
@@ -47,6 +47,7 @@ router.post("/register", async (req, res) => {
         email,
         password: hashedPassword,
         department,
+        type
       });
 
       return res.status(201).json({
@@ -129,6 +130,31 @@ router.get("/users", async (req, res) => {
   try {
     const users = await USER.find(); // Retrieve all users from the database
     res.status(200).json(users); // Send the users in the response
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error fetching users", error: error.message });
+  }
+});
+
+// Get user by ID
+router.get("/:id", async (req, res) => {
+  try {
+    const user = await USER.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching user", error: error.message });
+  }
+});
+
+
+router.delete("/:id", async (req, res) => {
+  try {
+    const users = await USER.findByIdAndDelete(req.params.id); 
+    res.status(200).json(users); 
   } catch (error) {
     res
       .status(500)

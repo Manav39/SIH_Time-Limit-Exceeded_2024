@@ -32,62 +32,59 @@ const SidebarDeptCoord = ({ isOpen, toggleSidebar }) => {
             <span className="ms-1">Dashboard</span>
           </Link>
         </li>
-        <li onClick={toggleSidebar} className="nav-item">
+        {/* <li onClick={toggleSidebar} className="nav-item">
           <Link
-            className={`nav-link ${isActive("/dashboard/gallery")}`}
-            to="/dashboard/gallery"
+            className={`nav-link ${isActive("/dashboard/events")}`}
+            to="/dashboard/events"
           >
             <FaImage />
-            <span className="ms-1">Gallery</span>
+            <span className="ms-1">Events</span>
           </Link>
-        </li>
-        <li onClick={toggleSidebar} className="nav-item">
-          <Link
-            className={`nav-link ${isActive("/dashboard/courses")}`}
-            to={"/dashboard/courses"}
-          >
-            <ImBooks />
-            <span className="ms-1">Courses</span>
-          </Link>
-        </li>
+        </li> */}
         <hr />
         <li onClick={toggleSidebar} className="nav-item">
           <Link
-            className={`nav-link ${isActive("/dashboard/alumnilist")}`}
-            to={"/dashboard/alumnilist"}
+            className={`nav-link ${isActive("/dashboard/deptcoord/faculties")}`}
+            to={"/dashboard/deptcoord/faculties"}
           >
             <FaUserGraduate />
-            <span className="ms-1">Alumni List</span>
+            <span className="ms-1">Faculty List</span>
           </Link>
         </li>
+
         <li onClick={toggleSidebar} className="nav-item">
           <Link
-            className={`nav-link ${isActive("/dashboard/jobs")}`}
-            to={"/dashboard/jobs"}
+            className={`nav-link ${isActive("/dashboard/deptcoord/pendingrequests")}`}
+            to={"/dashboard/deptcoord/pendingrequests"}
+          >
+            <ImBooks />
+            <span className="ms-1">Pending Request</span>
+          </Link>
+        </li>
+
+        <li onClick={toggleSidebar} className="nav-item">
+          <Link
+            className={`nav-link ${isActive("/dashboard/deptcoord/departmentdetails")}`}
+            to={"/dashboard/deptcoord/departmentdetails"}
           >
             <RiSuitcaseFill />
-            <span className="ms-1">Jobs</span>
+            <span className="ms-1">Department</span>
           </Link>
         </li>
+
+
         <li onClick={toggleSidebar} className="nav-item">
           <Link
-            className={`nav-link ${isActive("/dashboard/donations")}`}
-            to={"/dashboard/donations"}
-          >
-            <RiMoneyDollarBoxFill />
-            <span className="ms-1">Donations</span>
-          </Link>
-        </li>
-        <li onClick={toggleSidebar} className="nav-item">
-          <Link
-            className={`nav-link ${isActive("/dashboard/events")}`}
-            to={"/dashboard/events"}
+            className={`nav-link ${isActive("/dashboard/deptcoord/departmentevents")}`}
+            to={"/dashboard/deptcoord/departmentevents"}
           >
             <IoCalendar />
             <span className="ms-1">Events</span>
           </Link>
         </li>
-        <li onClick={toggleSidebar} className="nav-item">
+
+
+        {/* <li onClick={toggleSidebar} className="nav-item">
           <Link
             className={`nav-link ${isActive("/dashboard/forum")}`}
             to={"/dashboard/forum"}
@@ -95,9 +92,11 @@ const SidebarDeptCoord = ({ isOpen, toggleSidebar }) => {
             <MdForum />
             <span className="ms-1">Forum</span>
           </Link>
-        </li>
+        </li> */}
+
         <hr />
-        <li onClick={toggleSidebar} className="nav-item">
+
+        {/* <li onClick={toggleSidebar} className="nav-item">
           <Link
             className={`nav-link ${isActive("/dashboard/users")}`}
             to={"/dashboard/users"}
@@ -105,7 +104,7 @@ const SidebarDeptCoord = ({ isOpen, toggleSidebar }) => {
             <FaUsers />
             <span className="ms-1">Users</span>
           </Link>
-        </li>
+        </li> */}
       </ul>
     </aside>
   );
