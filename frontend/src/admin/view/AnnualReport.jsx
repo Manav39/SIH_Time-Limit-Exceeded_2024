@@ -123,7 +123,7 @@ const AnnualReport = () => {
           <h1>VJTI Annual Report 2024</h1>
         </div>
         <img
-          src="https://vjti.ac.in/wp-content/uploads/2024/06/vjti-maingate.png"
+          src="https://www.festivalsfromindia.com/wp-content/uploads/2022/04/VJTI-Mumbai.-Photo-VJTI-Mumbai-1_11zon.jpg"
           alt="VJTI Image"
           style={styles.titleImage}
         />
@@ -264,13 +264,13 @@ const AnnualReport = () => {
         </table>
       </div>
 
-      
       {/* Footer */}
       <div style={styles.footer}>
-        <p>© 2024 VJTI. All rights reserved.</p>
+        <p>&copy; 2024 VJTI. All rights reserved.</p>
+        <p>Address: VJTI, Mumbai, India</p>
+        <p>Website: <a href="https://vjti.ac.in" target="_blank">vjti.ac.in</a></p>
       </div>
 
-      <br/>
       <br/>
       <br/>
 

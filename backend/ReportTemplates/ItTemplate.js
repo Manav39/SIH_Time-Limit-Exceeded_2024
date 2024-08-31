@@ -95,7 +95,7 @@ module.exports = ({
               </div>
               <div style="text-align: center; margin: 20px 0;">
                 <img
-                  src="https://vjti.ac.in/wp-content/uploads/2024/06/vjti-maingate.png"
+                  src="https://www.festivalsfromindia.com/wp-content/uploads/2022/04/VJTI-Mumbai.-Photo-VJTI-Mumbai-1_11zon.jpg"
                   style="width: 100%; border-radius: 10px;"
                   alt="VJTI Image"
                 />
