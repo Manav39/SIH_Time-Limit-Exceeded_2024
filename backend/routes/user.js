@@ -136,4 +136,21 @@ router.get("/users", async (req, res) => {
   }
 });
 
+router.get('/:id', async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await USER.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json({ user: user });
+  } catch (error) {
+    // Handle any errors that occur
+    console.error('Error fetching user:', error);
+    res.status(500).json({ error: 'Server error', details: error.message });
+  }
+});
+
 module.exports = router;

@@ -43,6 +43,8 @@ import ManageDonations from "./admin/save/ManageDonations";
 import Donations from "./components/Donations";
 import AnnualReport from "./admin/view/AnnualReport";
 import Publications from "./components/user/Publication";
+import AdminPublications from "./admin/AdminPublications";
+import AdminDepartments from "./admin/AdminDepartments";
 
 function App() {
   return (
@@ -89,6 +91,8 @@ function AppRouter() {
             <Route path="/dashboard/jobs" element={<AdminJobs />} />
             <Route path="/dashboard/donations" element={<AdminDonations />} />
             <Route path="/dashboard/report" element={<AnnualReport />} />
+            <Route path="/dashboard/adminpublications" element={<AdminPublications />} />
+            <Route path="/dashboard/admindepartments" element={<AdminDepartments />} />
             <Route
               path="/dashboard/donations/:id"
               element={<DonationDetail />}
