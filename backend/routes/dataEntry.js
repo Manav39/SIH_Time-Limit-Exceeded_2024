@@ -5,11 +5,12 @@ const DataEntry = require('../models/DataEntry');
 // Create a new data entry
 router.post('/add-data-entry', async (req, res) => {
     try {
-        const { title, description, submittedBy, department, status } = req.body;
+        const { title, description, verificationLink, submittedBy, department, status } = req.body;
 
         const dataEntry = new DataEntry({
             title,
             description,
+            verificationLink,
             submittedBy,
             department,
             status
@@ -37,7 +38,7 @@ router.get('/all-data-entry', async (req, res) => {
 // Update a data entry by ID
 router.patch('/update-data-entry/:id', async (req, res) => {
     const updates = Object.keys(req.body);
-    const allowedUpdates = ['title', 'description', 'submittedBy', 'department', 'status'];
+    const allowedUpdates = ['title', 'description', 'verificationLink', 'submittedBy', 'department', 'status'];
     const isValidOperation = updates.every(update => allowedUpdates.includes(update));
 
     if (!isValidOperation) {
