@@ -1,0 +1,115 @@
+.elementIcon {
+  width: 17.07%;
+  height: 7.9%;
+  position: absolute;
+  margin: 0 !important;
+  top: 36.6%;
+  right: 36.89%;
+  bottom: 55.5%;
+  left: 46.05%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.ourSponsors1 {
+  margin: 0;
+  width: 1482px;
+  position: relative;
+  font-size: inherit;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  font-family: inherit;
+  display: inline-block;
+  max-width: 100%;
+  z-index: 1;
+}
+.appleIcon {
+  height: 68px;
+  width: 55.5px;
+  position: relative;
+}
+.apple {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.microsoft1Icon {
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.google,
+.microsoft,
+.slack {
+  height: 62px;
+  width: 287px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.google,
+.slack {
+  height: 71px;
+  width: 280px;
+}
+.google {
+  height: 69.8px;
+  width: 211px;
+}
+.ourSponsors,
+.sponsors {
+  display: flex;
+  align-items: center;
+  max-width: 100%;
+}
+.sponsors {
+  width: 1482px;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: var(--gap-xl);
+}
+.ourSponsors {
+  margin-left: -1px;
+  align-self: stretch;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--padding-121xl) var(--padding-xl);
+  box-sizing: border-box;
+  position: relative;
+  gap: var(--gap-81xl);
+  flex-shrink: 0;
+  text-align: center;
+  font-size: var(--header-h1-size);
+  color: var(--color-gray);
+  font-family: var(--header-h5);
+}
+@media screen and (max-width: 1225px) {
+  .sponsors {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+@media screen and (max-width: 850px) {
+  .ourSponsors1 {
+    font-size: var(--font-size-39xl);
+  }
+  .ourSponsors {
+    gap: var(--gap-31xl);
+    padding-top: var(--padding-72xl);
+    padding-bottom: var(--padding-72xl);
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 450px) {
+  .ourSponsors1 {
+    font-size: var(--font-size-24xl);
+  }
+  .ourSponsors {
+    gap: var(--gap-6xl);
+  }
+}

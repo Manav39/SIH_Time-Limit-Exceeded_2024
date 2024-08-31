@@ -1,0 +1,120 @@
+.groupIcon {
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.quote {
+  width: 86px;
+  height: 61.5px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.whitepateIsDesigned {
+  align-self: stretch;
+  position: relative;
+  letter-spacing: -0.02em;
+  line-height: 30px;
+}
+.comment {
+  align-self: stretch;
+  border-bottom: 1px solid var(--color-gray);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 0 var(--padding-19xl);
+  gap: var(--gap-13xl);
+}
+.avaterIcon {
+  height: 95px;
+  width: 95px;
+  position: relative;
+  border-radius: 50%;
+  object-fit: cover;
+  min-height: 95px;
+}
+.headOfTalent,
+.oberonShawMch {
+  align-self: stretch;
+  position: relative;
+}
+.oberonShawMch {
+  line-height: 36px;
+  font-weight: 600;
+}
+.headOfTalent {
+  font-size: var(--paragraph-p3-medium-size);
+  letter-spacing: -0.02em;
+  line-height: 20px;
+}
+.client,
+.name,
+.nameBox {
+  display: flex;
+  justify-content: flex-start;
+}
+.name {
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 0 var(--padding-9xs);
+  box-sizing: border-box;
+  gap: var(--gap-mini);
+  min-width: 160px;
+}
+.client,
+.nameBox {
+  max-width: 100%;
+}
+.nameBox {
+  width: 383px;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: var(--gap-23xl);
+  font-size: var(--paragraph-p1-regular-size);
+}
+.client {
+  flex: 1;
+  box-shadow: 15px 10px 50px rgba(0, 0, 0, 0.1);
+  border-radius: var(--br-3xs);
+  background-color: var(--color-white);
+  flex-direction: column;
+  align-items: flex-start;
+  padding: var(--padding-41xl) var(--padding-21xl);
+  box-sizing: border-box;
+  gap: var(--gap-41xl);
+  min-width: 354px;
+  text-align: left;
+  font-size: var(--paragraph-p2-bold-size);
+  color: var(--color-gray);
+  font-family: var(--header-h5);
+}
+@media screen and (max-width: 850px) {
+  .client {
+    gap: var(--gap-11xl);
+    padding-top: var(--padding-20xl);
+    padding-bottom: var(--padding-20xl);
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 450px) {
+  .comment {
+    gap: var(--gap-base);
+  }
+  .oberonShawMch {
+    font-size: var(--font-size-lgi);
+    line-height: 29px;
+  }
+  .nameBox {
+    gap: var(--gap-2xl);
+    flex-wrap: wrap;
+  }
+  .client {
+    min-width: 100%;
+  }
+}

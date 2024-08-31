@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+  useNavigationType,
+  useLocation,
+} from "react-router-dom";
 import "./styles/style.css";
 import "react-toastify/dist/ReactToastify.css";
 import Home from "./components/Home";
@@ -50,7 +56,7 @@ import PendingRequest from "./departmentCoordinator/PendingRequest";
 import DepartmentDetails from "./departmentCoordinator/DepartmentDetails";
 import DepartmentEvent from "./departmentCoordinator/DepartmentEvent";
 import DeptCoordDashboard from "./departmentCoordinator/DeptCoordDashboard";
-
+import LandingPageV1Desktop from "./landing/pages/LandingPageV1Desktop";
 import Achievements from "./components/user/Achievements";
 
 function App() {
@@ -67,8 +73,43 @@ function App() {
 }
 
 function AppRouter() {
-  const { isLoggedIn, isAdmin } = useAuth();
+  const action = useNavigationType();
   const location = useLocation();
+
+  const pathname = location.pathname;
+
+  useEffect(() => {
+    if (action !== "POP") {
+      window.scrollTo(0, 0);
+    }
+  }, [action, pathname]);
+
+  useEffect(() => {
+    let title = "";
+    let metaDescription = "";
+
+    switch (pathname) {
+      case "/":
+        title = "";
+        metaDescription = "";
+        break;
+    }
+
+    if (title) {
+      document.title = title;
+    }
+
+    if (metaDescription) {
+      const metaDescriptionTag = document.querySelector(
+        'head > meta[name="description"]'
+      );
+      if (metaDescriptionTag) {
+        metaDescriptionTag.content = metaDescription;
+      }
+    }
+  }, [pathname]);
+  const { isLoggedIn, isAdmin } = useAuth();
+
   const isDashboardRoute = location.pathname.startsWith("/dashboard");
 
   return (
@@ -76,6 +117,7 @@ function AppRouter() {
       {!isDashboardRoute && <Header />}
       <Routes>
         <Route path="*" element={<NotFound />} />
+        {/* <Route path="/" element={<LandingPageV1Desktop />} /> */}
         <Route path="/" element={<Home />} />
         <Route path="/alumni" element={<AlumniList />} />
         <Route path="/gallery" element={<Gallery />} />
