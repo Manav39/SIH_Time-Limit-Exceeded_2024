@@ -35,7 +35,8 @@ const Login = () => {
           localStorage.setItem("role", values.User);
           localStorage.setItem("userId", res.data.user._id);
           localStorage.setItem("dept", res.data.user.department);
-          navigate("/dashboard");
+          localStorage.setItem("name", res.data.user.name);
+          navigate("/");
           toast.success("Login Successfull");
         }
       })
