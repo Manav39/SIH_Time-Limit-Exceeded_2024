@@ -16,7 +16,7 @@ const findUserByEmail = async (email) => {
 
 router.post("/register", async (req, res) => {
   try {
-    const { role, email, name, password, department } = req.body;
+    const { role, email, name, password, department, type} = req.body;
 
     console.log(req.body);
     let UserModel;
@@ -47,6 +47,7 @@ router.post("/register", async (req, res) => {
         email,
         password: hashedPassword,
         department,
+        type
       });
 
       return res.status(201).json({
@@ -136,20 +137,28 @@ router.get("/users", async (req, res) => {
   }
 });
 
-router.get('/:id', async (req, res) => {
+// Get user by ID
+router.get("/:id", async (req, res) => {
   try {
-    const userId = req.params.id;
-    const user = await USER.findById(userId);
-
+    const user = await USER.findById(req.params.id);
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
-
-    res.status(200).json({ user: user });
+    res.status(200).json(user);
   } catch (error) {
-    // Handle any errors that occur
-    console.error('Error fetching user:', error);
-    res.status(500).json({ error: 'Server error', details: error.message });
+    res.status(500).json({ message: "Error fetching user", error: error.message });
+  }
+});
+
+
+router.delete("/:id", async (req, res) => {
+  try {
+    const users = await USER.findByIdAndDelete(req.params.id); 
+    res.status(200).json(users); 
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error fetching users", error: error.message });
   }
 });
 

@@ -36,21 +36,21 @@ module.exports = ({
             .heading {
               background: #007BFF;
               color: white;
-              padding: 10px;
+              padding: 15px;
               text-align: center;
               border-radius: 5px;
-              font-size: 24px; /* Increased font size for headings */
+              font-size: 26px; /* Increased font size for headings */
             }
             .section {
               margin-bottom: 30px;
             }
             .section h2 {
               color: #007BFF;
-              font-size: 20px;
-              margin-bottom: 10px;
+              font-size: 22px;
+              margin-bottom: 15px;
             }
             .section p {
-              font-size: 16px; /* Increased font size for regular text */
+              font-size: 18px; /* Increased font size for regular text */
               line-height: 1.6;
               margin: 0;
             }
@@ -60,17 +60,17 @@ module.exports = ({
               margin-bottom: 20px;
             }
             .table th, .table td {
-              padding: 10px;
+              padding: 12px;
               text-align: left;
               border-bottom: 1px solid #ddd;
             }
             .table th {
               background-color: #007BFF;
               color: white;
-              font-size: 16px; /* Increased font size for table headers */
+              font-size: 18px; /* Increased font size for table headers */
             }
             .table td {
-              font-size: 14px; /* Increased font size for table content */
+              font-size: 16px; /* Increased font size for table content */
             }
             .item {
               background-color: #f9f9f9;
@@ -81,8 +81,20 @@ module.exports = ({
             .footer {
               text-align: center;
               margin-top: 30px;
-              font-size: 14px;
+              font-size: 16px;
               color: #777;
+            }
+            img {
+              max-width: 100%;
+              height: auto;
+              border-radius: 10px;
+            }
+            .cover-image {
+              border-radius: 15px;
+              box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            }
+            .section img {
+              border-radius: 10px;
             }
           </style>
         </head>
@@ -95,12 +107,12 @@ module.exports = ({
               </div>
               <div style="text-align: center; margin: 20px 0;">
                 <img
-                  src="https://vjti.ac.in/wp-content/uploads/2024/06/vjti-maingate.png"
-                  style="width: 100%; border-radius: 10px;"
-                  alt="VJTI Image"
+                  src="https://www.festivalsfromindia.com/wp-content/uploads/2022/04/VJTI-Mumbai.-Photo-VJTI-Mumbai-1_11zon.jpg"
+                  class="cover-image"
+                  alt="VJTI Main Gate"
                 />
               </div>
-              <p style="text-align: center; font-size: 18px;"><strong>Date:</strong> ${formattedDate}</p>
+              <p style="text-align: center; font-size: 20px;"><strong>Date:</strong> ${formattedDate}</p>
             </div>
   
             <!-- Vision, Mission, History -->
@@ -118,7 +130,7 @@ module.exports = ({
             </div>
   
             <div class="page-break"></div>
-            <br/>
+            <br />
   
             <!-- Board of Directors -->
             <div class="section">
@@ -145,7 +157,6 @@ module.exports = ({
             </div>
   
             <div class="page-break"></div>
-            <br/>
   
             <!-- Faculty Records -->
             <div class="section">
@@ -172,7 +183,7 @@ module.exports = ({
             </div>
   
             <div class="page-break"></div>
-            <br/>
+            <br />
   
             <!-- Departments -->
             <div class="section">
@@ -197,7 +208,7 @@ module.exports = ({
             </div>
   
             <div class="page-break"></div>
-            <br/>
+            <br />
   
             <!-- Publications -->
             <div class="section">
@@ -224,7 +235,7 @@ module.exports = ({
             </div>
   
             <div class="page-break"></div>
-            <br/>
+            <br />
   
             <!-- Events -->
             <div class="section">
@@ -253,6 +264,8 @@ module.exports = ({
             <!-- Footer -->
             <div class="footer">
               <p>&copy; 2024 VJTI. All rights reserved.</p>
+              <p>Address: VJTI, Mumbai, India</p>
+              <p>Website: <a href="https://vjti.ac.in" target="_blank">vjti.ac.in</a></p>
             </div>
           </div>
         </body>

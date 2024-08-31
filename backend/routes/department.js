@@ -27,17 +27,17 @@ router.get("/alldepartment", async (req, res) => {
 });
 
 // Get a department by ID
-// router.get("/:id", async (req, res) => {
-//     try {
-//         const { id } = req.params;
-//         const department = await Department.findById(id).populate("department_coordinator").populate("faculties");
-//         if (!department) return res.status(404).json({ status: "error", error: "Department not found" });
-//         return res.status(200).json({ status: "ok", department });
-//     } catch (error) {
-//         console.error("Error fetching department: ", error);
-//         return res.status(500).json({ status: "error", error: "Failed to fetch department" });
-//     }
-// });
+router.get("/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const department = await Department.findById(id).populate("department_coordinator").populate("faculties");
+        if (!department) return res.status(404).json({ status: "error", error: "Department not found" });
+        return res.status(200).json({ status: "ok", department });
+    } catch (error) {
+        console.error("Error fetching department: ", error);
+        return res.status(500).json({ status: "error", error: "Failed to fetch department" });
+    }
+});
 
 // Update a department
 router.put("/updatedepartment/:id", async (req, res) => {
