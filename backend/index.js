@@ -37,6 +37,7 @@ const eventRoutes = require("./routes/event");
 const departmentRoutes = require("./routes/department");
 const collegeRoutes = require("./routes/colleges");
 const dataEntryRoutes = require("./routes/dataEntry");
+const departmentCoordinatorRoutes = require("./routes/departmentCoord");
 
 //routes
 app.use("/", userRoutes);
@@ -46,6 +47,7 @@ app.use("/events", eventRoutes);
 app.use("/departments", departmentRoutes);
 app.use("/colleges", collegeRoutes);
 app.use("/data-entries", dataEntryRoutes);
+app.use("/departmentcoordnator", departmentCoordinatorRoutes);
 
 // Root route for testing the server
 app.get("/", (req, res) => {
