@@ -74,8 +74,9 @@ const Home = () => {
               <h1 className="text-white font-weight-bold display-3 mb-4">
                 Welcome to VJTI
               </h1>
-              <p className="text-white-75 font-weight-bold lead mb-5">
-                Connecting Alumnis across the globe
+              <p className="text-white font-weight-bold lead mb-5">
+                Streamlined Data Integration and Dynamic Reporting Portal for
+                Educational Institutes
               </p>
               {!isAdmin && (
                 <Link className="btn btn-primary btn-xl" to="about">
@@ -101,11 +102,11 @@ const Home = () => {
           </div>
         </div>
       </header>
-
+      {/* 
       <section className={`page-section bg-${theme}`} id="alumni-benefits">
         <div className="container">
           <div className="text-center">
-            <h2 className="section-heading text-uppercase">Alumni Benefits</h2>
+            <h2 className="section-heading text-uppercase"> Benefits</h2>
             <h3 className=" card-title text-muted">
               As a member of the global VJTI alumni network, you have access to
               a variety of exclusive services and benefits.
@@ -152,8 +153,8 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </section>
-
+      </section> */}
+      {/* 
       <section className={`py-4 bg-${theme}`} id="upcoming-events">
         <div className="container">
           <h2 className="section-heading text-center">Upcoming Events</h2>
@@ -217,7 +218,7 @@ const Home = () => {
             </>
           )}
         </div>
-      </section>
+      </section> */}
     </div>
   );
 };

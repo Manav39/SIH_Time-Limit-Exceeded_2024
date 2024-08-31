@@ -11,6 +11,7 @@ const Signup = () => {
     password: "",
     role: "",
     department: "",
+    type: "user",
   });
   const [courses, setCourses] = useState([]);
 

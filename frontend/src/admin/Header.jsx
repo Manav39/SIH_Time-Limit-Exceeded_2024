@@ -16,7 +16,6 @@ const Header = ({ toggleSidebar }) => {
 
   const handleLogout = () => {
     navigate("/");
-    localStorage.clear();
   };
 
   useEffect(() => {

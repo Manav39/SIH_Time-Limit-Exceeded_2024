@@ -37,6 +37,7 @@ const Login = () => {
           localStorage.setItem("dept", res.data.user.department);
           localStorage.setItem("name", res.data.user.name);
           navigate("/");
+          window.location.reload();
           toast.success("Login Successfull");
         }
       })
