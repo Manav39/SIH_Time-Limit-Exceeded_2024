@@ -1,6 +1,10 @@
 const express = require("express");
 const { connectToMongo } = require("./connect");
 require("dotenv").config();
+const bodyParser = require('body-parser');
+const pdf = require('html-pdf');
+
+const pdfTemplate = require('../backend/ReportTemplates/ReportTemplate');
 
 const app = express();
 const PORT = process.env.PORT || 8088;
@@ -13,6 +17,22 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+
+app.post('/create-pdf', (req, res) => {
+  pdf.create(pdfTemplate(req.body), {}).toFile('VJTI_REPORT.pdf', (err) => {
+      if(err) {
+          res.send(Promise.reject());
+      }
+
+      res.send(Promise.resolve());
+  });
+});
+
+app.get('/fetch-pdf', (req, res) => {
+  res.sendFile(`${__dirname}/VJTI_REPORT.pdf`)
+})
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
