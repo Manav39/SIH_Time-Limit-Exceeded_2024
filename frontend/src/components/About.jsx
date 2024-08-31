@@ -33,7 +33,10 @@ const About = () => {
               </h2>
               <hr className="divider my-4" />
               <p className="text-white-75 text-light mb-5">
-                Veermata Jijabai Technological Institute
+              The platform's features—including user authentication, achievement submission, review workflows, notifications, and automatic reporting—are well-aligned with operational requirements, effectively enhancing the management of educational records.
+              Efficiently manages educational records through a unified platform with streamlined submission, review, and reporting processes.
+              Generates reports with real-time data integration, reducing manual effort and enhancing accuracy.
+              
               </p>
             </div>
           </div>
