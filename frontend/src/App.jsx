@@ -41,6 +41,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import NotFound from "./components/NotFound";
 import ManageDonations from "./admin/save/ManageDonations";
 import Donations from "./components/Donations";
+import AnnualReport from "./admin/view/AnnualReport";
 
 function App() {
   return (
@@ -86,6 +87,7 @@ function AppRouter() {
             <Route path="/dashboard/alumnilist" element={<AdminAlumni />} />
             <Route path="/dashboard/jobs" element={<AdminJobs />} />
             <Route path="/dashboard/donations" element={<AdminDonations />} />
+            <Route path="/dashboard/report" element={<AnnualReport />} />
             <Route
               path="/dashboard/donations/:id"
               element={<DonationDetail />}

@@ -34,11 +34,11 @@ const SidebarAdmin = ({ isOpen, toggleSidebar }) => {
         </li>
         <li onClick={toggleSidebar} className="nav-item">
           <Link
-            className={`nav-link ${isActive("/dashboard/gallery")}`}
-            to="/dashboard/gallery"
+            className={`nav-link ${isActive("/dashboard/report")}`}
+            to="/dashboard/report"
           >
             <FaImage />
-            <span className="ms-1">Gallery</span>
+            <span className="ms-1">Report</span>
           </Link>
         </li>
         <li onClick={toggleSidebar} className="nav-item">
@@ -51,6 +51,33 @@ const SidebarAdmin = ({ isOpen, toggleSidebar }) => {
           </Link>
         </li>
         <hr />
+        <li onClick={toggleSidebar} className="nav-item">
+          <Link
+            className={`nav-link ${isActive("/dashboard/events")}`}
+            to={"/dashboard/events"}
+          >
+            <IoCalendar />
+            <span className="ms-1">Events</span>
+          </Link>
+        </li>
+        <li onClick={toggleSidebar} className="nav-item">
+          <Link
+            className={`nav-link ${isActive("/dashboard/publications")}`}
+            to={"/dashboard/publications"}
+          >
+            <RiSuitcaseFill />
+            <span className="ms-1">Publications</span>
+          </Link>
+        </li>
+        <li onClick={toggleSidebar} className="nav-item">
+          <Link
+            className={`nav-link ${isActive("/dashboard/departments")}`}
+            to={"/dashboard/departments"}
+          >
+            <FaUserGraduate />
+            <span className="ms-1">Departments</span>
+          </Link>
+        </li>
         <li onClick={toggleSidebar} className="nav-item">
           <Link
             className={`nav-link ${isActive("/dashboard/alumnilist")}`}

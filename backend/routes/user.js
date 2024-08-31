@@ -91,7 +91,7 @@ router.post("/login", async (req, res) => {
   try {
     const { User, email, password } = req.body;
     let userModel;
-    console.log(req.body);
+    // console.log(req.body);
 
     if (User === "department_coordinator") userModel = DepartmentCoordinator;
     else if (User === "admin") userModel = Admin;
