@@ -125,4 +125,15 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.get("/users", async (req, res) => {
+  try {
+    const users = await USER.find(); // Retrieve all users from the database
+    res.status(200).json(users); // Send the users in the response
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error fetching users", error: error.message });
+  }
+});
+
 module.exports = router;
