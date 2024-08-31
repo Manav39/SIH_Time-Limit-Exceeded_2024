@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import { useAuth } from "../../AuthContext";
 
 const Publications = () => {
   const [users, setUsers] = useState([]); // For storing the list of users
@@ -11,6 +12,8 @@ const Publications = () => {
     date: "",
     description: "",
   });
+
+  const { setDC, DC } = useAuth();
 
   useEffect(() => {
     // Fetch the list of users from the /users endpoint
@@ -62,6 +65,7 @@ const Publications = () => {
     const publicationData = {
       ...values,
       authors: selectedAuthors,
+      department: localStorage.getItem("dept"),
     };
 
     try {
@@ -70,6 +74,8 @@ const Publications = () => {
         publicationData
       );
       toast.success(response.data.message);
+
+      // Fetch updated publications after adding a new one
     } catch (error) {
       console.error("Error submitting publication:", error);
       toast.error("Failed to submit publication");
@@ -171,7 +177,10 @@ const Publications = () => {
                 <b>Publications List</b>
               </div>
               <div className="card-body">
-                <table className="table table-bordered table-hover">
+                <table
+                  className="table table-bordered table-hover"
+                  style={{ width: "100" }}
+                >
                   <thead>
                     <tr>
                       <th className="text-center">#</th>

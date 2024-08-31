@@ -33,14 +33,14 @@ const Header = () => {
   }, [location.state]);
 
   const handleLogout = () => {
-    axios
-      .post("http://localhost:8088/auth/logout")
-      .then((res) => {
-        navigate("/", { state: { action: "homelogout" } });
-        localStorage.clear();
-        logout();
-      })
-      .catch((err) => console.log(err));
+    axios;
+    // .post("http://localhost:8088/auth/logout")
+    // .then((res) => {
+    navigate("/", { state: { action: "homelogout" } });
+    localStorage.clear();
+    logout();
+    // })
+    // .catch((err) => console.log(err));
   };
 
   return (
@@ -167,7 +167,7 @@ const Header = () => {
                     <FaAngleDown />
                   </Link>
                   <ul className="dropdown-menu ">
-                    {isAdmin && (
+                    {isLoggedIn && (
                       <li>
                         <Link
                           onClick={toggleMenu}
@@ -178,7 +178,7 @@ const Header = () => {
                         </Link>
                       </li>
                     )}
-                    {!isAdmin && (
+                    {!isLoggedIn && (
                       <li>
                         <Link
                           onClick={toggleMenu}
