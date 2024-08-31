@@ -50,6 +50,15 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             <span className="ms-1">Publications</span>
           </Link>
         </li>
+        <li onClick={toggleSidebar} className="nav-item">
+          <Link
+            className={`nav-link ${isActive("/dashboard/achievements")}`}
+            to={"/dashboard/achievements"}
+          >
+            <ImBooks />
+            <span className="ms-1">Achievements</span>
+          </Link>
+        </li>
         <hr />
         {/* <li onClick={toggleSidebar} className="nav-item">
           <Link

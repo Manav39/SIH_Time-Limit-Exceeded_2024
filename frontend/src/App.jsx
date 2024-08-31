@@ -45,6 +45,7 @@ import AnnualReport from "./admin/view/AnnualReport";
 import Publications from "./components/user/Publication";
 import AdminPublications from "./admin/AdminPublications";
 import AdminDepartments from "./admin/AdminDepartments";
+import Achievements from "./components/user/Achievements";
 
 function App() {
   return (
@@ -88,11 +89,18 @@ function AppRouter() {
             <Route path="/dashboard/events" element={<AdminEvents />} />
             <Route path="/dashboard/forum" element={<AdminForum />} />
             <Route path="/dashboard/alumnilist" element={<AdminAlumni />} />
+            <Route path="/dashboard/achievements" element={<Achievements />} />
             <Route path="/dashboard/jobs" element={<AdminJobs />} />
             <Route path="/dashboard/donations" element={<AdminDonations />} />
             <Route path="/dashboard/report" element={<AnnualReport />} />
-            <Route path="/dashboard/adminpublications" element={<AdminPublications />} />
-            <Route path="/dashboard/admindepartments" element={<AdminDepartments />} />
+            <Route
+              path="/dashboard/adminpublications"
+              element={<AdminPublications />}
+            />
+            <Route
+              path="/dashboard/admindepartments"
+              element={<AdminDepartments />}
+            />
             <Route
               path="/dashboard/donations/:id"
               element={<DonationDetail />}
