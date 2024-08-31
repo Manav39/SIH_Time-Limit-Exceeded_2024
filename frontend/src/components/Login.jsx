@@ -34,6 +34,7 @@ const Login = () => {
           console.log(res);
           localStorage.setItem("role", values.User);
           localStorage.setItem("userId", res.data.user._id);
+          localStorage.setItem("dept", res.data.user.department);
           navigate("/dashboard");
           toast.success("Login Successfull");
         }

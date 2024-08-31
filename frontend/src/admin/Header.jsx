@@ -15,14 +15,8 @@ const Header = ({ toggleSidebar }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    axios
-      .post("http://localhost:8088/auth/logout")
-      .then((res) => {
-        navigate("/", { state: { action: "homelogout" } });
-        localStorage.clear();
-        logout();
-      })
-      .catch((err) => console.log(err));
+    navigate("/", { state: { action: "homelogout" } });
+    localStorage.clear();
   };
 
   useEffect(() => {
