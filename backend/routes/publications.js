@@ -21,7 +21,7 @@ router.post("/addpublication", async (req, res) => {
         .send({ error: `Coordinator not found for department: ${department}` });
     }
     console.log(publication);
-    coordinator.pendingPublications.push(publication._id);
+    coordinator.pendingApprovals.push(publication._id);
     await coordinator.save();
     res.status(201).send({
       message: "Publication added and coordinator's pending approvals updated",

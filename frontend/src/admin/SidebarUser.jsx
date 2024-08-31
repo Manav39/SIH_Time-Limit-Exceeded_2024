@@ -32,7 +32,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             <span className="ms-1">Home</span>
           </Link>
         </li>
-        <li onClick={toggleSidebar} className="nav-item">
+        {/* <li onClick={toggleSidebar} className="nav-item">
           <Link
             className={`nav-link ${isActive("/dashboard/gallery")}`}
             to="/dashboard/gallery"
@@ -40,7 +40,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             <FaImage />
             <span className="ms-1">Gallery</span>
           </Link>
-        </li>
+        </li> */}
         <li onClick={toggleSidebar} className="nav-item">
           <Link
             className={`nav-link ${isActive("/dashboard/publications")}`}
@@ -51,7 +51,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           </Link>
         </li>
         <hr />
-        <li onClick={toggleSidebar} className="nav-item">
+        {/* <li onClick={toggleSidebar} className="nav-item">
           <Link
             className={`nav-link ${isActive("/dashboard/alumnilist")}`}
             to={"/dashboard/alumnilist"}
@@ -59,8 +59,8 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             <FaUserGraduate />
             <span className="ms-1">Alumni List</span>
           </Link>
-        </li>
-        <li onClick={toggleSidebar} className="nav-item">
+        </li> */}
+        {/* <li onClick={toggleSidebar} className="nav-item">
           <Link
             className={`nav-link ${isActive("/dashboard/jobs")}`}
             to={"/dashboard/jobs"}
@@ -68,8 +68,8 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             <RiSuitcaseFill />
             <span className="ms-1">Jobs</span>
           </Link>
-        </li>
-        <li onClick={toggleSidebar} className="nav-item">
+        </li> */}
+        {/* <li onClick={toggleSidebar} className="nav-item">
           <Link
             className={`nav-link ${isActive("/dashboard/donations")}`}
             to={"/dashboard/donations"}
@@ -77,7 +77,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             <RiMoneyDollarBoxFill />
             <span className="ms-1">Donations</span>
           </Link>
-        </li>
+        </li> */}
         <li onClick={toggleSidebar} className="nav-item">
           <Link
             className={`nav-link ${isActive("/dashboard/events")}`}
