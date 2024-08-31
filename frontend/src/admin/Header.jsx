@@ -57,13 +57,13 @@ const Header = ({ toggleSidebar }) => {
             >
               <BsThreeDotsVertical className="d-block d-md-none" />
               <span className="d-none d-md-block dropdown-toggle ps-2">
-                {name}
+                {localStorage.getItem("role")}x
               </span>
             </a>
 
             <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
               <li className="dropdown-header">
-                <h6>{name}</h6>
+                <h6>{localStorage.getItem("role")}</h6>
               </li>
               <li>
                 <hr className="dropdown-divider" />

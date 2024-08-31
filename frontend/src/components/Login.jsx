@@ -33,6 +33,7 @@ const Login = () => {
         if (res.data.status === "ok") {
           console.log(res);
           localStorage.setItem("role", values.User);
+          localStorage.setItem("userId", res.data.user._id);
           navigate("/dashboard");
           toast.success("Login Successfull");
         }

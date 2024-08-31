@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
       setIsAdmin(true);
       setIsLoggedIn(true);
     } else if (role === "user") {
-      setIsUser(false);
+      setIsUser(true);
       setIsLoggedIn(true);
     } else if (role === "department_coordinator") {
       setIsDC(true);

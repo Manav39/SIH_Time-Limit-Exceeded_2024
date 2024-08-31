@@ -42,6 +42,7 @@ import NotFound from "./components/NotFound";
 import ManageDonations from "./admin/save/ManageDonations";
 import Donations from "./components/Donations";
 import AnnualReport from "./admin/view/AnnualReport";
+import Publications from "./components/user/Publication";
 
 function App() {
   return (
@@ -78,7 +79,7 @@ function AppRouter() {
         {isLoggedIn && (
           <Route path="/dashboard" element={<Dashboard />}>
             <Route path="" element={<AdminHome />} />
-            <Route path="/dashboard/courses" element={<AdminCourses />} />
+            <Route path="/dashboard/publications" element={<Publications />} />
             <Route path="/dashboard/users" element={<AdminUsers />} />
             <Route path="/dashboard/gallery" element={<AdminGallery />} />
             <Route path="/dashboard/settings" element={<AdminSettings />} />
