@@ -25,8 +25,8 @@ const SidebarAdmin = ({ isOpen, toggleSidebar }) => {
       <ul className="sidebar-nav" id="sidebar-nav">
         <li onClick={toggleSidebar} className="nav-item">
           <Link
-            className={`nav-link ${isActive("/dashboard")}`}
-            to="/dashboard"
+            className={`nav-link ${isActive("/dashboard/deptcoord/depdash")}`}
+            to="/dashboard/deptcoord/depdash"
           >
             <FaHome />
             <span className="ms-1">Admin</span>

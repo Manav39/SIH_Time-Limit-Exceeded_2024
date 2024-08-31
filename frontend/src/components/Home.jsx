@@ -18,7 +18,7 @@ const Home = () => {
     if (isLoggedIn) {
       const user_name = localStorage.getItem("user_name");
       if (location.state && location.state.action === "homelogin") {
-        toast.success(`Welcome ${user_name}`);
+        toast.success(Welcome ${user_name});
       }
     }
     if (location.state && location.state.action === "homelogout") {
@@ -61,7 +61,7 @@ const Home = () => {
       <header
         className="masthead"
         style={{
-          backgroundImage: `url(${campus})`,
+          backgroundImage: url(${campus}),
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
@@ -72,11 +72,10 @@ const Home = () => {
           <div className="row h-100 align-items-center justify-content-center">
             <div className="col-lg-8  text-center">
               <h1 className="text-white font-weight-bold display-3 mb-4">
-                Welcome to VJTI
+                Automated and Integrated Report Portal
               </h1>
-              <p className="text-white font-weight-bold lead mb-5">
-                Streamlined Data Integration and Dynamic Reporting Portal for
-                Educational Institutes
+              <p className="text-white-75 font-weight-bold lead mb-5">
+                Creating dynamic reports on the fly
               </p>
               {!isAdmin && (
                 <Link className="btn btn-primary btn-xl" to="about">
@@ -102,14 +101,13 @@ const Home = () => {
           </div>
         </div>
       </header>
-      {/* 
-      <section className={`page-section bg-${theme}`} id="alumni-benefits">
+
+      <section className={page-section bg-${theme}} id="alumni-benefits">
         <div className="container">
           <div className="text-center">
-            <h2 className="section-heading text-uppercase"> Benefits</h2>
+            <h2 className="section-heading text-uppercase">Our Features</h2>
             <h3 className=" card-title text-muted">
-              As a member of the global VJTI alumni network, you have access to
-              a variety of exclusive services and benefits.
+            Efficiently manages educational records through a unified platform with streamlined submission, review, and reporting processes.
             </h3>
           </div>
           <div className="row">
@@ -117,10 +115,10 @@ const Home = () => {
               <div className="card h-100 benefit-card">
                 <div className="card-body text-center">
                   <FiClipboard size={40} className="mb-3 text-primary" />
-                  <h4 className="card-title">Career Support</h4>
-                  <p className="card-text">
+                  <h4 className="card-title">Centralised and Automated Solutions</h4>
+                  {/* <p className="card-text">
                     Get assistance with your career goals.
-                  </p>
+                  </p> */}
                 </div>
               </div>
             </div>
@@ -128,8 +126,8 @@ const Home = () => {
               <div className="card h-100 benefit-card">
                 <div className="card-body text-center">
                   <FiBook size={40} className="mb-3 text-primary" />
-                  <h4 className="card-title">Library</h4>
-                  <p className="card-text">Access to the alumni library.</p>
+                  <h4 className="card-title">Automated Reporting</h4>
+                  {/* <p className="card-text">Access to the alumni library.</p> */}
                 </div>
               </div>
             </div>
@@ -137,8 +135,8 @@ const Home = () => {
               <div className="card h-100 benefit-card">
                 <div className="card-body text-center">
                   <FiTool size={40} className="mb-3 text-primary" />
-                  <h4 className="card-title">Sports Facilities</h4>
-                  <p className="card-text">Access to sports facilities.</p>
+                  <h4 className="card-title">Data Integration</h4>
+                  {/* <p className="card-text">Access to sports facilities.</p> */}
                 </div>
               </div>
             </div>
@@ -146,16 +144,16 @@ const Home = () => {
               <div className="card h-100 benefit-card">
                 <div className="card-body text-center">
                   <FiUsers size={40} className="mb-3 text-primary  " />
-                  <h4 className="card-title">Alumni Directory</h4>
-                  <p className="card-text">Connect with fellow alumni.</p>
+                  <h4 className="card-title">AI report generation and summary</h4>
+                  {/* <p className="card-text">Connect with fellow alumni.</p> */}
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section> */}
-      {/* 
-      <section className={`py-4 bg-${theme}`} id="upcoming-events">
+      </section>
+
+      {/* <section className={py-4 bg-${theme}} id="upcoming-events">
         <div className="container">
           <h2 className="section-heading text-center">Upcoming Events</h2>
           <hr className="divider my-4" />
