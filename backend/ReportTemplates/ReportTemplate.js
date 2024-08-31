@@ -7,6 +7,7 @@ module.exports = ({
     departments = [],
     publications = [],
     events = [],
+    achievements = [],
   }) => {
     const today = new Date();
     const formattedDate = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
@@ -134,6 +135,14 @@ module.exports = ({
   
             <!-- Board of Directors -->
             <div class="section">
+            <div style="text-align: center; margin: 20px 0;">
+                <img
+                  src="https://vjti.ac.in/wp-content/uploads/2024/07/sachin-kore-sir-768x512.png"
+                  class="cover-image"
+                  alt="VJTI Main Gate"
+                />
+              </div>
+              <br/>
               <h2>Board of Directors</h2>
               <table class="table">
                 <thead>
@@ -157,6 +166,7 @@ module.exports = ({
             </div>
   
             <div class="page-break"></div>
+            <br/>
   
             <!-- Faculty Records -->
             <div class="section">
@@ -187,6 +197,14 @@ module.exports = ({
   
             <!-- Departments -->
             <div class="section">
+            <div style="text-align: center; margin: 20px 0;">
+                <img
+                  src="https://vjti.ac.in/wp-content/uploads/elementor/thumbs/vjti-old-qquq2knh6gepn33yplkvt74bt6dtqadl87ab55ky9w.png"
+                  class="cover-image"
+                  alt="VJTI Main Gate"
+                />
+              </div>
+              <br/>
               <h2>Departments</h2>
               <table class="table">
                 <thead>
@@ -218,6 +236,7 @@ module.exports = ({
                   <tr>
                     <th>Title</th>
                     <th>Author</th>
+                    <th>Link</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -227,6 +246,7 @@ module.exports = ({
                   <tr class="item">
                     <td>${publication.title}</td>
                     <td>${publication.author}</td>
+                    <td><a href="#">Paper</a></td>
                   </tr>`
                     )
                     .join('')}
@@ -260,6 +280,41 @@ module.exports = ({
                 </tbody>
               </table>
             </div>
+
+            <div class="page-break"></div>
+            <br />
+
+            <!-- Achievements -->
+            <div class="section">
+            <div style="text-align: center; margin: 20px 0;">
+                <img
+                  src="https://vjti.ac.in/wp-content/uploads/elementor/thumbs/vjti-first-qquq2knh6gepn33yplkvt74bt6dtqadl87ab55ky9w.png"
+                  class="cover-image"
+                  alt="VJTI Main Gate"
+                />
+              </div>
+              <br/>
+              <h2>Achievements</h2>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Achievement Title</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${achievements
+                    .map(
+                      (achievement) => `
+                  <tr class="item">
+                    <td>${achievement}</td>
+                  </tr>`
+                    )
+                    .join('')}
+                </tbody>
+              </table>
+            </div>
+  
+            <br />
   
             <!-- Footer -->
             <div class="footer">
