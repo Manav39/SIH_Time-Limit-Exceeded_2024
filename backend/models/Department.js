@@ -1,64 +1,63 @@
 const mongoose = require("mongoose");
 
 const DepartmentSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-        unique:true,
+  name: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  hod: {
+    type: String, // HoD's name as a simple string
+    required: true,
+    unique: true,
+  },
+  department_coordinator: {
+    type: mongoose.Schema.Types.ObjectId, // Reference to DepartmentCoordinator model
+    ref: "DepartmentCoordinator",
+    required: true,
+    unique: true,
+  },
+  faculties: [
+    {
+      type: mongoose.Schema.Types.ObjectId, // References to Faculty model
+      ref: "User",
     },
-    hod: {
-        type: String, // HoD's name as a simple string
-        required: true,
-        unique:true
-    },
-    department_coordinator: {
-        type: mongoose.Schema.Types.ObjectId, // Reference to DepartmentCoordinator model
-        ref: "DepartmentCoordinator",
-        required: true,
-        unique:true,
-    },
-    faculties: [
-        {
-            type: mongoose.Schema.Types.ObjectId, // References to Faculty model
-            ref: "User"
-        }
+  ],
+  year_wise_intake: {
+    type: Number,
+    required: true,
+  },
+  academic_performance: {
+    highest_cgpa_year_wise: [
+      {
+        year: {
+          type: Number,
+          required: true,
+        },
+        cgpa: {
+          type: Number,
+          required: true,
+        },
+      },
     ],
-    year_wise_intake: {
-        type: Number,
-        required: true,
-    },
-    academic_performance: {
-        highest_cgpa_year_wise: [
-            {
-                year: {
-                    type: Number,
-                    required: true,
-                },
-                cgpa: {
-                    type: Number,
-                    required: true,
-                }
-            }
-        ],
-        research_publications: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Publication"
-            }
-        ],
-        conferences: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: "Event"
-            }
-        ]
-    }
+    research_publications: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Publication",
+      },
+    ],
+    conferences: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Event",
+      },
+    ],
+  },
 });
 
 const Department = mongoose.model("Department", DepartmentSchema);
 
 module.exports = Department;
-
 
 //dummy data exmaple
 // {

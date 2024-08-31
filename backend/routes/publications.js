@@ -1,62 +1,77 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const Publication = require('../models/Publications');
+const Publication = require("../models/Publications");
+const DepartmentCoordinator = require("../models/DeptCoord");
 
 // Create a new publication
-router.post('/addpublication', async (req, res) => {
+router.post("/addpublication", async (req, res) => {
   try {
-    const { title, date, authors, description } = req.body;
-
-    // Create a new Publication instance
+    const { title, date, authors, description, department } = req.body;
     const publication = new Publication({ title, date, authors, description });
-    
-    // Save the publication to the database
     await publication.save();
-    
-    res.status(201).send(publication);
-  } catch (error) {
-    res.status(400).send({ error: 'Error creating publication', details: error });
-  }
-});
+    const coordinator = await DepartmentCoordinator.findOne({
+      department: department,
+    });
 
-// Get all publications
-router.get('/allpublication', async (req, res) => {
-  try {
-    const publications = await Publication.find({});
-    res.status(200).send(publications);
+    console.log(coordinator);
+
+    if (!coordinator) {
+      return res
+        .status(404)
+        .send({ error: `Coordinator not found for department: ${department}` });
+    }
+    console.log(publication);
+    coordinator.pendingApprovals.push(publication._id);
+    await coordinator.save();
+    res.status(201).send({
+      message: "Publication added and coordinator's pending approvals updated",
+      publication,
+    });
   } catch (error) {
-    res.status(500).send({ error: 'Error fetching publications', details: error });
+    res
+      .status(400)
+      .send({ error: "Error creating publication", details: error.message });
   }
 });
 
 // Get a specific publication by ID
-router.get('/publications/:id', async (req, res) => {
+router.get("/publications/:id", async (req, res) => {
   try {
-    const publication = await Publication.findById(req.params.id).populate('authors');
+    const publication = await Publication.findById(req.params.id).populate(
+      "authors"
+    );
     if (!publication) {
       return res.status(404).send();
     }
     res.status(200).send(publication);
   } catch (error) {
-    res.status(500).send({ error: 'Error fetching publication', details: error });
+    res
+      .status(500)
+      .send({ error: "Error fetching publication", details: error });
   }
 });
 
 // Update a publication by ID
-router.patch('/updatepublication/:id', async (req, res) => {
+router.patch("/updatepublication/:id", async (req, res) => {
   try {
-    const publication = await Publication.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true }).populate('authors');
+    const publication = await Publication.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true }
+    ).populate("authors");
     if (!publication) {
       return res.status(404).send();
     }
     res.status(200).send(publication);
   } catch (error) {
-    res.status(400).send({ error: 'Error updating publication', details: error });
+    res
+      .status(400)
+      .send({ error: "Error updating publication", details: error });
   }
 });
 
 // Delete a publication by ID
-router.delete('/deletepublication/:id', async (req, res) => {
+router.delete("/deletepublication/:id", async (req, res) => {
   try {
     const publication = await Publication.findByIdAndDelete(req.params.id);
     if (!publication) {
@@ -64,7 +79,19 @@ router.delete('/deletepublication/:id', async (req, res) => {
     }
     res.status(200).send(publication);
   } catch (error) {
-    res.status(500).send({ error: 'Error deleting publication', details: error });
+    res
+      .status(500)
+      .send({ error: "Error deleting publication", details: error });
+  }
+});
+
+// Get all publications
+router.get("/allpublication", async (req, res) => {
+  try {
+    const publications = await Publication.find({});
+    res.status(200).send(publications);
+  } catch (error) {
+    res.status(500).send({ error: "Error fetching", details: error });
   }
 });
 

@@ -5,12 +5,25 @@ const DepartmentCoordinator = require("../models/DeptCoord");
 // Create a new department coordinator
 router.post("/adddepartmentcoordinator", async (req, res) => {
   try {
-    const { name, email, password, department, pendingApprovals, approvedData, pendingPublications, approvedPublications } = req.body;
+    const {
+      name,
+      email,
+      password,
+      department,
+      pendingApprovals,
+      approvedData,
+      pendingPublications,
+      approvedPublications,
+    } = req.body;
 
     // Ensure the department is unique
-    const existingCoordinator = await DepartmentCoordinator.findOne({ department });
+    const existingCoordinator = await DepartmentCoordinator.findOne({
+      department,
+    });
     if (existingCoordinator) {
-      return res.status(400).json({ error: "Department already has a coordinator." });
+      return res
+        .status(400)
+        .json({ error: "Department already has a coordinator." });
     }
 
     const coordinator = new DepartmentCoordinator({
@@ -34,18 +47,23 @@ router.post("/adddepartmentcoordinator", async (req, res) => {
 // Get all department coordinators
 router.get("/getalldepartmentcoordinator", async (req, res) => {
   try {
-    const coordinators = await DepartmentCoordinator.find().populate("approvedData pendingApprovals pendingPublications approvedPublications");
+    const coordinators = await DepartmentCoordinator.find().populate(
+      "approvedData pendingApprovals pendingPublications approvedPublications"
+    );
     res.status(200).json(coordinators);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-
 // Update a department coordinator by ID
 router.put("/updatedepartmentcoordinator/:id", async (req, res) => {
   try {
-    const updatedCoordinator = await DepartmentCoordinator.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const updatedCoordinator = await DepartmentCoordinator.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
     if (!updatedCoordinator) {
       return res.status(404).json({ error: "Coordinator not found" });
     }
@@ -58,7 +76,9 @@ router.put("/updatedepartmentcoordinator/:id", async (req, res) => {
 // Delete a department coordinator by ID
 router.delete("/deletedepartmentcoordinator/:id", async (req, res) => {
   try {
-    const deletedCoordinator = await DepartmentCoordinator.findByIdAndDelete(req.params.id);
+    const deletedCoordinator = await DepartmentCoordinator.findByIdAndDelete(
+      req.params.id
+    );
     if (!deletedCoordinator) {
       return res.status(404).json({ error: "Coordinator not found" });
     }

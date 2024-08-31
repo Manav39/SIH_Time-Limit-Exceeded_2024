@@ -33,14 +33,14 @@ const Header = () => {
   }, [location.state]);
 
   const handleLogout = () => {
-    axios
-      .post("http://localhost:8088/auth/logout")
-      .then((res) => {
-        navigate("/", { state: { action: "homelogout" } });
-        localStorage.clear();
-        logout();
-      })
-      .catch((err) => console.log(err));
+    axios;
+    // .post("http://localhost:8088/auth/logout")
+    // .then((res) => {
+    navigate("/", { state: { action: "homelogout" } });
+    localStorage.clear();
+    logout();
+    // })
+    // .catch((err) => console.log(err));
   };
 
   return (
@@ -77,7 +77,7 @@ const Header = () => {
                   Home
                 </Link>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link
                   onClick={toggleMenu}
                   className={`nav-link js-scroll-trigger ${isActive(
@@ -118,7 +118,7 @@ const Header = () => {
                 >
                   Donate
                 </Link>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <Link
                   onClick={toggleMenu}
@@ -167,7 +167,7 @@ const Header = () => {
                     <FaAngleDown />
                   </Link>
                   <ul className="dropdown-menu ">
-                    {isAdmin && (
+                    {isLoggedIn && (
                       <li>
                         <Link
                           onClick={toggleMenu}
@@ -178,7 +178,7 @@ const Header = () => {
                         </Link>
                       </li>
                     )}
-                    {!isAdmin && (
+                    {!isLoggedIn && (
                       <li>
                         <Link
                           onClick={toggleMenu}

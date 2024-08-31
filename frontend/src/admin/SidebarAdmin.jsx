@@ -34,14 +34,14 @@ const SidebarAdmin = ({ isOpen, toggleSidebar }) => {
         </li>
         <li onClick={toggleSidebar} className="nav-item">
           <Link
-            className={`nav-link ${isActive("/dashboard/gallery")}`}
-            to="/dashboard/gallery"
+            className={`nav-link ${isActive("/dashboard/report")}`}
+            to="/dashboard/report"
           >
             <FaImage />
-            <span className="ms-1">Gallery</span>
+            <span className="ms-1">Report</span>
           </Link>
         </li>
-        <li onClick={toggleSidebar} className="nav-item">
+        {/* <li onClick={toggleSidebar} className="nav-item">
           <Link
             className={`nav-link ${isActive("/dashboard/courses")}`}
             to={"/dashboard/courses"}
@@ -49,35 +49,8 @@ const SidebarAdmin = ({ isOpen, toggleSidebar }) => {
             <ImBooks />
             <span className="ms-1">Courses</span>
           </Link>
-        </li>
+        </li> */}
         <hr />
-        <li onClick={toggleSidebar} className="nav-item">
-          <Link
-            className={`nav-link ${isActive("/dashboard/alumnilist")}`}
-            to={"/dashboard/alumnilist"}
-          >
-            <FaUserGraduate />
-            <span className="ms-1">Alumni List</span>
-          </Link>
-        </li>
-        <li onClick={toggleSidebar} className="nav-item">
-          <Link
-            className={`nav-link ${isActive("/dashboard/jobs")}`}
-            to={"/dashboard/jobs"}
-          >
-            <RiSuitcaseFill />
-            <span className="ms-1">Jobs</span>
-          </Link>
-        </li>
-        <li onClick={toggleSidebar} className="nav-item">
-          <Link
-            className={`nav-link ${isActive("/dashboard/donations")}`}
-            to={"/dashboard/donations"}
-          >
-            <RiMoneyDollarBoxFill />
-            <span className="ms-1">Donations</span>
-          </Link>
-        </li>
         <li onClick={toggleSidebar} className="nav-item">
           <Link
             className={`nav-link ${isActive("/dashboard/events")}`}
@@ -89,13 +62,58 @@ const SidebarAdmin = ({ isOpen, toggleSidebar }) => {
         </li>
         <li onClick={toggleSidebar} className="nav-item">
           <Link
+            className={`nav-link ${isActive("/dashboard/adminpublications")}`}
+            to={"/dashboard/adminpublications"}
+          >
+            <RiSuitcaseFill />
+            <span className="ms-1">Publications</span>
+          </Link>
+        </li>
+        <li onClick={toggleSidebar} className="nav-item">
+          <Link
+            className={`nav-link ${isActive("/dashboard/admindepartments")}`}
+            to={"/dashboard/admindepartments"}
+          >
+            <FaUserGraduate />
+            <span className="ms-1">Departments</span>
+          </Link>
+        </li>
+        {/* <li onClick={toggleSidebar} className="nav-item">
+          <Link
+            className={`nav-link ${isActive("/dashboard/alumnilist")}`}
+            to={"/dashboard/alumnilist"}
+          >
+            <FaUserGraduate />
+            <span className="ms-1">Alumni List</span>
+          </Link>
+        </li> */}
+        {/* <li onClick={toggleSidebar} className="nav-item">
+          <Link
+            className={`nav-link ${isActive("/dashboard/jobs")}`}
+            to={"/dashboard/jobs"}
+          >
+            <RiSuitcaseFill />
+            <span className="ms-1">Jobs</span>
+          </Link>
+        </li> */}
+        {/* <li onClick={toggleSidebar} className="nav-item">
+          <Link
+            className={`nav-link ${isActive("/dashboard/donations")}`}
+            to={"/dashboard/donations"}
+          >
+            <RiMoneyDollarBoxFill />
+            <span className="ms-1">Donations</span>
+          </Link>
+        </li> */} 
+        {/* <li onClick={toggleSidebar} className="nav-item">
+          <Link
             className={`nav-link ${isActive("/dashboard/forum")}`}
             to={"/dashboard/forum"}
           >
             <MdForum />
             <span className="ms-1">Forum</span>
           </Link>
-        </li>
+        </li> */}
         <hr />
         <li onClick={toggleSidebar} className="nav-item">
           <Link
