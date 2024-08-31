@@ -1,6 +1,6 @@
 <h1 align="center">
   <a href="https://github.com/CommunityOfCoders/Inheritance-2023">
-    <img src="./Assets/sih.png" alt="SIH 2024" width="800" height="150">
+    <img src="./Assets/sih.png" alt="SIH 2024" width="600" height="150">
   </a>
   
 </h1>
