@@ -1,0 +1,152 @@
+.free {
+  align-self: stretch;
+  position: relative;
+  line-height: 36px;
+  font-weight: 600;
+}
+.captureIdeasAnd,
+.planSubtitles {
+  align-self: stretch;
+  position: relative;
+  letter-spacing: -0.02em;
+}
+.planSubtitles {
+  font-size: var(--header-h4-size);
+  white-space: nowrap;
+}
+.captureIdeasAnd {
+  font-size: var(--paragraph-p2-bold-size);
+  line-height: 23px;
+  font-weight: 500;
+}
+.textBlock01 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-6xl);
+}
+.icon {
+  height: 18px;
+  width: 18px;
+  position: relative;
+}
+.syncUnlimitedDevices {
+  flex: 1;
+  position: relative;
+  letter-spacing: -0.02em;
+  line-height: 20px;
+  display: inline-block;
+  max-width: calc(100% - 37px);
+}
+.point {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-lgi);
+  max-width: 100%;
+}
+.customizeHomeDashboard {
+  flex: 1;
+  position: relative;
+  letter-spacing: -0.02em;
+  line-height: 20px;
+  display: inline-block;
+  min-width: 226px;
+  max-width: 100%;
+}
+.point3 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-lgi);
+  max-width: 100%;
+}
+.bulletPoint,
+.getStarted {
+  font-size: var(--paragraph-p3-medium-size);
+}
+.bulletPoint {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-9xl);
+  max-width: 100%;
+}
+.getStarted {
+  position: relative;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+  font-family: var(--header-h5);
+  color: var(--color-gray);
+  text-align: left;
+  display: inline-block;
+  min-width: 86px;
+}
+.btnGetStarted {
+  cursor: pointer;
+  border: 1px solid var(--color-khaki-100);
+  padding: var(--padding-sm) var(--padding-20xl);
+  background-color: var(--color-white);
+  border-radius: var(--br-5xs);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+.btnGetStarted:hover,
+.priceBoard {
+  background-color: var(--color-gainsboro);
+  border: 1px solid var(--color-khaki-200);
+  box-sizing: border-box;
+}
+.priceBoard {
+  flex: 1;
+  border-radius: var(--br-3xs);
+  background-color: var(--color-white);
+  border: 1px solid var(--color-khaki-100);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: var(--padding-19xl) var(--padding-24xl);
+  gap: var(--gap-6xl);
+  min-width: 354px;
+  max-width: 100%;
+  text-align: left;
+  font-size: var(--paragraph-p1-regular-size);
+  color: var(--color-gray);
+  font-family: var(--header-h5);
+}
+@media screen and (max-width: 850px) {
+  .planSubtitles {
+    font-size: var(--font-size-10xl);
+  }
+  .priceBoard {
+    padding: var(--padding-121xl) var(--padding-2xl) var(--padding-6xl);
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 450px) {
+  .free {
+    font-size: var(--font-size-lgi);
+    line-height: 29px;
+  }
+  .planSubtitles {
+    font-size: var(--font-size-3xl);
+  }
+  .point3 {
+    flex-wrap: wrap;
+  }
+  .priceBoard {
+    min-width: 100%;
+  }
+}

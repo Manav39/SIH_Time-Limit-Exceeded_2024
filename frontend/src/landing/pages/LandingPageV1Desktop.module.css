@@ -1,0 +1,319 @@
+.elementIcon {
+  height: 48.2px;
+  width: 409.8px;
+  position: absolute;
+  margin: 0 !important;
+  right: 117px;
+  bottom: -25.7px;
+}
+.useAsExtension {
+  margin: 0;
+  flex: 1;
+  position: relative;
+  font-size: inherit;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  font-family: inherit;
+  display: inline-block;
+  max-width: 100%;
+  z-index: 1;
+}
+.elementParent,
+.useTheWeb {
+  align-self: stretch;
+  position: relative;
+}
+.elementParent {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.useTheWeb {
+  font-size: var(--paragraph-p2-bold-size);
+  letter-spacing: -0.02em;
+  line-height: 30px;
+}
+.frameParent {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-5xl);
+  max-width: 100%;
+}
+.letsGo {
+  position: relative;
+  font-size: var(--paragraph-p2-bold-size);
+  letter-spacing: -0.02em;
+  line-height: 23px;
+  font-weight: 500;
+  font-family: var(--header-h5);
+  color: var(--color-white);
+  text-align: left;
+  display: inline-block;
+  min-width: 67px;
+}
+.frameChild {
+  width: 14px;
+  height: 14px;
+  position: relative;
+}
+.btnGetStartedInner {
+  flex-direction: column;
+  padding: var(--padding-8xs-5) 0 0;
+}
+.btnGetStarted,
+.btnGetStartedInner,
+.extensionContent,
+.extensionParent {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.btnGetStarted {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-xl) var(--padding-21xl);
+  background-color: var(--color-cornflowerblue-100);
+  border-radius: var(--br-7xs);
+  flex-direction: row;
+  gap: var(--gap-3xs);
+}
+.extensionContent,
+.extensionParent {
+  flex-direction: column;
+  max-width: 100%;
+}
+.extensionContent {
+  align-self: stretch;
+  gap: var(--gap-41xl);
+}
+.extensionParent {
+  flex: 1;
+  padding: 92.5px 0 0;
+  box-sizing: border-box;
+  min-width: 453px;
+}
+.image {
+  height: 479px;
+  width: 686px;
+  position: relative;
+  background-color: var(--primary-100);
+  min-width: 686px;
+  max-width: 100%;
+}
+.customiseItToYourNeeds {
+  align-self: stretch;
+  background-color: var(--color-darkslateblue);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  padding: var(--padding-121xl) var(--padding-201xl);
+  box-sizing: border-box;
+  gap: var(--gap-79xl);
+  max-width: 100%;
+  flex-shrink: 0;
+  text-align: left;
+  font-size: var(--header-h1-size);
+  color: var(--color-white);
+  font-family: var(--header-h5);
+}
+.elementIcon1 {
+  width: 41%;
+  height: 18.21%;
+  position: absolute;
+  margin: 0 !important;
+  top: 31.54%;
+  right: 33.13%;
+  bottom: 50.25%;
+  left: 25.88%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+}
+.textBlock,
+.yourData1 {
+  align-self: stretch;
+  position: relative;
+}
+.yourData1 {
+  letter-spacing: -0.02em;
+  z-index: 1;
+}
+.textBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-5xl);
+}
+.readMore {
+  position: relative;
+  font-size: var(--paragraph-p2-bold-size);
+  line-height: 23px;
+  font-weight: 500;
+  font-family: var(--header-h5);
+  color: var(--color-white);
+  text-align: left;
+  display: inline-block;
+  min-width: 93px;
+}
+.iconChild {
+  height: 14px;
+  width: 14px;
+  position: relative;
+}
+.btnTry,
+.icon {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.btnTry {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-xl) var(--padding-21xl);
+  background-color: var(--color-cornflowerblue-100);
+  border-radius: var(--br-5xs);
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-3xs);
+}
+.heading {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-41xl);
+  min-width: 520px;
+  max-width: 100%;
+}
+.elementIcon2 {
+  height: 381.1px;
+  width: 681px;
+  position: relative;
+  max-width: 100%;
+}
+.yourData {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--padding-121xl) var(--padding-201xl);
+  box-sizing: border-box;
+  row-gap: 20px;
+  max-width: 100%;
+  flex-shrink: 0;
+  text-align: left;
+  font-size: var(--header-h1-size);
+  color: var(--color-gray);
+  font-family: var(--header-h5);
+}
+.backgroundIcon {
+  width: 602.8px;
+  height: 448.5px;
+  position: absolute;
+  margin: 0 !important;
+  top: 1186px;
+  left: -162.1px;
+  mix-blend-mode: multiply;
+}
+.landingPageV1Desktop19 {
+  width: 100%;
+  height: 10049px;
+  position: relative;
+  background-color: var(--color-white);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 0 473.5px;
+  box-sizing: border-box;
+  line-height: normal;
+  letter-spacing: normal;
+}
+@media screen and (max-width: 1525px) {
+  .image {
+    flex: 1;
+  }
+  .customiseItToYourNeeds {
+    flex-wrap: wrap;
+  }
+  .elementIcon2 {
+    flex: 1;
+  }
+  .yourData {
+    flex-wrap: wrap;
+  }
+  .landingPageV1Desktop19 {
+    height: auto;
+  }
+}
+@media screen and (max-width: 1225px) {
+  .extensionParent,
+  .image {
+    min-width: 100%;
+  }
+  .customiseItToYourNeeds {
+    gap: var(--gap-30xl);
+    padding-left: var(--padding-91xl);
+    padding-right: var(--padding-91xl);
+    box-sizing: border-box;
+  }
+  .heading {
+    min-width: 100%;
+  }
+  .yourData {
+    padding-left: var(--padding-91xl);
+    padding-right: var(--padding-91xl);
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 850px) {
+  .useAsExtension {
+    font-size: var(--font-size-39xl);
+  }
+  .extensionContent {
+    gap: var(--gap-11xl);
+  }
+  .customiseItToYourNeeds {
+    gap: var(--gap-5xl);
+    padding: var(--padding-72xl) var(--padding-36xl);
+    box-sizing: border-box;
+  }
+  .yourData1 {
+    font-size: var(--font-size-39xl);
+  }
+  .heading {
+    gap: var(--gap-11xl);
+  }
+  .yourData {
+    padding: var(--padding-72xl) var(--padding-36xl);
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 450px) {
+  .useAsExtension {
+    font-size: var(--font-size-24xl);
+  }
+  .extensionParent {
+    padding-top: var(--padding-41xl);
+    box-sizing: border-box;
+  }
+  .customiseItToYourNeeds {
+    padding-left: var(--padding-xl);
+    padding-right: var(--padding-xl);
+    box-sizing: border-box;
+  }
+  .yourData1 {
+    font-size: var(--font-size-24xl);
+  }
+}
