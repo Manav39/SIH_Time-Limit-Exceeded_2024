@@ -18,7 +18,7 @@ const Home = () => {
     if (isLoggedIn) {
       const user_name = localStorage.getItem("user_name");
       if (location.state && location.state.action === "homelogin") {
-        toast.success(Welcome ${user_name});
+        toast.success(`Welcome , ${user_name}`);
       }
     }
     if (location.state && location.state.action === "homelogout") {
@@ -61,7 +61,7 @@ const Home = () => {
       <header
         className="masthead"
         style={{
-          backgroundImage: url(${campus}),
+          backgroundImage: `url(${campus})`,
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
@@ -102,7 +102,7 @@ const Home = () => {
         </div>
       </header>
 
-      <section className={page-section bg-${theme}} id="alumni-benefits">
+      <section id="alumni-benefits">
         <div className="container">
           <div className="text-center">
             <h2 className="section-heading text-uppercase">Our Features</h2>
