@@ -2,6 +2,21 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import { useAuth } from "../../AuthContext";
+import {
+  Container,
+  Grid,
+  TextField,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
+  Chip,
+  MenuItem
+} from "@mui/material";
 
 const Publications = () => {
   const [users, setUsers] = useState([]); // For storing the list of users
@@ -13,27 +28,30 @@ const Publications = () => {
     description: "",
   });
 
+
+
   const { setDC, DC } = useAuth();
 
   useEffect(() => {
-    // Fetch the list of users from the /users endpoint
     const fetchUsers = async () => {
       try {
         const response = await axios.get("http://localhost:8088/users");
-        setUsers(response.data); // Assuming response.data is an array of users
+        setUsers(response.data);
       } catch (error) {
         console.error("Error fetching users:", error);
         toast.error("Failed to fetch users");
       }
     };
 
-    // Fetch all publications
+
+
+
     const fetchPublications = async () => {
       try {
         const response = await axios.get(
           "http://localhost:8088/publications/allpublication"
         );
-        setPublications(response.data); // Assuming response.data is an array of publications
+        setPublications(response.data);
       } catch (error) {
         console.error("Error fetching publications:", error);
         toast.error("Failed to fetch publications");
@@ -66,6 +84,7 @@ const Publications = () => {
       ...values,
       authors: selectedAuthors,
       department: localStorage.getItem("dept"),
+      status: "Pending", // Set initial status as Pending
     };
 
     try {
@@ -76,6 +95,7 @@ const Publications = () => {
       toast.success(response.data.message);
 
       // Fetch updated publications after adding a new one
+      setPublications([...publications, response.data.publication]);
     } catch (error) {
       console.error("Error submitting publication:", error);
       toast.error("Failed to submit publication");
@@ -95,132 +115,142 @@ const Publications = () => {
     }
   };
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0]; // Returns date in YYYY-MM-DD format
+  };
+
+  const getStatusButton = (status) => {
+    let buttonColor;
+    switch (status) {
+      case "approved":
+        buttonColor = "success";
+        break;
+      case "rejected":
+        buttonColor = "error";
+        break;
+      case "pending":
+        buttonColor = "neutral";
+        break;
+      default:
+        buttonColor = "default";
+    }
+    return (
+      <Chip label={status.charAt(0).toUpperCase() + status.slice(1)} color={buttonColor} size="small" />
+    );
+  };
+
+
+  console.log("usersss", users);
+
   return (
-    <div className="container-fluid">
+    <Container>
       <ToastContainer position="top-center" />
-      <div className="col-lg-12">
-        <div className="row">
-          <div className="col-md-4">
-            <form onSubmit={handleSubmit}>
-              <div className="card">
-                <div className="card-header">Add Publications</div>
-                <div className="card-body">
-                  <div className="form-group">
-                    <label className="control-label">Title</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="title"
-                      value={values.title}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label className="control-label">Date</label>
-                    <input
-                      type="date"
-                      className="form-control"
-                      name="date"
-                      value={values.date}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label className="control-label">Authors</label>
-                    <select
-                      multiple
-                      className="form-control"
-                      name="authors"
-                      value={selectedAuthors}
-                      onChange={handleSelectAuthors}
-                      required
-                    >
-                      {users.map((user) => (
-                        <option key={user._id} value={user._id}>
-                          {user.name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="form-group">
-                    <label className="control-label">Description</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="description"
-                      value={values.description}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="card-footer">
-                  <div className="row">
-                    <div className="col-md-6">
-                      <button
-                        className="btn btn-sm btn-primary btn-block"
-                        type="submit"
-                      >
-                        Save
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div className="col-md-8">
-            <div className="card">
-              <div className="card-header">
-                <b>Publications List</b>
-              </div>
-              <div className="card-body">
-                <table
-                  className="table table-bordered table-hover"
-                  style={{ width: "100" }}
+      <Grid container spacing={2}>
+        <Grid item md={4}>
+          <Card>
+            <CardHeader title="Add Publications" />
+            <CardContent>
+              <form onSubmit={handleSubmit}>
+                <TextField
+                  fullWidth
+                  label="Title"
+                  name="title"
+                  value={values.title}
+                  onChange={handleInputChange}
+                  margin="normal"
+                  required
+                />
+                <TextField
+                  fullWidth
+                  label="Date"
+                  type="date"
+                  name="date"
+                  value={values.date}
+                  onChange={handleInputChange}
+                  margin="normal"
+                  InputLabelProps={{ shrink: true }}
+                  required
+                />
+                <TextField
+                  fullWidth
+                  select
+                  label="Authors"
+                  name="authors"
+                  SelectProps={{ multiple: true }}
+                  value={selectedAuthors}
+                  onChange={handleSelectAuthors}
+                  margin="normal"
+                  required
+                  helperText="Select authors"
                 >
-                  <thead>
-                    <tr>
-                      <th className="text-center">#</th>
-                      <th className="text-center">Title</th>
-                      <th className="text-center">Date</th>
-                      <th className="text-center">Description</th>
-                      <th className="text-center">Authors</th>
-                      <th className="text-center">Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {publications.map((pub, index) => (
-                      <tr key={pub._id}>
-                        <td className="text-center">{index + 1}</td>
-                        <td>{pub.title}</td>
-                        <td className="text-center">{pub.date}</td>
-                        <td>{pub.description}</td>
-                        <td>
-                          {pub.authors.join(", ")}{" "}
-                          {/* Display author IDs or names */}
-                        </td>
-                        <td className="text-center">
-                          <button
-                            className="btn btn-sm btn-danger delete_gallery"
-                            type="button"
-                            onClick={() => handleDelete(pub._id)}
-                          >
-                            Delete
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+                  {users.map((user) => (
+                    <MenuItem key={user._id} value={user._id}>
+                      {user.name}
+                    </MenuItem>
+                  ))}
+                </TextField>
+                <TextField
+                  fullWidth
+                  label="Description"
+                  name="description"
+                  value={values.description}
+                  onChange={handleInputChange}
+                  margin="normal"
+                  required
+                />
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                  sx={{ mt: 2 }}
+                >
+                  Save
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item md={8}>
+          <Card>
+            <CardHeader title="Publications List" />
+            <CardContent>
+              {publications.length > 0 ? (
+                <List>
+                  {publications.map((pub) => (
+                    pub.status !== "Approved" && (
+                      <ListItem key={pub._id} divider>
+                        <ListItemText
+                          primary={<Typography variant="body1"><b>Title:</b> {pub.title} | <b>Date:</b> {formatDate(pub.date)} | <b>Status:</b> {getStatusButton(pub.status)}</Typography>}
+                          secondary={
+                            <div>
+                              <Typography variant="body2"><b>Description:</b> {pub.description}</Typography>
+                              <Typography variant="body2"><b>Authors:</b> {pub.authors.join(", ")}</Typography>
+                            </div>
+                          }
+                        />
+                        <Button
+                          variant="contained"
+                          color="error"
+                          size="small"
+                          sx={{ ml: 2 }}
+                          onClick={() => handleDelete(pub._id)}
+                        >
+                          Delete
+                        </Button>
+                      </ListItem>
+                    )
+                  ))}
+                </List>
+              ) : (
+                <Typography>No publications found.</Typography>
+              )}
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 

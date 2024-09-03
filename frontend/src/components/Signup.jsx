@@ -2,15 +2,19 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Signup = () => {
   //role, email, name, password, department
+  const { t } = useTranslation();
+  const signup = t("auth");
   const [values, setValues] = useState({
     name: "",
     email: "",
     password: "",
     role: "",
     department: "",
+    type: "user",
   });
   const [courses, setCourses] = useState([]);
 
@@ -38,7 +42,7 @@ const Signup = () => {
         <div className="container-fluid h-100">
           <div className="row h-100 align-items-center justify-content-center text-center">
             <div className="col-lg-8 align-self-end mb-4 page-title">
-              <h3 className="text-white">Create Account</h3>
+              <h3 className="text-white">{signup["title"]}</h3>
               <hr className="divider my-4" />
             </div>
           </div>
@@ -53,7 +57,7 @@ const Signup = () => {
                   <form onSubmit={handleSubmit} id="create_account">
                     <div className="form-group">
                       <label htmlFor="name" className="control-label">
-                        Name
+                        {signup["name"]}
                       </label>
                       <input
                         onChange={(e) =>
@@ -68,7 +72,7 @@ const Signup = () => {
                     </div>
                     <div className="form-group">
                       <label htmlFor="email" className="control-label">
-                        Email
+                        {signup["email"]}
                       </label>
                       <input
                         onChange={(e) =>
@@ -83,7 +87,7 @@ const Signup = () => {
                     </div>
                     <div className="form-group">
                       <label htmlFor="password" className="control-label">
-                        Password
+                        {signup["password"]}
                       </label>
                       <input
                         onChange={(e) =>
@@ -98,7 +102,7 @@ const Signup = () => {
                     </div>
                     <div className="form-group">
                       <label htmlFor="department" className="control-label">
-                        Department
+                        {signup["dept"]}
                       </label>
                       <select
                         onChange={(e) =>
@@ -126,7 +130,7 @@ const Signup = () => {
                     </div>
                     <div className="form-group">
                       <label htmlFor="userType" className="control-label">
-                        Role
+                        {signup["role"]}
                       </label>
                       <select
                         onChange={(e) =>
@@ -148,31 +152,7 @@ const Signup = () => {
                         </option>
                       </select>
                     </div>
-                    {values.userType === "alumnus" && (
-                      <div className="form-group">
-                        <label htmlFor="course_id" className="control-label">
-                          Course
-                        </label>
-                        <select
-                          onChange={(e) =>
-                            setValues({ ...values, course_id: e.target.value })
-                          }
-                          className="form-control select2"
-                          name="course_id"
-                          required
-                          value={values.course_id}
-                        >
-                          <option disabled value="">
-                            Select course
-                          </option>
-                          {courses.map((c) => (
-                            <option key={c.id} value={c.id}>
-                              {c.course}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    )}
+
                     <hr className="divider" />
                     <div className="row justify-content-center">
                       <div className="col-md-6 text-center">
@@ -180,7 +160,7 @@ const Signup = () => {
                           type="submit"
                           className="btn btn-info btn-block"
                         >
-                          Create Account
+                          {signup["createAcc"]}
                         </button>
                       </div>
                     </div>

@@ -28,8 +28,7 @@
 - [Applications](#applications)
 - [Project Setup](#project-setup)
 - [Usage](#usage)
-- [Team Members](#team-members)
-- [Mentors](#mentors)
+- [Contributors](#team-members)
 - [Screenshots](#screenshots)
 
 </details>
@@ -37,7 +36,11 @@
 
 ## 📝Description
 
+**AutoReportAI** is a comprehensive platform designed to streamline the process of generating annual reports for educational institutions. This solution centralizes the management of educational records, enabling the efficient submission, review, and approval of academic data, research publications, conference participation, and extracurricular activities.
 
+Our platform leverages the MERN stack to create a responsive and dynamic web application, while advanced technologies like CrewAI and Llama3-70b-8192 enhance the accuracy and efficiency of report generation. Department coordinators, faculty, and students can seamlessly interact within the system, with department coordinators reviewing submissions and admins overseeing the entire process, including automated report generation.
+
+By integrating powerful data retrieval and optimization APIs, AutoReportAI ensures that institutions can manage their records with precision, ultimately enhancing operational efficiency and data accuracy.
 
 
 ## 🔗Links
@@ -94,6 +97,9 @@
 
 
 ## 📱Screenshots
+
+
+## 📱Contributors
 
 
 ## Contributing

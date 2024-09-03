@@ -75,7 +75,6 @@ function App() {
 function AppRouter() {
   const action = useNavigationType();
   const location = useLocation();
-
   const pathname = location.pathname;
 
   useEffect(() => {

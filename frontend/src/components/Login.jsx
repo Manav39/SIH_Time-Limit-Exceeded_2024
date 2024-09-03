@@ -3,9 +3,12 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import { useAuth } from "../AuthContext";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
   const { login } = useAuth();
+  const { t } = useTranslation();
+  const log = t("auth");
   const [values, setValues] = useState({
     User: "",
     email: "",
@@ -37,6 +40,7 @@ const Login = () => {
           localStorage.setItem("dept", res.data.user.department);
           localStorage.setItem("name", res.data.user.name);
           navigate("/");
+          window.location.reload();
           toast.success("Login Successfull");
         }
       })
@@ -55,7 +59,7 @@ const Login = () => {
         <div className="container-fluid h-100">
           <div className="row h-100 align-items-center justify-content-center text-center">
             <div className="col-lg-8 align-self-end mb-4 page-title">
-              <h3 className="text-white">Login Account</h3>
+              <h3 className="text-white">{log["loginTitle"]}</h3>
               <hr className="divider my-4" />
               <div className="col-md-12 mb-2 justify-content-center"></div>
             </div>
@@ -71,7 +75,7 @@ const Login = () => {
                   <form onSubmit={handleSubmit} id="login-frm">
                     <div className="form-group">
                       <label htmlFor="userType" className="control-label">
-                        Role
+                        {log["role"]}
                       </label>
                       <select
                         onChange={(e) =>
@@ -95,7 +99,7 @@ const Login = () => {
                     </div>
                     <div className="form-group">
                       <label htmlFor="email" className="control-label">
-                        Email
+                        {log["email"]}
                       </label>
                       <input
                         onChange={(e) =>
@@ -110,7 +114,7 @@ const Login = () => {
                     </div>
                     <div className="form-group">
                       <label htmlFor="password" className="control-label">
-                        Password
+                        {log["password"]}
                       </label>
                       <input
                         onChange={(e) =>
@@ -124,8 +128,8 @@ const Login = () => {
                       />
                       <div className="text-danger mt-2">{errors && errors}</div>
                       <small className="mt-2 text-muted ">
-                        Don't have an account?{" "}
-                        <Link to="/signup">Sign up here</Link>
+                        {log["donthaveaccount"]}{" "}
+                        <Link to="/signup">{log["here"]}</Link>
                       </small>
                     </div>
                     <hr className="divider" />
@@ -135,7 +139,7 @@ const Login = () => {
                           type="submit"
                           className="btn btn-info btn-block"
                         >
-                          Login
+                          {log["login"]}
                         </button>
                       </div>
                     </div>
