@@ -1,9 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import logo from "../assets/uploads/logo.png";
+import { useTranslation } from "react-i18next";
 
 const About = () => {
   const [system, setSystem] = useState([]);
+  const { t } = useTranslation();
+  const about = t("about");
 
   useEffect(() => {
     axios
@@ -29,14 +32,11 @@ const About = () => {
               }}
             >
               <h2 className="text-uppercase text-white font-weight-bold">
-                About Us
+                {about["title"]}
               </h2>
               <hr className="divider my-4" />
               <p className="text-white-75 text-light mb-5">
-              The platform's features—including user authentication, achievement submission, review workflows, notifications, and automatic reporting—are well-aligned with operational requirements, effectively enhancing the management of educational records.
-              Efficiently manages educational records through a unified platform with streamlined submission, review, and reporting processes.
-              Generates reports with real-time data integration, reducing manual effort and enhancing accuracy.
-              
+                {about["description"]}
               </p>
             </div>
           </div>

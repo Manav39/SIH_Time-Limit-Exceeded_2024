@@ -7,8 +7,13 @@ import { FaCalendar, FaTimes } from "react-icons/fa";
 import { useAuth } from "../AuthContext";
 import { useTheme } from "../ThemeContext";
 import campus from "../assets/uploads/campus.jpg";
+import { useTranslation } from "react-i18next";
 const Home = () => {
   const { theme } = useTheme();
+  const { t } = useTranslation();
+  const features = t("features");
+  const home = t("home");
+  console.log(features);
   const { isLoggedIn, isAdmin } = useAuth();
   const [events, setEvents] = useState([]);
   const location = useLocation();
@@ -18,7 +23,7 @@ const Home = () => {
     if (isLoggedIn) {
       const user_name = localStorage.getItem("user_name");
       if (location.state && location.state.action === "homelogin") {
-        toast.success(Welcome ${user_name});
+        toast.success(`Welcome ${user_name}`);
       }
     }
     if (location.state && location.state.action === "homelogout") {
@@ -61,7 +66,7 @@ const Home = () => {
       <header
         className="masthead"
         style={{
-          backgroundImage: url(${campus}),
+          backgroundImage: `url(${campus})`,
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
@@ -72,24 +77,24 @@ const Home = () => {
           <div className="row h-100 align-items-center justify-content-center">
             <div className="col-lg-8  text-center">
               <h1 className="text-white font-weight-bold display-3 mb-4">
-                Automated and Integrated Report Portal
+                {home["title"]}
               </h1>
               <p className="text-white-75 font-weight-bold lead mb-5">
-                Creating dynamic reports on the fly
+                {home["description"]}
               </p>
               {!isAdmin && (
                 <Link className="btn btn-primary btn-xl" to="about">
-                  Find Out More
+                  {home["button1"]}
                 </Link>
               )}
               {!isLoggedIn && (
                 <Link className="btn btn-info  ms-2   btn-xl" to="login">
-                  Login
+                  {home["button2"]}
                 </Link>
               )}
               {isLoggedIn && isAdmin && (
                 <Link className="btn btn-primary btn-xl" to="dashboard">
-                  Admin Dashboard
+                  {home["button3"]}
                 </Link>
               )}
               {isLoggedIn && !isAdmin && (
@@ -102,12 +107,14 @@ const Home = () => {
         </div>
       </header>
 
-      <section className={page-section bg-${theme}} id="alumni-benefits">
+      <section className={`page-section bg-${theme}`} id="alumni-benefits">
         <div className="container">
           <div className="text-center">
-            <h2 className="section-heading text-uppercase">Our Features</h2>
+            <h2 className="section-heading text-uppercase">
+              {features["title"]}
+            </h2>
             <h3 className=" card-title text-muted">
-            Efficiently manages educational records through a unified platform with streamlined submission, review, and reporting processes.
+              {features["description"]}
             </h3>
           </div>
           <div className="row">
@@ -115,7 +122,7 @@ const Home = () => {
               <div className="card h-100 benefit-card">
                 <div className="card-body text-center">
                   <FiClipboard size={40} className="mb-3 text-primary" />
-                  <h4 className="card-title">Centralised and Automated Solutions</h4>
+                  <h4 className="card-title">{features["card1"]}</h4>
                   {/* <p className="card-text">
                     Get assistance with your career goals.
                   </p> */}
@@ -126,7 +133,7 @@ const Home = () => {
               <div className="card h-100 benefit-card">
                 <div className="card-body text-center">
                   <FiBook size={40} className="mb-3 text-primary" />
-                  <h4 className="card-title">Automated Reporting</h4>
+                  <h4 className="card-title"> {features["card2"]}</h4>
                   {/* <p className="card-text">Access to the alumni library.</p> */}
                 </div>
               </div>
@@ -135,7 +142,7 @@ const Home = () => {
               <div className="card h-100 benefit-card">
                 <div className="card-body text-center">
                   <FiTool size={40} className="mb-3 text-primary" />
-                  <h4 className="card-title">Data Integration</h4>
+                  <h4 className="card-title"> {features["card3"]}</h4>
                   {/* <p className="card-text">Access to sports facilities.</p> */}
                 </div>
               </div>
@@ -144,7 +151,7 @@ const Home = () => {
               <div className="card h-100 benefit-card">
                 <div className="card-body text-center">
                   <FiUsers size={40} className="mb-3 text-primary  " />
-                  <h4 className="card-title">AI report generation and summary</h4>
+                  <h4 className="card-title">{features["card4"]}</h4>
                   {/* <p className="card-text">Connect with fellow alumni.</p> */}
                 </div>
               </div>
@@ -153,7 +160,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* <section className={py-4 bg-${theme}} id="upcoming-events">
+      {/* <section className={`py-4 bg-${theme}`} id="upcoming-events">
         <div className="container">
           <h2 className="section-heading text-center">Upcoming Events</h2>
           <hr className="divider my-4" />

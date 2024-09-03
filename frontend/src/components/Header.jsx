@@ -7,10 +7,14 @@ import { useAuth } from "../AuthContext";
 import { useTheme } from "../ThemeContext";
 import axios from "axios";
 import { Fade as Hamburger } from "hamburger-react";
+import LanguageSelector from "./language-detector";
+import { useTranslation } from "react-i18next";
 
 const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { t } = useTranslation();
+  const navbar = t("navbar");
   const { theme, toggleTheme } = useTheme();
   const { logout, isLoggedIn, isAdmin } = useAuth();
 
@@ -68,13 +72,14 @@ const Header = () => {
             id="navbarResponsive"
           >
             <ul className="navbar-nav ml-auto my-2 my-lg-0">
+              <LanguageSelector />
               <li className="nav-item">
                 <Link
                   onClick={toggleMenu}
                   className={`nav-link js-scroll-trigger ${isActive("/")}`}
                   to="/"
                 >
-                  Home
+                  {navbar["opt1"]}
                 </Link>
               </li>
               {/* <li className="nav-item">
@@ -119,6 +124,7 @@ const Header = () => {
                   Donate
                 </Link>
               </li> */}
+
               <li className="nav-item">
                 <Link
                   onClick={toggleMenu}
@@ -127,7 +133,7 @@ const Header = () => {
                   )}`}
                   to="/forums"
                 >
-                  Forums
+                  {navbar["opt2"]}
                 </Link>
               </li>
               <li className="nav-item">
@@ -136,7 +142,7 @@ const Header = () => {
                   className={`nav-link js-scroll-trigger ${isActive("/about")}`}
                   to="/about"
                 >
-                  About
+                  {navbar["opt3"]}
                 </Link>
               </li>
               {isLoggedIn ? (
@@ -151,7 +157,7 @@ const Header = () => {
                     to="/login"
                     id="login"
                   >
-                    Login
+                    {navbar["opt4"]}
                   </Link>
                 </li>
               )}
