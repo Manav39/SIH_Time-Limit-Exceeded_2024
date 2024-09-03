@@ -1,6 +1,6 @@
-import i18n from "i18next";
-import LanguageDetector from "i18next-browser-languagedetector";
-import { initReactI18next } from "react-i18next";
+import i18n from 'i18next'
+import LanguageDetector from 'i18next-browser-languagedetector'
+import { initReactI18next } from 'react-i18next'
 
 i18n
   .use(LanguageDetector)
@@ -66,6 +66,23 @@ i18n
             departments: 'Departments',
             users: 'Users',
           },
+          'Dashboard.js': {
+            Dashboard: 'Dashboard',
+            Alumni: 'Alumni',
+            Total: 'Total',
+            'Forum Topics': 'Forum Topics',
+            'Posted Jobs': 'Posted Jobs',
+            Now: 'Now',
+            'Upcoming Events': 'Upcoming Events',
+            'Amount Donated': 'Amount Donated',
+            Courses: 'Courses',
+            Admin: 'Admin',
+            Report: 'Report',
+            Events: 'Events',
+            Publications: 'Publications',
+            Departments: 'Departments',
+            Users: 'Users',
+          },
         },
       },
       hi: {
@@ -122,6 +139,23 @@ i18n
             publications: 'प्रकाशन',
             departments: 'विभाग',
             users: 'उपयोगकर्ता',
+          },
+          'Dashboard.js': {
+            Dashboard: 'डैशबोर्ड',
+            Alumni: 'पूर्व छात्र',
+            Total: 'कुल',
+            'Forum Topics': 'फोरम विषय',
+            'Posted Jobs': 'प्रकाशित नौकरियां',
+            Now: 'अब',
+            'Upcoming Events': 'आगामी कार्यक्रम',
+            'Amount Donated': 'दान राशि',
+            Courses: 'पाठ्यक्रम',
+            Admin: 'प्रशासन',
+            Report: 'रिपोर्ट',
+            Events: 'कार्यक्रम',
+            Publications: 'प्रकाशन',
+            Departments: 'विभाग',
+            Users: 'उपयोगकर्ता',
           },
         },
       },
@@ -180,9 +214,26 @@ i18n
             departments: 'विभाग',
             users: 'वापरकर्ते',
           },
+          'Dashboard.js': {
+            Dashboard: 'डॅशबोर्ड',
+            Alumni: 'माजी विद्यार्थी',
+            Total: 'एकूण',
+            'Forum Topics': 'मंच विषय',
+            'Posted Jobs': 'पोस्ट केलेल्या नोकर्‍या',
+            Now: 'आता',
+            'Upcoming Events': 'आगामी कार्यक्रम',
+            'Amount Donated': 'दान केलेली रक्कम',
+            Courses: 'कोर्सेस',
+            Admin: 'प्रशासन',
+            Report: 'अहवाल',
+            Events: 'कार्यक्रम',
+            Publications: 'प्रकाशने',
+            Departments: 'विभाग',
+            Users: 'वापरकर्ते',
+          },
         },
       },
     },
   })
 
-export default i18n;
+export default i18n
