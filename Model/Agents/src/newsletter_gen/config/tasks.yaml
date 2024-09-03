@@ -1,0 +1,94 @@
+research_task:
+  description: >
+    Conduct a thorough review of all academic activities and publications within the institute. Focus on significant achievements, research papers, conferences, seminars, workshops, collaborations, and any other academic events that occurred. Ensure that the sources of information are accurate, relevant, and directly related to the academic progress of the institute.
+
+    Follow these rules:
+    - Only include activities and publications that are directly related to the academic progress of the institute.
+    - Exclude irrelevant activities or those not directly related to academics.
+    - Summarize each event or publication succinctly, ensuring all important details are included.
+    - Include a minimum of 7 and a maximum of 10 academic activities or publications in the report.
+    - Ensure the accuracy of dates, names, and references.
+
+    IMPORTANT INSTRUCTIONS ABOUT USING TOOLS: When using tools, DO NOT ESCAPE the underscore character "_", EVER. If you need to use a tool and pass in a parameter called 'search_query', you should write 'search_query', not 'search\_query'. THIS IS VERY IMPORTANT, else the tool will not work.
+
+  expected_output: >
+    A markdown document with a summary of the most relevant academic activities and publications. Each entry should contain the following:
+    - Title of the activity/publication
+    - Summary of the event/publication
+    - Date and location (if applicable)
+    - URL or reference to the source (if applicable)
+
+    Example format:
+    <EXAMPLE>
+      Entry 1:
+      - Title: **Research Paper on AI in Education Published**
+      - **Summary:** The Department of Computer Science published a groundbreaking research paper on the applications of AI in education. The paper discusses innovative methods to integrate AI into teaching practices.
+      - **Date:** March 2024
+      - **Location:** Journal of Educational Technology
+      - **URL:** [Journal Link](https://example.com/paper)
+
+      [... more entries ...]
+    </EXAMPLE>
+
+edit_task:
+  description: >
+    Review the list of academic activities and publications that will be included in the report. Your tasks are:
+    
+    - Enhance the title of each entry to ensure it accurately reflects the importance of the event/publication.
+    - Add a paragraph explaining the significance of each activity/publication and its impact on the institute or the academic community.
+    - Reorder the entries, placing the most significant and impactful at the top of the list.
+    - Verify the accuracy of dates, names, and references. Remove or correct any inaccuracies.
+    - Ensure all entries are directly related to the academic focus of the report. Remove off-topic entries if necessary.
+
+    IMPORTANT INSTRUCTIONS ABOUT USING TOOLS: When using tools, DO NOT ESCAPE the underscore character "_", EVER. If you need to use a tool and pass in a parameter called 'search_query', you should write 'search_query', not 'search\_query'. THIS IS VERY IMPORTANT, else the tool will not work.
+
+  expected_output: >
+    A markdown document with the finalized list of academic activities and publications to be included in the report. Each entry should include:
+    - Title:
+    - Summary: 
+    - Significance:
+    - Date and location:
+    - Reference or URL (if applicable)
+
+    Example format:
+    <EXAMPLE>
+    Title of the report: Annual Academic Achievements
+
+      - **Title:** Breakthrough in AI for Education
+        **Summary:** The Department of Computer Science published a research paper that explores innovative methods for integrating AI into education. The paper has been recognized internationally for its contributions to the field.
+        **Significance:** This research positions the institute as a leader in the application of AI to educational practices, potentially influencing curriculum design across the globe.
+        **Date and Location:** March 2024, Journal of Educational Technology
+        **Reference:** [Journal Link](https://example.com/paper)
+
+        [... more entries ...]
+    </EXAMPLE>
+
+newsletter_task:
+  description: >
+    Compile the final academic report using the provided information. Include a personal message from the dean or head of the institute in the space provided. The report should be comprehensive and well-organized, covering all significant academic activities.
+
+    {personal_message}
+
+    (If there is no personal message, leave the space empty.)
+    
+    Follow these rules:
+    - Include all the entries in the correct order as provided by the editor.
+    - Do not modify or truncate the information.
+    - Ensure that the formatting is consistent and professional.
+    - Include any personal messages at the beginning of the report.
+    - Do not add any additional information beyond what has been provided.
+
+    {html_template}
+
+  expected_output: >
+    Return ONLY the contents of the report template, properly formatted as a professional academic report. Ensure all entries are included as provided, without any modifications.
+
+    Example format:
+    <EXAMPLE>
+    [Insert Personal Message from the Dean]
+
+    Title: Annual Academic Report for [Institute Name]
+
+    [... Content ...]
+
+    </EXAMPLE>

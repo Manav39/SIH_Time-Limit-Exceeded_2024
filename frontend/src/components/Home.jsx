@@ -67,6 +67,7 @@ const Home = () => {
         className="masthead"
         style={{
           backgroundImage: `url(${campus})`,
+          backgroundImage: `url(${campus})`,
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",

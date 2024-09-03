@@ -28,8 +28,7 @@
 - [Applications](#applications)
 - [Project Setup](#project-setup)
 - [Usage](#usage)
-- [Team Members](#team-members)
-- [Mentors](#mentors)
+- [Contributors](#team-members)
 - [Screenshots](#screenshots)
 
 </details>
@@ -98,6 +97,9 @@ By integrating powerful data retrieval and optimization APIs, AutoReportAI ensur
 
 
 ## 📱Screenshots
+
+
+## 📱Contributors
 
 
 ## Contributing
