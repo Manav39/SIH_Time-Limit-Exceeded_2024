@@ -8,6 +8,8 @@ module.exports = ({
     publications = [],
     events = [],
     achievements = [],
+    studentAchievements = [],
+    extracurriculars = [],
   }) => {
     const today = new Date();
     const formattedDate = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
@@ -307,6 +309,76 @@ module.exports = ({
                       (achievement) => `
                   <tr class="item">
                     <td>${achievement}</td>
+                  </tr>`
+                    )
+                    .join('')}
+                </tbody>
+              </table>
+            </div>
+
+            <div class="page-break"></div>
+            <br />
+
+            <!-- Student Achievements -->
+            <div class="section">
+              <img
+                  src="https://vjti.ac.in/wp-content/uploads/elementor/thumbs/Hackathon-1-qquq2jpq5n7fxjoof62q2mk3fkefxsnqxvoz4bpeq2.png"
+                  class="cover-image"
+                  alt="VJTI Main Gate"
+                />
+              <h2>Student Achievements</h2>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Student Name</th>
+                    <th>Student Achievement</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${studentAchievements
+                    .map(
+                      (achievement, index) => `
+                  <tr class="item">
+                    <td>${index + 1}</td>
+                    <td>${achievement.name}</td>
+                    <td>${achievement.achievement}</td>
+                  </tr>`
+                    )
+                    .join('')}
+                </tbody>
+              </table>
+            </div>
+
+            <div class="page-break"></div>
+            <br />
+
+            <!-- Extracurricular Activities -->
+            <div class="section">
+              <img
+                  src="https://vjti.ac.in/wp-content/uploads/elementor/thumbs/pratibimb-featuredimg-qquq2oespxrrlh7cadjp3cttdoq6ouri90ls4mv4z8.png"
+                  class="cover-image"
+                  alt="VJTI Main Gate"
+                />
+              <h2>Extracurricular Activities</h2>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Activity</th>
+                    <th>Student Name</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${extracurriculars
+                    .map(
+                      (activity, index) => `
+                  <tr class="item">
+                    <td>${index + 1}</td>
+                    <td>${activity.activity}</td>
+                    <td>${activity.student}</td>
+                    <td>${activity.description}</td>
                   </tr>`
                     )
                     .join('')}

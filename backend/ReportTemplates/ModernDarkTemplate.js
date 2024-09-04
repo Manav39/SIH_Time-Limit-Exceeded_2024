@@ -7,7 +7,9 @@ module.exports = ({
   departments = [],
   publications = [],
   events = [],
-  achievements = []
+  achievements = [],
+  studentAchievements = [],
+  extracurriculars = [],
 }) => {
 
   const today = new Date();
@@ -120,6 +122,11 @@ module.exports = ({
             color: #00bfa6;
             text-decoration: none;
           }
+          .footer-end {
+            background-color: #1e1e2f; 
+            height: 100%; 
+            width: 100%;
+          }
           .download-button {
             display: inline-block;
             padding: 15px 30px;
@@ -133,6 +140,11 @@ module.exports = ({
             cursor: pointer;
             margin-top: 30px;
             border: none;
+          }
+          titleImage: {
+            width: "100%",
+            borderRadius: "10px",
+            margin: "20px 0",
           }
         </style>
       </head>
@@ -312,6 +324,72 @@ module.exports = ({
             </ul>
           </div>
 
+          <div class="page-break"></div>
+          <br/>
+
+          <!-- Student Achievements -->
+          <div class="section">
+          <img
+              src="https://vjti.ac.in/wp-content/uploads/elementor/thumbs/Hackathon-1-qquq2jpq5n7fxjoof62q2mk3fkefxsnqxvoz4bpeq2.png"
+              alt="VJTI Cover"
+              class="cover-image"
+            />
+            <h2 class="section-title">Student Achievements</h2>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="table-header">#</th>
+                  <th class="table-header">Student Name</th>
+                  <th class="table-header">Achievement</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${studentAchievements.map((achievement, index) => `
+                  <tr class="table-row">
+                    <td class="table-data">${index + 1}</td>
+                    <td class="table-data">${achievement.name}</td>
+                    <td class="table-data">${achievement.achievement}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="page-break"></div>
+          <br/>
+
+          <!-- Extracurricular Activities -->
+          <div class="section">
+          <img
+              src="https://vjti.ac.in/wp-content/uploads/elementor/thumbs/pratibimb-featuredimg-qquq2oespxrrlh7cadjp3cttdoq6ouri90ls4mv4z8.png"
+              alt="VJTI Cover"
+              class="cover-image"
+            />
+            <h2 class="section-title">Extracurricular Activities</h2>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="table-header">#</th>
+                  <th class="table-header">Activity</th>
+                  <th class="table-header">Student Name</th>
+                  <th class="table-header">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${extracurriculars.map((activity, index) => `
+                  <tr class="table-row">
+                    <td class="table-data">${index + 1}</td>
+                    <td class="table-data">${activity.activity}</td>
+                    <td class="table-data">${activity.student}</td>
+                    <td class="table-data">${activity.description}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+
+          <br/>
+
           <!-- Footer -->
           <div class="footer">
             <p>&copy; 2024 Veermata Jijabai Technological Institute. All rights reserved.</p>
@@ -320,6 +398,8 @@ module.exports = ({
               Website: <a href="https://vjti.ac.in" style="color: #00bfa6; text-decoration: none;">www.vjti.ac.in</a>
             </p>
           </div>
+
+          <div class="footer-end"></div>
 
         </div>
       </body>

@@ -106,6 +106,26 @@ const AnnualReport = () => {
       "Our team won the first prize in the RoboMasters Competition 2024 held in China and secured top positions in the Smart India Hackathon.",
       "Completed the construction of the new Innovation Hub, featuring state-of-the-art laboratories and collaborative spaces.",
       "Achieved a 90% placement rate for the graduating class of 2024, with notable recruiters including JPMC, Citi, Microsoft, Google"
+    ],
+    studentAchievements: [
+      { name: 'Aarti Patel', achievement: 'Won the Gold Medal in International Mathematics Olympiad 2024.' },
+      { name: 'Ravi Sharma', achievement: 'Secured the First Place in National Coding Competition 2024.' },
+      { name: 'Sneha Desai', achievement: 'Awarded Best Paper Presentation at the International Conference on Renewable Energy.' },
+      { name: 'Amit Kumar', achievement: 'Recognized as the Best Student Entrepreneur in the University Start-up Contest.' },
+      { name: 'Priya Gupta', achievement: 'Received the National Scholarship for Excellence in Engineering Studies.' },
+      { name: 'Nikhil Rathi', achievement: 'Achieved the Best Research Project Award in the Annual Science Fair.' },
+      { name: 'Neha Singh', achievement: 'Won the Gold Medal in All-India Debate Competition 2024.' },
+      { name: 'Rajesh Verma', achievement: 'Secured Top Rank in National Robotics Challenge.' }
+    ],
+    extracurriculars: [
+      { activity: 'President of the Student Council', student: 'Ravi Sharma', description: 'Led the student council in organizing campus events and improving student engagement.' },
+      { activity: 'Founder of Tech Club', student: 'Sneha Desai', description: 'Initiated and managed various tech workshops and guest lectures for the student body.' },
+      { activity: 'Editor of the College Magazine', student: 'Aarti Patel', description: 'Oversaw the publication and content creation for the college magazine.' },
+      { activity: 'Captain of the College Football Team', student: 'Amit Kumar', description: 'Led the team to victory in the inter-college football championship.' },
+      { activity: 'Volunteer at the Annual Science Fair', student: 'Priya Gupta', description: 'Coordinated with participants and assisted in the smooth execution of the science fair.' },
+      { activity: 'Coordinator of the Environment Club', student: 'Nikhil Rathi', description: 'Organized various environmental awareness programs and sustainability initiatives on campus.' },
+      { activity: 'Head of the Cultural Fest Committee', student: 'Neha Singh', description: 'Managed the organization and execution of the annual cultural fest.' },
+      { activity: 'Member of the University Debate Team', student: 'Rajesh Verma', description: 'Participated in national debate competitions and won accolades for the team.' }
     ]
   });
 
