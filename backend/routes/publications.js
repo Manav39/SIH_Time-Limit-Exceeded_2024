@@ -6,11 +6,17 @@ const DepartmentCoordinator = require("../models/DeptCoord");
 // Create a new publication
 router.post("/addpublication", async (req, res) => {
   try {
-    const { title, date, authors, description, department, url } = req.body;
-    const publication = new Publication({ title, date, authors, description, url });
+    const { title, date, authors, description, url } = req.body;
+    const publication = new Publication({
+      title,
+      date,
+      authors,
+      description,
+      url,
+    });
     await publication.save();
     const coordinator = await DepartmentCoordinator.findOne({
-      department: department,
+      department: "CS",
     });
 
     console.log(coordinator);

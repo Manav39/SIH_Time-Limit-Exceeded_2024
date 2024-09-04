@@ -18,6 +18,7 @@ const LanguageSelector = () => {
   const selectStyle = {
     padding: "8px", // Slightly reduced padding
     border: "1px solid #666",
+    paddingBotton: "20px",
     borderRadius: "4px",
     backgroundColor: "#000", // Black background
     color: "#fff", // White text

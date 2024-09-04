@@ -85,7 +85,6 @@ const Publications = () => {
     const publicationData = {
       ...values,
       authors: selectedAuthors,
-      department: localStorage.getItem("dept"),
       status: "Pending", // Set initial status as Pending
     };
 
