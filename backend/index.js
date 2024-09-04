@@ -3,6 +3,8 @@ const { connectToMongo } = require("./connect");
 require("dotenv").config();
 const bodyParser = require('body-parser');
 const pdf = require('html-pdf');
+const fs = require('fs');
+const path = require('path');
 
 const classicTemplate = require('./ReportTemplates/ClassicTemplate');
 const modernDarkTemplate = require('./ReportTemplates/ModernDarkTemplate');
@@ -28,103 +30,183 @@ app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-// Annual Report
-app.post('/create-pdf-classic', (req, res) => {
-  pdf.create(classicTemplate(req.body), {}).toFile('VJTI_REPORT_CLASSIC.pdf', (err) => {
-      if(err) {
-          res.send(Promise.reject());
-      }
-      res.send(Promise.resolve());
+const reportsDirectory = path.join(__dirname, '');
+app.use('/reports', express.static(reportsDirectory));
+
+app.get('/reports-history', (req, res) => {
+  fs.readdir(reportsDirectory, (err, files) => {
+    if (err) {
+      return res.status(500).json({ error: 'Failed to list files' });
+    }
+
+    const reportFiles = files.map(file => ({
+      fileName: file,
+      path: path.join(reportsDirectory, file),
+      date: fs.statSync(path.join(reportsDirectory, file)).mtime.toLocaleDateString()
+    }));
+
+    res.json(reportFiles);
   });
 });
-app.get('/fetch-pdf-classic', (req, res) => { res.sendFile(`${__dirname}/VJTI_REPORT_CLASSIC.pdf`) })
+
+app.post('/create-pdf-classic', (req, res) => {
+  const timestamp = new Date().toISOString().replace(/[-:.]/g, '');
+  const fileName = `VJTI_REPORT_CLASSIC_${timestamp}.pdf`;
+  const filePath = path.join(__dirname, fileName);
+
+  pdf.create(classicTemplate(req.body), {}).toFile(filePath, (err) => {
+      if(err) {
+          res.status(500).send({ error: 'Failed to create PDF' });
+      } else {
+          res.status(200).send({ fileName });
+      }
+  });
+});
+
+app.get('/fetch-pdf-classic/:fileName', (req, res) => {
+  const filePath = path.join(__dirname, req.params.fileName);
+  if (fs.existsSync(filePath)) {
+      res.sendFile(filePath);
+  } else {
+      res.status(404).send({ error: 'File not found' });
+  }
+});
 
 app.post('/create-pdf-modern-dark', (req, res) => {
-  pdf.create(modernDarkTemplate(req.body), {}).toFile('VJTI_REPORT_MODERN_DARK.pdf', (err) => {
+  const timestamp = new Date().toISOString().replace(/[-:.]/g, '');
+  const fileName = `VJTI_REPORT_MODERN_DARK_${timestamp}.pdf`;
+  const filePath = path.join(__dirname, fileName);
+
+  pdf.create(modernDarkTemplate(req.body), {}).toFile(filePath, (err) => {
       if(err) {
-          res.send(Promise.reject());
+          res.status(500).send({ error: 'Failed to create PDF' });
+      } else {
+          res.status(200).send({ fileName });
       }
-      res.send(Promise.resolve());
   });
 });
-app.get('/fetch-pdf-modern-dark', (req, res) => { res.sendFile(`${__dirname}/VJTI_REPORT_MODERN_DARK.pdf`) })
+
+app.get('/fetch-pdf-modern-dark/:fileName', (req, res) => { 
+  const filePath = path.join(__dirname, req.params.fileName);
+  if (fs.existsSync(filePath)) {
+      res.sendFile(filePath);
+  } else {
+      res.status(404).send({ error: 'File not found' });
+  }
+})
 
 // CS Report
 app.post('/create-pdf-cs', (req, res) => {
-  pdf.create(pdfTemplateCs(req.body), {}).toFile('VJTI_REPORT_CS.pdf', (err) => {
-      if(err) {
-          res.send(Promise.reject());
-      }
-      res.send(Promise.resolve());
+  const timestamp = new Date().toISOString().replace(/[-:.]/g, '');
+  const fileName = `VJTI_REPORT_CS_${timestamp}.pdf`;
+  pdf.create(pdfTemplateCs(req.body), {}).toFile(fileName, (err) => {
+    if (err) {
+      return res.status(500).send(Promise.reject());
+    }
+    res.send({ fileName });
   });
 });
-app.get('/fetch-pdf-cs', (req, res) => { res.sendFile(`${__dirname}/VJTI_REPORT_CS.pdf`) })
+app.get('/fetch-pdf-cs/:fileName', (req, res) => {
+  const { fileName } = req.params;
+  res.sendFile(path.join(__dirname, fileName));
+});
 
 // IT Report
 app.post('/create-pdf-it', (req, res) => {
-  pdf.create(pdfTemplateIt(req.body), {}).toFile('VJTI_REPORT_IT.pdf', (err) => {
-      if(err) {
-          res.send(Promise.reject());
-      }
-      res.send(Promise.resolve());
+  const timestamp = new Date().toISOString().replace(/[-:.]/g, '');
+  const fileName = `VJTI_REPORT_IT_${timestamp}.pdf`;
+  pdf.create(pdfTemplateIt(req.body), {}).toFile(fileName, (err) => {
+    if (err) {
+      return res.status(500).send(Promise.reject());
+    }
+    res.send({ fileName });
   });
 });
-app.get('/fetch-pdf-it', (req, res) => { res.sendFile(`${__dirname}/VJTI_REPORT_IT.pdf`) })
+app.get('/fetch-pdf-it/:fileName', (req, res) => {
+  const { fileName } = req.params;
+  res.sendFile(path.join(__dirname, fileName));
+});
 
 // Civil Report
 app.post('/create-pdf-civil', (req, res) => {
-  pdf.create(pdfTemplateCivil(req.body), {}).toFile('VJTI_REPORT_CIVIL.pdf', (err) => {
-      if(err) {
-          res.send(Promise.reject());
-      }
-      res.send(Promise.resolve());
+  const timestamp = new Date().toISOString().replace(/[-:.]/g, '');
+  const fileName = `VJTI_REPORT_CIVIL_${timestamp}.pdf`;
+  pdf.create(pdfTemplateCivil(req.body), {}).toFile(fileName, (err) => {
+    if (err) {
+      return res.status(500).send(Promise.reject());
+    }
+    res.send({ fileName });
   });
 });
-app.get('/fetch-pdf-civil', (req, res) => { res.sendFile(`${__dirname}/VJTI_REPORT_CIVIL.pdf`) })
+app.get('/fetch-pdf-civil/:fileName', (req, res) => {
+  const { fileName } = req.params;
+  res.sendFile(path.join(__dirname, fileName));
+});
 
 // Mech Report
 app.post('/create-pdf-mech', (req, res) => {
-  pdf.create(pdfTemplateMech(req.body), {}).toFile('VJTI_REPORT_MECH.pdf', (err) => {
-      if(err) {
-          res.send(Promise.reject());
-      }
-      res.send(Promise.resolve());
+  const timestamp = new Date().toISOString().replace(/[-:.]/g, '');
+  const fileName = `VJTI_REPORT_MECH_${timestamp}.pdf`;
+  pdf.create(pdfTemplateMech(req.body), {}).toFile(fileName, (err) => {
+    if (err) {
+      return res.status(500).send(Promise.reject());
+    }
+    res.send({ fileName });
   });
 });
-app.get('/fetch-pdf-mech', (req, res) => { res.sendFile(`${__dirname}/VJTI_REPORT_MECH.pdf`) })
+app.get('/fetch-pdf-mech/:fileName', (req, res) => {
+  const { fileName } = req.params;
+  res.sendFile(path.join(__dirname, fileName));
+});
 
 // Electrical Report
 app.post('/create-pdf-electrical', (req, res) => {
-  pdf.create(pdfTemplateElectrical(req.body), {}).toFile('VJTI_REPORT_ELECTRICAL.pdf', (err) => {
-      if(err) {
-          res.send(Promise.reject());
-      }
-      res.send(Promise.resolve());
+  const timestamp = new Date().toISOString().replace(/[-:.]/g, '');
+  const fileName = `VJTI_REPORT_ELECTRICAL_${timestamp}.pdf`;
+  pdf.create(pdfTemplateElectrical(req.body), {}).toFile(fileName, (err) => {
+    if (err) {
+      return res.status(500).send(Promise.reject());
+    }
+    res.send({ fileName });
   });
 });
-app.get('/fetch-pdf-electrical', (req, res) => { res.sendFile(`${__dirname}/VJTI_REPORT_ELECTRICAL.pdf`) })
+app.get('/fetch-pdf-electrical/:fileName', (req, res) => {
+  const { fileName } = req.params;
+  res.sendFile(path.join(__dirname, fileName));
+});
 
 // EXTC Report
 app.post('/create-pdf-extc', (req, res) => {
-  pdf.create(pdfTemplateExtc(req.body), {}).toFile('VJTI_REPORT_EXTC.pdf', (err) => {
-      if(err) {
-          res.send(Promise.reject());
-      }
-      res.send(Promise.resolve());
+  const timestamp = new Date().toISOString().replace(/[-:.]/g, '');
+  const fileName = `VJTI_REPORT_EXTC_${timestamp}.pdf`;
+  pdf.create(pdfTemplateExtc(req.body), {}).toFile(fileName, (err) => {
+    if (err) {
+      return res.status(500).send(Promise.reject());
+    }
+    res.send({ fileName });
   });
 });
-app.get('/fetch-pdf-extc', (req, res) => { res.sendFile(`${__dirname}/VJTI_REPORT_EXTC.pdf`) })
+app.get('/fetch-pdf-extc/:fileName', (req, res) => {
+  const { fileName } = req.params;
+  res.sendFile(path.join(__dirname, fileName));
+});
 
 // PROD Report
 app.post('/create-pdf-prod', (req, res) => {
-  pdf.create(pdfTemplateProd(req.body), {}).toFile('VJTI_REPORT_PROD.pdf', (err) => {
-      if(err) {
-          res.send(Promise.reject());
-      }
-      res.send(Promise.resolve());
+  const timestamp = new Date().toISOString().replace(/[-:.]/g, '');
+  const fileName = `VJTI_REPORT_PROD_${timestamp}.pdf`;
+  pdf.create(pdfTemplateProd(req.body), {}).toFile(fileName, (err) => {
+    if (err) {
+      return res.status(500).send(Promise.reject());
+    }
+    res.send({ fileName });
   });
 });
-app.get('/fetch-pdf-prod', (req, res) => { res.sendFile(`${__dirname}/VJTI_REPORT_PROD.pdf`) })
+app.get('/fetch-pdf-prod/:fileName', (req, res) => {
+  const { fileName } = req.params;
+  res.sendFile(path.join(__dirname, fileName));
+});
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

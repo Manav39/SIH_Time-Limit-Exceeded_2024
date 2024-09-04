@@ -58,6 +58,7 @@ import DepartmentEvent from "./departmentCoordinator/DepartmentEvent";
 import DeptCoordDashboard from "./departmentCoordinator/DeptCoordDashboard";
 import LandingPageV1Desktop from "./landing/pages/LandingPageV1Desktop";
 import Achievements from "./components/user/Achievements";
+import AnnualReportHistory from "./admin/view/AnnualReportHistory";
 
 function App() {
   return (
@@ -158,6 +159,7 @@ function AppRouter() {
             <Route path="/dashboard/jobs" element={<AdminJobs />} />
             <Route path="/dashboard/donations" element={<AdminDonations />} />
             <Route path="/dashboard/report" element={<AnnualReport />} />
+            <Route path="/dashboard/report/history" element={<AnnualReportHistory />} />
             <Route
               path="/dashboard/adminpublications"
               element={<AdminPublications />}

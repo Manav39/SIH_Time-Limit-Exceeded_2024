@@ -122,7 +122,6 @@ const AdminDepartments = () => {
     axios
       .get("http://localhost:8088/departments/alldepartment")
       .then((res) => {
-        console.log(res.data.departments);
         setDepartments(res.data.departments);
         setFilteredDepartments(res.data.departments);
       })
@@ -156,34 +155,43 @@ const AdminDepartments = () => {
   };
 
   const downloadReport = (departmentName) => {
+    let file = '';
     return () => {
-      if(departmentName === "Computer Science") {
+      if (departmentName === "CS") {
         toast.info("Downloading Report");
         axios.post('http://localhost:8088/create-pdf-cs', stateCS)
-        .then(() => axios.get('http://localhost:8088/fetch-pdf-cs', { responseType: 'blob' }))
-        .then((res) => {
-          const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
-          saveAs(pdfBlob, 'VJTI_REPORT_CS.pdf');
-          toast.success("Report Downloaded Successfully");
-        })
-        .catch((err) => {
-          console.log(err);
-          toast.error("Error downloading report");
-        });
+          .then((response) => {
+            const { fileName } = response.data;
+            file = fileName
+            return axios.get(`http://localhost:8088/fetch-pdf-cs/${fileName}`, { responseType: 'blob' });
+          })
+          .then((res) => {
+            const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
+            saveAs(pdfBlob, file);
+            toast.success("Report Downloaded Successfully");
+          })
+          .catch((err) => {
+            console.log(err);
+            toast.error("Error downloading report");
+          });
       }
-      else if(departmentName === "Information Technology") {
+      else if (departmentName === "IT") {
         toast.info("Downloading Report");
         axios.post('http://localhost:8088/create-pdf-it', stateIT)
-        .then(() => axios.get('http://localhost:8088/fetch-pdf-it', { responseType: 'blob' }))
-        .then((res) => {
-          const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
-          saveAs(pdfBlob, 'VJTI_REPORT_IT.pdf');
-          toast.success("Report Downloaded Successfully");
-        })
-        .catch((err) => {
-          console.log(err);
-          toast.error("Error downloading report");
-        });
+          .then((response) => {
+            const { fileName } = response.data;
+            file = fileName;
+            return axios.get(`http://localhost:8088/fetch-pdf-it/${fileName}`, { responseType: 'blob' });
+          })
+          .then((res) => {
+            const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
+            saveAs(pdfBlob, file);
+            toast.success("Report Downloaded Successfully");
+          })
+          .catch((err) => {
+            console.log(err);
+            toast.error("Error downloading report");
+          });
       }
     };
   };

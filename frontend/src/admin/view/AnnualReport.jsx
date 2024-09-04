@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { saveAs } from 'file-saver';
 import { ToastContainer, toast } from "react-toastify";
@@ -6,6 +7,7 @@ import ModernDarkTemplate from "./ModernDarkTemplate";
 import ClassicTemplate from "./ClassicTemplate";
 
 const AnnualReport = () => {
+  const navigate = useNavigate();
   const [state] = useState({
     vision: "To be a globally recognized leader in engineering education, setting benchmarks for academic excellence and research innovation. We aspire to shape future leaders who drive progress and address the world's complex challenges with cutting-edge solutions. Our commitment is to create a dynamic learning environment that fosters creativity, critical thinking, and societal impact. We aim to integrate sustainable practices and interdisciplinary approaches to prepare our students for the demands of a rapidly evolving world.",
     mission: "To provide an exceptional educational experience that combines rigorous academic training with practical, hands-on learning. We are dedicated to advancing knowledge through pioneering research and fostering a culture of curiosity and discovery. Our mission is to empower students with the skills, values, and ethical framework needed to excel in their careers and contribute positively to society. We strive to build strong industry and community partnerships that enhance our educational programs and support our mission of excellence and innovation.",
@@ -107,33 +109,65 @@ const AnnualReport = () => {
     ]
   });
 
+  const styles = {
+    button: {
+      backgroundColor: "#28a745",
+      color: "#fff",
+      padding: "10px 20px",
+      borderRadius: "5px",
+      border: "none",
+      cursor: "pointer",
+      fontSize: "16px",
+      // display: "block",
+      margin: "30px auto",
+      marginRight: "110px",
+      width: "25%",
+    }
+  }
+
   const [selectedTemplate, setSelectedTemplate] = useState("modern-dark");
   const formattedDate = new Date().toLocaleDateString();
 
+  const viewHistory = () => {
+    navigate("/dashboard/report/history");
+  }
 
   const createAndDownloadPdf = () => {
     toast.info("Downloading Report");
-    if(selectedTemplate === 'modern-dark') {
+    
+    const downloadPdf = (fileName) => {
+      axios.get(`http://localhost:8088/fetch-pdf-classic/${fileName}`, { responseType: 'blob' })
+        .then((res) => {
+          const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
+          saveAs(pdfBlob, fileName); 
+          toast.success("Report Downloaded Successfully");
+        })
+        .catch((error) => {
+          toast.error("Failed to download the report");
+          console.error('Error downloading file:', error);
+        });
+    };
+  
+    if (selectedTemplate === 'modern-dark') {
       axios.post('http://localhost:8088/create-pdf-modern-dark', state)
-      .then(() => axios.get('http://localhost:8088/fetch-pdf-modern-dark', { responseType: 'blob' }))
-      .then((res) => {
-        const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
-
-        saveAs(pdfBlob, 'VJTI_REPORT_MODERN_DARK.pdf');
-        toast.success("Report Downloaded Successfully");
-      })
-    }
-    else if(selectedTemplate === 'classic') {
+        .then((response) => {
+          downloadPdf(response.data.fileName);
+        })
+        .catch((error) => {
+          toast.error("Failed to generate the report");
+          console.error('Error generating PDF:', error);
+        });
+    } else if (selectedTemplate === 'classic') {
       axios.post('http://localhost:8088/create-pdf-classic', state)
-      .then(() => axios.get('http://localhost:8088/fetch-pdf-classic', { responseType: 'blob' }))
-      .then((res) => {
-        const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
-
-        saveAs(pdfBlob, 'VJTI_REPORT_CLASSIC.pdf');
-        toast.success("Report Downloaded Successfully");
-      })
+        .then((response) => {
+          downloadPdf(response.data.fileName);
+        })
+        .catch((error) => {
+          toast.error("Failed to generate the report");
+          console.error('Error generating PDF:', error);
+        });
     }
-  }
+  }  
 
   const renderTemplate = () => {
     switch (selectedTemplate) {
@@ -149,7 +183,14 @@ const AnnualReport = () => {
 
   return (
     <>
+    
     <div style={{ textAlign: 'center', margin: '20px', zIndex: 10, position: 'relative' }}>
+      <button
+            style={styles.button}
+            onClick={viewHistory}
+          >
+            View History
+      </button>
       <label style={{ marginRight: '10px', fontSize: '18px', color: '#333' }}>Select Template: </label>
       <div style={{ position: 'relative', display: 'inline-block', width: '200px' }}>
         <select 
@@ -173,6 +214,7 @@ const AnnualReport = () => {
           <option value="classic">Classic</option>
           {/* Add more options for additional templates */}
         </select>
+
         <div style={{
           position: 'absolute',
           top: '50%',
@@ -187,6 +229,7 @@ const AnnualReport = () => {
         </div>
       </div>
     </div>
+    
 
     {renderTemplate()}
 
