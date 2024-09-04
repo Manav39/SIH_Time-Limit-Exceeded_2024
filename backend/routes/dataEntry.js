@@ -5,7 +5,7 @@ const DataEntry = require('../models/DataEntry');
 // Create a new data entry
 router.post('/add-data-entry', async (req, res) => {
     try {
-        const { title, description, verificationLink, submittedBy, department, status } = req.body;
+        const { title, description, verificationLink, submittedBy, department} = req.body;
 
         const dataEntry = new DataEntry({
             title,
@@ -13,7 +13,6 @@ router.post('/add-data-entry', async (req, res) => {
             verificationLink,
             submittedBy,
             department,
-            status
         });
 
         await dataEntry.save();

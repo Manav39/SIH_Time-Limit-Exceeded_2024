@@ -32,6 +32,10 @@ const DataEntrySchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  type:{
+    type:String,
+    default:"achievements",
+  }
   // You can add more fields here as needed
 });
 

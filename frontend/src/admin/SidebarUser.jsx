@@ -1,16 +1,6 @@
 import React from "react";
-import {
-  FaHome,
-  FaUserGraduate,
-  FaUsers,
-  FaImage,
-  FaBriefcase,
-} from "react-icons/fa";
+import { FaHome, FaTrophy, FaChalkboardTeacher, FaUsers, FaComments } from "react-icons/fa";
 import { ImBooks } from "react-icons/im";
-import { IoSettingsSharp, IoCalendar } from "react-icons/io5";
-import { RiSuitcaseFill } from "react-icons/ri";
-import { RiMoneyDollarBoxFill } from "react-icons/ri";
-import { MdForum } from "react-icons/md";
 import { Link, useLocation } from "react-router-dom";
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
@@ -23,28 +13,16 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
   return (
     <aside id="sidebar" className={`sidebar ${isOpen ? "open" : ""}`}>
       <ul className="sidebar-nav" id="sidebar-nav">
-        <li onClick={toggleSidebar} className="nav-item">
-          <Link
-            className={`nav-link ${isActive("/dashboard")}`}
-            to="/dashboard"
-          >
+        {/* <li onClick={toggleSidebar} className="nav-item">
+          <Link className={`nav-link ${isActive("/dashboard")}`} to="/dashboard">
             <FaHome />
             <span className="ms-1">Home</span>
-          </Link>
-        </li>
-        {/* <li onClick={toggleSidebar} className="nav-item">
-          <Link
-            className={`nav-link ${isActive("/dashboard/gallery")}`}
-            to="/dashboard/gallery"
-          >
-            <FaImage />
-            <span className="ms-1">Gallery</span>
           </Link>
         </li> */}
         <li onClick={toggleSidebar} className="nav-item">
           <Link
             className={`nav-link ${isActive("/dashboard/publications")}`}
-            to={"/dashboard/publications"}
+            to="/dashboard/publications"
           >
             <ImBooks />
             <span className="ms-1">Academics</span>
@@ -53,68 +31,22 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         <li onClick={toggleSidebar} className="nav-item">
           <Link
             className={`nav-link ${isActive("/dashboard/achievements")}`}
-            to={"/dashboard/achievements"}
+            to="/dashboard/achievements"
           >
-            <ImBooks />
+            <FaTrophy />
             <span className="ms-1">Extra-curricular</span>
           </Link>
         </li>
         <hr />
-        {/* <li onClick={toggleSidebar} className="nav-item">
-          <Link
-            className={`nav-link ${isActive("/dashboard/alumnilist")}`}
-            to={"/dashboard/alumnilist"}
-          >
-            <FaUserGraduate />
-            <span className="ms-1">Alumni List</span>
-          </Link>
-        </li> */}
-        {/* <li onClick={toggleSidebar} className="nav-item">
-          <Link
-            className={`nav-link ${isActive("/dashboard/jobs")}`}
-            to={"/dashboard/jobs"}
-          >
-            <RiSuitcaseFill />
-            <span className="ms-1">Jobs</span>
-          </Link>
-        </li> */}
-        {/* <li onClick={toggleSidebar} className="nav-item">
-          <Link
-            className={`nav-link ${isActive("/dashboard/donations")}`}
-            to={"/dashboard/donations"}
-          >
-            <RiMoneyDollarBoxFill />
-            <span className="ms-1">Donations</span>
-          </Link>
-        </li> */}
-        {/* <li onClick={toggleSidebar} className="nav-item">
-          <Link
-            className={`nav-link ${isActive("/dashboard/events")}`}
-            to={"/dashboard/events"}
-          >
-            <IoCalendar />
-            <span className="ms-1">Events</span>
-          </Link>
-        </li> */}
         <li onClick={toggleSidebar} className="nav-item">
           <Link
             className={`nav-link ${isActive("/dashboard/forum")}`}
-            to={"/dashboard/forum"}
+            to="/dashboard/forum"
           >
-            <MdForum />
+            <FaComments />
             <span className="ms-1">Forum</span>
           </Link>
         </li>
-        <hr />
-        {/* <li onClick={toggleSidebar} className="nav-item">
-          <Link
-            className={`nav-link ${isActive("/dashboard/users")}`}
-            to={"/dashboard/users"}
-          >
-            <FaUsers />
-            <span className="ms-1">Users</span>
-          </Link>
-        </li> */}
       </ul>
     </aside>
   );

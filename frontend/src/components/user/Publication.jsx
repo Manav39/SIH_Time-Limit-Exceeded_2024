@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
-import { useAuth } from "../../AuthContext";
 import {
   Container,
   Grid,
@@ -15,7 +14,7 @@ import {
   ListItem,
   ListItemText,
   Chip,
-  MenuItem
+  MenuItem,
 } from "@mui/material";
 
 const Publications = () => {
@@ -26,11 +25,11 @@ const Publications = () => {
     title: "",
     date: "",
     description: "",
+    url: "", // Add URL field
   });
 
-
-
-  const { setDC, DC } = useAuth();
+  // Get the current user ID from localStorage
+  const currentUserId = localStorage.getItem("userId");
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -43,15 +42,19 @@ const Publications = () => {
       }
     };
 
-
-
-
     const fetchPublications = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:8088/publications/allpublication"
+        const response = await axios.get("http://localhost:8088/publications/allpublication");
+        const allPublications = response.data;
+
+        console.log("Fetched publications:", allPublications);
+
+        // Filter publications to show only those where the current user is an author
+        const userPublications = allPublications.filter((pub) =>
+          pub.authors.includes(currentUserId)
         );
-        setPublications(response.data);
+
+        setPublications(userPublications);
       } catch (error) {
         console.error("Error fetching publications:", error);
         toast.error("Failed to fetch publications");
@@ -60,21 +63,14 @@ const Publications = () => {
 
     fetchUsers();
     fetchPublications();
-  }, []);
+  }, [currentUserId]);
 
   const handleInputChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
   const handleSelectAuthors = (e) => {
-    const options = e.target.options;
-    const selected = [];
-    for (let i = 0; i < options.length; i++) {
-      if (options[i].selected) {
-        selected.push(options[i].value);
-      }
-    }
-    setSelectedAuthors(selected);
+    setSelectedAuthors(e.target.value);
   };
 
   const handleSubmit = async (e) => {
@@ -92,6 +88,7 @@ const Publications = () => {
         "http://localhost:8088/publications/addpublication",
         publicationData
       );
+      console.log(publicationData);
       toast.success(response.data.message);
 
       // Fetch updated publications after adding a new one
@@ -117,7 +114,7 @@ const Publications = () => {
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toISOString().split('T')[0]; // Returns date in YYYY-MM-DD format
+    return date.toISOString().split("T")[0]; // Returns date in YYYY-MM-DD format
   };
 
   const getStatusButton = (status) => {
@@ -136,12 +133,21 @@ const Publications = () => {
         buttonColor = "default";
     }
     return (
-      <Chip label={status.charAt(0).toUpperCase() + status.slice(1)} color={buttonColor} size="small" />
+      <Chip
+        label={status.charAt(0).toUpperCase() + status.slice(1)}
+        color={buttonColor}
+        size="small"
+      />
     );
   };
 
-
-  console.log("usersss", users);
+  // Helper function to get author names by their IDs
+  const getAuthorNames = (authorIds) => {
+    return authorIds.map(id => {
+      const user = users.find(user => user._id === id);
+      return user ? user.name : "Unknown";
+    }).join(", ");
+  };
 
   return (
     <Container>
@@ -199,6 +205,14 @@ const Publications = () => {
                   margin="normal"
                   required
                 />
+                <TextField
+                  fullWidth
+                  label="URL"
+                  name="url"
+                  value={values.url}
+                  onChange={handleInputChange}
+                  margin="normal"
+                />
                 <Button
                   type="submit"
                   variant="contained"
@@ -218,30 +232,46 @@ const Publications = () => {
             <CardContent>
               {publications.length > 0 ? (
                 <List>
-                  {publications.map((pub) => (
-                    pub.status !== "Approved" && (
-                      <ListItem key={pub._id} divider>
-                        <ListItemText
-                          primary={<Typography variant="body1"><b>Title:</b> {pub.title} | <b>Date:</b> {formatDate(pub.date)} | <b>Status:</b> {getStatusButton(pub.status)}</Typography>}
-                          secondary={
-                            <div>
-                              <Typography variant="body2"><b>Description:</b> {pub.description}</Typography>
-                              <Typography variant="body2"><b>Authors:</b> {pub.authors.join(", ")}</Typography>
-                            </div>
-                          }
-                        />
-                        <Button
-                          variant="contained"
-                          color="error"
-                          size="small"
-                          sx={{ ml: 2 }}
-                          onClick={() => handleDelete(pub._id)}
-                        >
-                          Delete
-                        </Button>
-                      </ListItem>
-                    )
-                  ))}
+                  {publications.map(
+                    (pub) =>
+                      pub.status !== "Approved" && (
+                        <ListItem key={pub._id} divider>
+                          <ListItemText
+                            primary={
+                              <Typography variant="body1">
+                                <b>Title:</b> {pub.title} | <b>Date:</b>{" "}
+                                {formatDate(pub.date)} | <b>Status:</b>{" "}
+                                {getStatusButton(pub.status)}
+                              </Typography>
+                            }
+                            secondary={
+                              <div>
+                                <Typography variant="body2">
+                                  <b>Description:</b> {pub.description}
+                                </Typography>
+                                <Typography variant="body2">
+                                  <b>Authors:</b> {getAuthorNames(pub.authors)}
+                                </Typography>
+                                {pub.url && (
+                                  <Typography variant="body2">
+                                    <b>URL:</b> <a href={pub.url} target="_blank" rel="noopener noreferrer">{pub.url}</a>
+                                  </Typography>
+                                )}
+                              </div>
+                            }
+                          />
+                          <Button
+                            variant="contained"
+                            color="error"
+                            size="small"
+                            sx={{ ml: 2 }}
+                            onClick={() => handleDelete(pub._id)}
+                          >
+                            Delete
+                          </Button>
+                        </ListItem>
+                      )
+                  )}
                 </List>
               ) : (
                 <Typography>No publications found.</Typography>
