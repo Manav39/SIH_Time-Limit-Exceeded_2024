@@ -13,7 +13,7 @@ const Faculties = () => {
       .get("http://localhost:8088/users") // Update endpoint for faculties
       .then((res) => setFaculties(res.data))
       .catch((err) => console.log(err));
-  }, []);
+  }, [faculties]);
 
   const delFaculty = (id) => {
     axios
@@ -95,16 +95,8 @@ const Faculties = () => {
                                 >
                                   View
                                 </button> */}
-                                <Link
-                                  to="/dashboard/faculties/manage"
-                                  state={{ status: "edit", data: faculty }}
-                                  className="btn btn-sm btn-outline-primary"
-                                  type="button"
-                                >
-                                  Edit
-                                </Link>
                                 <button
-                                  onClick={() => delFaculty(faculty.id)}
+                                  onClick={() => delFaculty(faculty._id)}
                                   className="btn btn-sm btn-outline-danger"
                                   type="button"
                                 >
