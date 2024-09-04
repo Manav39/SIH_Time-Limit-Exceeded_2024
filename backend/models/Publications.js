@@ -23,6 +23,10 @@ const PublicationSchema = new mongoose.Schema({
     type:String,
     default:"pending",
     enum:["pending","rejected", "approved"]
+  },
+  url:{
+    type:String,
+    required:true,
   }
 });
 

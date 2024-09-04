@@ -4,7 +4,8 @@ require("dotenv").config();
 const bodyParser = require('body-parser');
 const pdf = require('html-pdf');
 
-const pdfTemplate = require('../backend/ReportTemplates/ReportTemplate');
+const classicTemplate = require('./ReportTemplates/ClassicTemplate');
+const modernDarkTemplate = require('./ReportTemplates/ModernDarkTemplate');
 const pdfTemplateCs = require('../backend/ReportTemplates/CsTemplate');
 const pdfTemplateIt = require('../backend/ReportTemplates/ItTemplate');
 const pdfTemplateCivil = require('../backend/ReportTemplates/CivilTemplate');
@@ -28,15 +29,25 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 // Annual Report
-app.post('/create-pdf', (req, res) => {
-  pdf.create(pdfTemplate(req.body), {}).toFile('VJTI_REPORT.pdf', (err) => {
+app.post('/create-pdf-classic', (req, res) => {
+  pdf.create(classicTemplate(req.body), {}).toFile('VJTI_REPORT_CLASSIC.pdf', (err) => {
       if(err) {
           res.send(Promise.reject());
       }
       res.send(Promise.resolve());
   });
 });
-app.get('/fetch-pdf', (req, res) => { res.sendFile(`${__dirname}/VJTI_REPORT.pdf`) })
+app.get('/fetch-pdf-classic', (req, res) => { res.sendFile(`${__dirname}/VJTI_REPORT_CLASSIC.pdf`) })
+
+app.post('/create-pdf-modern-dark', (req, res) => {
+  pdf.create(modernDarkTemplate(req.body), {}).toFile('VJTI_REPORT_MODERN_DARK.pdf', (err) => {
+      if(err) {
+          res.send(Promise.reject());
+      }
+      res.send(Promise.resolve());
+  });
+});
+app.get('/fetch-pdf-modern-dark', (req, res) => { res.sendFile(`${__dirname}/VJTI_REPORT_MODERN_DARK.pdf`) })
 
 // CS Report
 app.post('/create-pdf-cs', (req, res) => {

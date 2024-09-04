@@ -14,7 +14,7 @@ const Header = ({ className = "" }) => {
               src="/logo-icon.svg"
             />
           </div>
-          <a className={styles.whitepace}>whitepace</a>
+          <a className={styles.whitepace}>Report.ai</a>
         </div>
       </div>
       <div className={styles.menu}>
