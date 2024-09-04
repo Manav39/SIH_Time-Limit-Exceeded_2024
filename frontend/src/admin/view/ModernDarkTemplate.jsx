@@ -94,6 +94,11 @@ export const styles = {
       cursor: 'pointer',
       marginTop: '30px',
     },
+    titleImage: {
+      width: "100%",
+      borderRadius: "10px",
+      margin: "20px 0",
+    },
   };
 
 const ModernDarkTemplate = ({ state, formattedDate, createAndDownloadPdf }) => (
@@ -256,6 +261,72 @@ const ModernDarkTemplate = ({ state, formattedDate, createAndDownloadPdf }) => (
           </li>
         ))}
       </ul>
+    </div>
+
+    <div style={styles.pageBreak}></div>
+    <br/>
+    <br/>
+
+    {/* Student Achievements */}
+    <div style={styles.section}>
+    <img
+        src="https://vjti.ac.in/wp-content/uploads/elementor/thumbs/Hackathon-1-qquq2jpq5n7fxjoof62q2mk3fkefxsnqxvoz4bpeq2.png"
+        alt="MCA Hackathon winners"
+        style={styles.titleImage}
+      />
+      <h2 style={styles.heading}>Student Achievements</h2>
+      <table style={styles.table}>
+        <thead>
+          <tr>
+            <th style={styles.tableHeader}>#</th>
+            <th style={styles.tableHeader}>Student Name</th>
+            <th style={styles.tableHeader}>Achievement</th>
+          </tr>
+        </thead>
+        <tbody>
+          {state.studentAchievements.map((achievement, index) => (
+            <tr key={index}>
+              <td style={styles.tableData}>{index + 1}</td>
+              <td style={styles.tableData}>{achievement.name}</td>
+              <td style={styles.tableData}>{achievement.achievement}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <div style={styles.pageBreak}></div>
+    <br/>
+    <br/>
+
+    {/* Extracurricular Activities */}
+    <div style={styles.section}>
+    <img
+        src="https://vjti.ac.in/wp-content/uploads/elementor/thumbs/pratibimb-featuredimg-qquq2oespxrrlh7cadjp3cttdoq6ouri90ls4mv4z8.png"
+        alt="Pratibimb"
+        style={styles.titleImage}
+      />
+      <h2 style={styles.heading}>Extracurricular Activities</h2>
+      <table style={styles.table}>
+        <thead>
+          <tr>
+            <th style={styles.tableHeader}>#</th>
+            <th style={styles.tableHeader}>Activity</th>
+            <th style={styles.tableHeader}>Student Name</th>
+            <th style={styles.tableHeader}>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {state.extracurriculars.map((activity, index) => (
+            <tr key={index}>
+              <td style={styles.tableData}>{index + 1}</td>
+              <td style={styles.tableData}>{activity.activity}</td>
+              <td style={styles.tableData}>{activity.student}</td>
+              <td style={styles.tableData}>{activity.description}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
 
     {/* Footer */}
