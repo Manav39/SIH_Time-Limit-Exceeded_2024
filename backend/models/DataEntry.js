@@ -9,9 +9,9 @@ const DataEntrySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  verificationLink:{
-    type:String,
-    require:true
+  verificationLink: {
+    type: String,
+    require: true,
   },
   submittedBy: {
     type: mongoose.Schema.Types.ObjectId,
@@ -19,8 +19,8 @@ const DataEntrySchema = new mongoose.Schema({
     required: true,
   },
   department: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Department", // Reference to the Department model
+    type: String,
+    // ref: "Department", // Reference to the Department model
     required: true,
   },
   status: {
@@ -32,10 +32,10 @@ const DataEntrySchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  type:{
-    type:String,
-    default:"achievements",
-  }
+  type: {
+    type: String,
+    default: "achievements",
+  },
   // You can add more fields here as needed
 });
 

@@ -64,6 +64,28 @@ const AdminEvents = () => {
     setFilteredEvents(filtered);
   };
 
+  const handleStatusChange = (id, newStatus) => {
+    axios
+      .patch(`http://localhost:8088/events/updateevent/${id}`, {
+        status: newStatus,
+      })
+      .then((res) => {
+        toast.success(`Event ${newStatus} successfully`);
+        setEvents(
+          events.map((e) => (e._id === id ? { ...e, status: newStatus } : e))
+        );
+        setFilteredEvents(
+          filteredEvents.map((e) =>
+            e._id === id ? { ...e, status: newStatus } : e
+          )
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(`Error updating event status to ${newStatus}`);
+      });
+  };
+
   return (
     <div className="container-fluid">
       <ToastContainer position="top-center" />
@@ -83,16 +105,7 @@ const AdminEvents = () => {
           <div className="col-md-12">
             <div className="card">
               <div className="card-header">
-                <b style={{color: "#007BFF"}}>List of Events</b>
-                {/* <span className="float:right">
-                  <Link
-                    to={"/dashboard/events/manage"}
-                    className="btn btn-primary btn-block btn-sm col-sm-2 float-right"
-                    id="new_event"
-                  >
-                    <FaPlus /> New Entry
-                  </Link>
-                </span> */}
+                <b style={{ color: "#007BFF" }}>List of Events</b>
               </div>
               <div className="card-body">
                 <div className="table-responsive">
@@ -106,7 +119,8 @@ const AdminEvents = () => {
                         <th>Description</th>
                         <th>Department</th>
                         <th>Type</th>
-                        {/* <th className="text-center">Action</th> */}
+                        <th>Status</th>
+                        <th className="text-center">Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -131,21 +145,39 @@ const AdminEvents = () => {
                               <td>{CutContent(event.description, 50)}</td>
                               <td>{event.department}</td>
                               <td>{event.type}</td>
-                              {/* <td className="text-center justify-content-center border-0 d-flex gap-1">
-                                <button
-                                  onClick={() => handleView(event)}
-                                  className="btn btn-sm btn-outline-primary edit_career"
+                              <td>
+                                <span
+                                  className={`badge ${
+                                    event.status === "approved"
+                                      ? "badge-success"
+                                      : event.status === "rejected"
+                                      ? "badge-danger"
+                                      : "badge-warning"
+                                  }`}
                                 >
-                                  View
-                                </button>
-                                <Link
-                                  to="/dashboard/events/manage"
-                                  state={{ status: "edit", data: event }}
-                                  className="btn btn-sm btn-outline-primary"
+                                  {event.status.charAt(0).toUpperCase() +
+                                    event.status.slice(1)}
+                                </span>
+                              </td>
+                              <td className="text-center justify-content-center border-0 d-flex gap-1">
+                                <button
+                                  onClick={() =>
+                                    handleStatusChange(event._id, "approved")
+                                  }
+                                  className="btn btn-sm btn-outline-success"
                                   type="button"
                                 >
-                                  Edit
-                                </Link>
+                                  Approve
+                                </button>
+                                <button
+                                  onClick={() =>
+                                    handleStatusChange(event._id, "rejected")
+                                  }
+                                  className="btn btn-sm btn-outline-danger"
+                                  type="button"
+                                >
+                                  Reject
+                                </button>
                                 <button
                                   onClick={() => delEvent(event._id)}
                                   className="btn btn-sm btn-outline-danger"
@@ -153,13 +185,13 @@ const AdminEvents = () => {
                                 >
                                   Delete
                                 </button>
-                              </td> */}
+                              </td>
                             </tr>
                           ))}
                         </>
                       ) : (
                         <tr>
-                          <td colSpan={8} className="text-center">
+                          <td colSpan={9} className="text-center">
                             No Events Available
                           </td>
                         </tr>

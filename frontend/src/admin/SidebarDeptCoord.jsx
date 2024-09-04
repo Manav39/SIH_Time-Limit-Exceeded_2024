@@ -52,7 +52,7 @@ const SidebarDeptCoord = ({ isOpen, toggleSidebar }) => {
           </Link>
         </li>
 
-        <li onClick={toggleSidebar} className="nav-item">
+        {/* <li onClick={toggleSidebar} className="nav-item">
           <Link
             className={`nav-link ${isActive(
               "/dashboard/deptcoord/pendingrequests"
@@ -62,8 +62,29 @@ const SidebarDeptCoord = ({ isOpen, toggleSidebar }) => {
             <ImBooks />
             <span className="ms-1">Pending Request</span>
           </Link>
+        </li> */}
+        <li onClick={toggleSidebar} className="nav-item">
+          <Link
+            className={`nav-link ${isActive(
+              "/dashboard/deptcoord/publications"
+            )}`}
+            to={"/dashboard/deptcoord/publications"}
+          >
+            <RiSuitcaseFill />
+            <span className="ms-1">Publications</span>
+          </Link>
         </li>
-
+        <li onClick={toggleSidebar} className="nav-item">
+          <Link
+            className={`nav-link ${isActive(
+              "/dashboard/deptcoord/achievements"
+            )}`}
+            to={"/dashboard/deptcoord/achievements"}
+          >
+            <RiSuitcaseFill />
+            <span className="ms-1">Achievements</span>
+          </Link>
+        </li>
         <li onClick={toggleSidebar} className="nav-item">
           <Link
             className={`nav-link ${isActive(

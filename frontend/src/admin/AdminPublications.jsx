@@ -14,25 +14,15 @@ const AdminPublications = () => {
     axios
       .get("http://localhost:8088/publications/allpublication")
       .then((res) => {
-        setPublications(res.data);
-        setFilteredPublications(res.data);
+        // Filter publications to show only those with status 'approved'
+        const approvedPublications = res.data.filter(
+          (pub) => pub.status === "approved"
+        );
+        setPublications(approvedPublications);
+        setFilteredPublications(approvedPublications);
       })
       .catch((err) => console.log(err));
   }, []);
-
-  const getAuthorName = async(id) => {
-    let name = "";
-    axios
-      .get(`http://localhost:8088/${id}`)
-      .then((res) => {
-        name = res.data.user.name;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-      return name;
-  }
 
   const delPublication = (id) => {
     axios
@@ -40,7 +30,9 @@ const AdminPublications = () => {
       .then((res) => {
         toast.success("Publication deleted successfully");
         setPublications(publications.filter((p) => p._id !== id));
-        setFilteredPublications(filteredPublications.filter((p) => p._id !== id));
+        setFilteredPublications(
+          filteredPublications.filter((p) => p._id !== id)
+        );
       })
       .catch((err) => {
         console.log(err);
@@ -62,7 +54,9 @@ const AdminPublications = () => {
   };
 
   const handleView = (publication) => {
-    navigate("/publications/view", { state: { action: "view", data: publication } });
+    navigate("/publications/view", {
+      state: { action: "view", data: publication },
+    });
   };
 
   const handleSearch = (e) => {
@@ -95,7 +89,9 @@ const AdminPublications = () => {
           <div className="col-md-12">
             <div className="card">
               <div className="card-header">
-                <b style={{ color: "#007BFF" }}>List of Publications</b>
+                <b style={{ color: "#007BFF" }}>
+                  List of Approved Publications
+                </b>
               </div>
               <div className="card-body">
                 <div className="table-responsive">
@@ -106,7 +102,6 @@ const AdminPublications = () => {
                         <th>Date</th>
                         <th>Title</th>
                         <th>Description</th>
-                        {/* <th className="text-center">Authors</th> */}
                       </tr>
                     </thead>
                     <tbody>
@@ -118,24 +113,13 @@ const AdminPublications = () => {
                               <td>{formatDate(publication.date)}</td>
                               <td>{publication.title}</td>
                               <td>{CutContent(publication.description, 50)}</td>
-                              {/* <td className="text-center">
-                                {publication.authors && publication.authors.length > 0 ? (
-                                  publication.authors.map((author, i) => (
-                                    <span key={i}>
-                                      {getAuthorName(author)}{i < publication.authors.length - 1 ? ", " : ""}
-                                    </span>
-                                  ))
-                                ) : (
-                                  <span>No Authors</span>
-                                )}
-                              </td> */}
                             </tr>
                           ))}
                         </>
                       ) : (
                         <tr>
                           <td colSpan={5} className="text-center">
-                            No Publications Available
+                            No Approved Publications Available
                           </td>
                         </tr>
                       )}

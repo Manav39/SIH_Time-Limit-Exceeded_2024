@@ -38,8 +38,17 @@ const Achievements = () => {
   useEffect(() => {
     const fetchAchievements = async () => {
       try {
-        const response = await axios.get("http://localhost:8088/data-entries/all-data-entry");
-        setAchievements(response.data);
+        const userId = localStorage.getItem("userId");
+        const response = await axios.get(
+          "http://localhost:8088/data-entries/all-data-entry"
+        );
+
+        // Filter the achievements based on the submittedBy field matching the userId from localStorage
+        const userAchievements = response.data.filter(
+          (achievement) => achievement.submittedBy === userId
+        );
+
+        setAchievements(userAchievements);
       } catch (error) {
         console.error("Error fetching achievements:", error);
         toast.error("Failed to fetch achievements");
@@ -48,8 +57,11 @@ const Achievements = () => {
 
     const fetchDepartments = async () => {
       try {
-        const response = await axios.get("http://localhost:8088/departments/alldepartment");
+        const response = await axios.get(
+          "http://localhost:8088/departments/alldepartment"
+        );
         setDepartments(response.data.departments);
+        console.log(departments);
       } catch (error) {
         console.error("Error fetching departments:", error);
         toast.error("Failed to fetch departments");
@@ -74,17 +86,25 @@ const Achievements = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formValues.title || !formValues.description || !userId || !departmentId) {
+    if (
+      !formValues.title ||
+      !formValues.description ||
+      !userId ||
+      !departmentId
+    ) {
       toast.error("Please fill all required fields.");
       return;
     }
 
     try {
-      const response = await axios.post("http://localhost:8088/data-entries/add-data-entry", {
-        ...formValues,
-        submittedBy: userId,
-        department: departmentId,
-      });
+      const response = await axios.post(
+        "http://localhost:8088/data-entries/add-data-entry",
+        {
+          ...formValues,
+          submittedBy: userId,
+          department: departmentId,
+        }
+      );
       setAchievements([...achievements, response.data]);
       toast.success("Achievement added successfully!");
       setFormValues({
@@ -100,8 +120,12 @@ const Achievements = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8088/data-entries/delete-data-entry/${id}`);
-      setAchievements(achievements.filter((achievement) => achievement._id !== id));
+      await axios.delete(
+        `http://localhost:8088/data-entries/delete-data-entry/${id}`
+      );
+      setAchievements(
+        achievements.filter((achievement) => achievement._id !== id)
+      );
       toast.success("Achievement deleted successfully!");
     } catch (error) {
       console.error("Error deleting achievement:", error);
@@ -147,13 +171,19 @@ const Achievements = () => {
               <Select value={departmentId} onChange={handleDepartmentChange}>
                 {departments &&
                   departments.map((department) => (
-                    <MenuItem key={department._id} value={department._id}>
+                    <MenuItem key={department._id} value={department.name}>
                       {department.name}
                     </MenuItem>
                   ))}
               </Select>
             </FormControl>
-            <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              fullWidth
+              sx={{ mt: 2 }}
+            >
               Save
             </Button>
           </form>
@@ -172,6 +202,7 @@ const Achievements = () => {
                     <TableCell>Description</TableCell>
                     <TableCell>Date</TableCell>
                     <TableCell>Verification Link</TableCell>
+                    <TableCell>Status</TableCell>
                     <TableCell>Actions</TableCell>
                   </TableRow>
                 </TableHead>
@@ -180,18 +211,30 @@ const Achievements = () => {
                     <TableRow key={achievement._id}>
                       <TableCell>{achievement.title}</TableCell>
                       <TableCell>{achievement.description}</TableCell>
-                      <TableCell>{new Date(achievement.dateSubmitted).toLocaleDateString()}</TableCell>
+                      <TableCell>
+                        {new Date(
+                          achievement.dateSubmitted
+                        ).toLocaleDateString()}
+                      </TableCell>
                       <TableCell>
                         {achievement.verificationLink ? (
-                          <a href={achievement.verificationLink} target="_blank" rel="noopener noreferrer">
+                          <a
+                            href={achievement.verificationLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
                             {achievement.verificationLink}
                           </a>
                         ) : (
                           "N/A"
                         )}
                       </TableCell>
+                      <TableCell>{achievement.status}</TableCell>
                       <TableCell>
-                        <IconButton onClick={() => handleDelete(achievement._id)} color="error">
+                        <IconButton
+                          onClick={() => handleDelete(achievement._id)}
+                          color="error"
+                        >
                           <DeleteIcon />
                         </IconButton>
                       </TableCell>

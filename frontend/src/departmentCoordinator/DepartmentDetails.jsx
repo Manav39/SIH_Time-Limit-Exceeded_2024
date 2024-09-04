@@ -1,17 +1,14 @@
-import React, { useState } from 'react';
-import { FaEdit } from 'react-icons/fa';
-import { Modal, Button } from 'react-bootstrap';
+import React, { useEffect, useState } from "react";
+import { FaEdit } from "react-icons/fa";
+import { Modal, Button } from "react-bootstrap";
+import axios from "axios";
 
 const DepartmentDetails = () => {
   const [department, setDepartment] = useState({
     name: "Computer Science",
     hod: "Dr. John Doe",
     departmentCoordinator: "Jane Smith",
-    faculties: [
-      "Dr. Emily Davis",
-      "Bhole Jadhav",
-      "Sachin kore",
-    ],
+    faculties: ["Dr. Emily Davis", "Bhole Jadhav", "Sachin kore"],
     yearWiseIntake: 120,
     academicPerformance: {
       highestCgpaYearWise: [
@@ -19,36 +16,80 @@ const DepartmentDetails = () => {
         { year: 2022, cgpa: 9.4 },
         { year: 2021, cgpa: 9.3 },
         { year: 2020, cgpa: 9.2 },
-        {year : 2019, cgpa:9.8}
+        { year: 2019, cgpa: 9.8 },
       ],
-      researchPublications: [
-        "Quantum Computing in AI",
-        "Advances in Neural Networks",
-        "Machine Learning Algorithms for Big Data",
-        "Ethics in Artificial Intelligence",
-        "Deep Learning for Image Recognition"
-      ],
-      conferences: [
-        "AI Summit 2023",
-        "Blockchain Conference 2022",
-        "International Conference on Machine Learning 2023",
-        "Global Symposium on Quantum Technologies 2024",
-        "Annual Tech Innovations Conference 2023"
-      ]
-    }
+      researchPublications: [],
+      achievements: [],
+    },
   });
 
   const [showModal, setShowModal] = useState(false);
   const [editData, setEditData] = useState(department);
+
+  useEffect(() => {
+    const fetchPublications = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8088/publications/allpublication"
+        );
+        const approvedPublications = response.data.filter(
+          (pub) => pub.status === "approved"
+        );
+        setDepartment((prev) => ({
+          ...prev,
+          academicPerformance: {
+            ...prev.academicPerformance,
+            researchPublications: approvedPublications.map((pub) => pub.title),
+          },
+        }));
+      } catch (error) {
+        console.error("Error fetching publications:", error);
+      }
+    };
+
+    const fetchAchievements = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8088/data-entries/all-data-entry"
+        );
+        const approvedAchievements = response.data.filter(
+          (entry) =>
+            entry.status === "approved" && entry.type === "achievements"
+        );
+        setDepartment((prev) => ({
+          ...prev,
+          academicPerformance: {
+            ...prev.academicPerformance,
+            achievements: approvedAchievements.map((entry) => entry.title),
+          },
+        }));
+      } catch (error) {
+        console.error("Error fetching achievements:", error);
+      }
+    };
+
+    fetchPublications();
+    fetchAchievements();
+  }, []);
 
   const handleEdit = () => {
     setEditData(department);
     setShowModal(true);
   };
 
-  const handleSave = () => {
-    setDepartment(editData);
-    setShowModal(false);
+  const handleSave = async () => {
+    try {
+      // Save the updated department data to the server
+      // Assuming there is an API endpoint for saving the department data
+      await axios.put(
+        `http://localhost:8088/department/update/${departmentId}`,
+        editData
+      );
+      setDepartment(editData);
+      setShowModal(false);
+    } catch (error) {
+      console.error("Error saving department data:", error);
+    }
   };
 
   return (
@@ -61,31 +102,46 @@ const DepartmentDetails = () => {
           </button>
         </div>
         <div className="card-body">
-          <p><strong>Head of Department:</strong> {department.hod}</p>
-          <p><strong>Department Coordinator:</strong> {department.departmentCoordinator}</p>
-          <p><strong>Number of Faculties:</strong> {department.faculties.length}</p>
+          <p>
+            <strong>Head of Department:</strong> {department.hod}
+          </p>
+          <p>
+            <strong>Department Coordinator:</strong>{" "}
+            {department.departmentCoordinator}
+          </p>
+          <p>
+            <strong>Number of Faculties:</strong> {department.faculties.length}
+          </p>
           <ul>
             {department.faculties.map((faculty, index) => (
               <li key={index}>{faculty}</li>
             ))}
           </ul>
-          <p><strong>Year-Wise Intake:</strong> {department.yearWiseIntake}</p>
+          <p>
+            <strong>Year-Wise Intake:</strong> {department.yearWiseIntake}
+          </p>
           <h5>Academic Performance</h5>
           <ul>
-            {department.academicPerformance.highestCgpaYearWise.map((record, index) => (
-              <li key={index}>Year: {record.year} - Highest CGPA: {record.cgpa}</li>
-            ))}
+            {department.academicPerformance.highestCgpaYearWise.map(
+              (record, index) => (
+                <li key={index}>
+                  Year: {record.year} - Highest CGPA: {record.cgpa}
+                </li>
+              )
+            )}
           </ul>
           <h5>Research Publications</h5>
           <ul>
-            {department.academicPerformance.researchPublications.map((pub, index) => (
-              <li key={index}>{pub}</li>
-            ))}
+            {department.academicPerformance.researchPublications.map(
+              (pub, index) => (
+                <li key={index}>{pub}</li>
+              )
+            )}
           </ul>
-          <h5>Conferences</h5>
+          <h5>Achievements</h5>
           <ul>
-            {department.academicPerformance.conferences.map((conf, index) => (
-              <li key={index}>{conf}</li>
+            {department.academicPerformance.achievements.map((ach, index) => (
+              <li key={index}>{ach}</li>
             ))}
           </ul>
         </div>
@@ -103,7 +159,9 @@ const DepartmentDetails = () => {
               type="text"
               className="form-control"
               value={editData.name}
-              onChange={(e) => setEditData({ ...editData, name: e.target.value })}
+              onChange={(e) =>
+                setEditData({ ...editData, name: e.target.value })
+              }
             />
           </div>
           <div className="form-group">
@@ -112,7 +170,9 @@ const DepartmentDetails = () => {
               type="text"
               className="form-control"
               value={editData.hod}
-              onChange={(e) => setEditData({ ...editData, hod: e.target.value })}
+              onChange={(e) =>
+                setEditData({ ...editData, hod: e.target.value })
+              }
             />
           </div>
           <div className="form-group">
@@ -121,7 +181,12 @@ const DepartmentDetails = () => {
               type="text"
               className="form-control"
               value={editData.departmentCoordinator}
-              onChange={(e) => setEditData({ ...editData, departmentCoordinator: e.target.value })}
+              onChange={(e) =>
+                setEditData({
+                  ...editData,
+                  departmentCoordinator: e.target.value,
+                })
+              }
             />
           </div>
           <div className="form-group">
@@ -130,7 +195,12 @@ const DepartmentDetails = () => {
               type="number"
               className="form-control"
               value={editData.yearWiseIntake}
-              onChange={(e) => setEditData({ ...editData, yearWiseIntake: parseInt(e.target.value) })}
+              onChange={(e) =>
+                setEditData({
+                  ...editData,
+                  yearWiseIntake: parseInt(e.target.value),
+                })
+              }
             />
           </div>
           <div className="form-group">
@@ -138,8 +208,15 @@ const DepartmentDetails = () => {
             <input
               type="text"
               className="form-control"
-              value={editData.faculties.join(', ')}
-              onChange={(e) => setEditData({ ...editData, faculties: e.target.value.split(',').map(faculty => faculty.trim()) })}
+              value={editData.faculties.join(", ")}
+              onChange={(e) =>
+                setEditData({
+                  ...editData,
+                  faculties: e.target.value
+                    .split(",")
+                    .map((faculty) => faculty.trim()),
+                })
+              }
             />
           </div>
           <div className="form-group">
@@ -147,17 +224,39 @@ const DepartmentDetails = () => {
             <input
               type="text"
               className="form-control"
-              value={editData.academicPerformance.researchPublications.join(', ')}
-              onChange={(e) => setEditData({ ...editData, academicPerformance: { ...editData.academicPerformance, researchPublications: e.target.value.split(',').map(pub => pub.trim()) } })}
+              value={editData.academicPerformance.researchPublications.join(
+                ", "
+              )}
+              onChange={(e) =>
+                setEditData({
+                  ...editData,
+                  academicPerformance: {
+                    ...editData.academicPerformance,
+                    researchPublications: e.target.value
+                      .split(",")
+                      .map((pub) => pub.trim()),
+                  },
+                })
+              }
             />
           </div>
           <div className="form-group">
-            <label>Conferences (Comma separated)</label>
+            <label>Achievements (Comma separated)</label>
             <input
               type="text"
               className="form-control"
-              value={editData.academicPerformance.conferences.join(', ')}
-              onChange={(e) => setEditData({ ...editData, academicPerformance: { ...editData.academicPerformance, conferences: e.target.value.split(',').map(conf => conf.trim()) } })}
+              value={editData.academicPerformance.achievements.join(", ")}
+              onChange={(e) =>
+                setEditData({
+                  ...editData,
+                  academicPerformance: {
+                    ...editData.academicPerformance,
+                    achievements: e.target.value
+                      .split(",")
+                      .map((ach) => ach.trim()),
+                  },
+                })
+              }
             />
           </div>
         </Modal.Body>
