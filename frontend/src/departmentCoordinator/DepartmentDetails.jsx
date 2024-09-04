@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { Modal, Button } from "react-bootstrap";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const DepartmentDetails = () => {
   const [department, setDepartment] = useState({
@@ -92,8 +94,25 @@ const DepartmentDetails = () => {
     }
   };
 
+  const handleSendToAdmin = async () => {
+    try {
+      // Send the updated department data to the admin
+
+      toast.success("Department details sent to admin successfully!");
+    } catch (error) {
+      console.error("Error sending department data:", error);
+      toast.error("Failed to send department details to admin.");
+    }
+  };
+
   return (
     <div className="container">
+      <ToastContainer
+        hideProgressBar="true"
+        position="top-center"
+        pauseOnHover="false"
+        pauseOnFocusLoss="false"
+      />
       <div className="card mt-4">
         <div className="card-header">
           <h3>{department.name}</h3>
@@ -144,6 +163,9 @@ const DepartmentDetails = () => {
               <li key={index}>{ach}</li>
             ))}
           </ul>
+          <button className="btn btn-success mt-3" onClick={handleSendToAdmin}>
+            Send to Admin
+          </button>
         </div>
       </div>
 

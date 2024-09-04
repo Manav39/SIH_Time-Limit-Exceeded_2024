@@ -23,6 +23,7 @@ import {
   IconButton,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useTranslation } from "react-i18next";
 
 const Achievements = () => {
   const [achievements, setAchievements] = useState([]);
@@ -32,6 +33,9 @@ const Achievements = () => {
     description: "",
     verificationLink: "",
   });
+
+  const { t } = useTranslation();
+  const ach = t("user");
   const [departmentId, setDepartmentId] = useState(""); // To store the selected department ID
   const [userId, setUserId] = useState(""); // To store user ID
 
@@ -137,7 +141,7 @@ const Achievements = () => {
     <Container>
       <ToastContainer position="top-center" />
       <Card sx={{ mb: 3 }}>
-        <CardHeader title="Add Achievement" />
+        <CardHeader title={ach["addach"]} />
         <CardContent>
           <form onSubmit={handleSubmit}>
             <TextField
@@ -191,7 +195,7 @@ const Achievements = () => {
       </Card>
 
       <Card>
-        <CardHeader title="Achievements List" />
+        <CardHeader title={ach["achlist"]} />
         <CardContent>
           {achievements.length > 0 ? (
             <TableContainer component={Paper}>

@@ -12,9 +12,12 @@ import { RiSuitcaseFill } from "react-icons/ri";
 import { RiMoneyDollarBoxFill } from "react-icons/ri";
 import { MdForum } from "react-icons/md";
 import { Link, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const SidebarDeptCoord = ({ isOpen, toggleSidebar }) => {
   const location = useLocation();
+  const { t } = useTranslation();
+  const dc = t("dc");
 
   const isActive = (path) => {
     return location.pathname === path ? "navactive" : "";
@@ -29,7 +32,7 @@ const SidebarDeptCoord = ({ isOpen, toggleSidebar }) => {
             to="/dashboard/deptcoord/depdash"
           >
             <FaHome />
-            <span className="ms-1">Dashboard</span>
+            <span className="ms-1">{dc["dashboard"]}</span>
           </Link>
         </li>
         {/* <li onClick={toggleSidebar} className="nav-item">
@@ -48,7 +51,7 @@ const SidebarDeptCoord = ({ isOpen, toggleSidebar }) => {
             to={"/dashboard/deptcoord/faculties"}
           >
             <FaUserGraduate />
-            <span className="ms-1">Faculty List</span>
+            <span className="ms-1">{dc["faculty"]}</span>
           </Link>
         </li>
 
@@ -71,7 +74,7 @@ const SidebarDeptCoord = ({ isOpen, toggleSidebar }) => {
             to={"/dashboard/deptcoord/publications"}
           >
             <RiSuitcaseFill />
-            <span className="ms-1">Publications</span>
+            <span className="ms-1">{dc["pub"]}</span>
           </Link>
         </li>
         <li onClick={toggleSidebar} className="nav-item">
@@ -82,7 +85,7 @@ const SidebarDeptCoord = ({ isOpen, toggleSidebar }) => {
             to={"/dashboard/deptcoord/achievements"}
           >
             <RiSuitcaseFill />
-            <span className="ms-1">Achievements</span>
+            <span className="ms-1">{dc["ach"]}</span>
           </Link>
         </li>
         <li onClick={toggleSidebar} className="nav-item">
@@ -93,7 +96,7 @@ const SidebarDeptCoord = ({ isOpen, toggleSidebar }) => {
             to={"/dashboard/deptcoord/departmentdetails"}
           >
             <RiSuitcaseFill />
-            <span className="ms-1">Department</span>
+            <span className="ms-1">{dc["dept"]}</span>
           </Link>
         </li>
 
@@ -105,7 +108,7 @@ const SidebarDeptCoord = ({ isOpen, toggleSidebar }) => {
             to={"/dashboard/deptcoord/departmentevents"}
           >
             <IoCalendar />
-            <span className="ms-1">Events</span>
+            <span className="ms-1">{dc["events"]}</span>
           </Link>
         </li>
 

@@ -1,10 +1,19 @@
 import React from "react";
-import { FaHome, FaTrophy, FaChalkboardTeacher, FaUsers, FaComments } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
+import {
+  FaHome,
+  FaTrophy,
+  FaChalkboardTeacher,
+  FaUsers,
+  FaComments,
+} from "react-icons/fa";
 import { ImBooks } from "react-icons/im";
 import { Link, useLocation } from "react-router-dom";
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
   const location = useLocation();
+  const { t } = useTranslation();
+  const user = t("user");
 
   const isActive = (path) => {
     return location.pathname === path ? "navactive" : "";
@@ -25,7 +34,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             to="/dashboard/publications"
           >
             <ImBooks />
-            <span className="ms-1">Academics</span>
+            <span className="ms-1">{user["academic"]}</span>
           </Link>
         </li>
         <li onClick={toggleSidebar} className="nav-item">
@@ -34,11 +43,11 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             to="/dashboard/achievements"
           >
             <FaTrophy />
-            <span className="ms-1">Extra-curricular</span>
+            <span className="ms-1">{user["extra"]}</span>
           </Link>
         </li>
         <hr />
-        <li onClick={toggleSidebar} className="nav-item">
+        {/* <li onClick={toggleSidebar} className="nav-item">
           <Link
             className={`nav-link ${isActive("/dashboard/forum")}`}
             to="/dashboard/forum"
@@ -46,7 +55,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             <FaComments />
             <span className="ms-1">Forum</span>
           </Link>
-        </li>
+        </li> */}
       </ul>
     </aside>
   );

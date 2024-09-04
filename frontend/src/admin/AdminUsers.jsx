@@ -9,20 +9,21 @@ const AdminUsers = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8088/auth/users")
+      .get("http://localhost:8088/users")
       .then((res) => {
         setUsers(res.data);
         console.log(users);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [users]);
 
   const delUser = (id) => {
     axios
-      .delete(`http://localhost:8088/auth/user/${id}`)
+      .delete(`http://localhost:8088/${id}`)
       .then((res) => {
-        toast.info(res.data.message);
-        setUsers(users.filter((e) => e.id !== id));
+        console.log(res.data.message);
+        toast.success(res.data.message);
+        setFaculties(faculties.filter((f) => f.id !== id));
       })
       .catch((err) => console.log(err));
   };
@@ -62,7 +63,7 @@ const AdminUsers = () => {
                             <FaEdit /> Edit
                           </Link>
                           <button
-                            onClick={() => delUser(user.id)}
+                            onClick={() => delUser(user._id)}
                             className="btn btn-danger btn-sm"
                           >
                             <FaTrash /> Delete

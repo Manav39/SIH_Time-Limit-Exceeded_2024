@@ -8,10 +8,13 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/uploads/logo.png";
 import { useAuth } from "../AuthContext";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 const Header = ({ toggleSidebar }) => {
   const { logout, isLoggedIn, isAdmin } = useAuth();
   const [name, setName] = useState();
+  const { t } = useTranslation();
+  const dash = t("user");
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -37,7 +40,7 @@ const Header = ({ toggleSidebar }) => {
           alt=""
         />
         <div className="logo d-flex align-items-center">
-          <span className="d-none d-lg-block">Dashboard</span>
+          <span className="d-none d-lg-block">{dash["dashboard"]}</span>
         </div>
       </div>
       <nav className="header-nav ms-auto">

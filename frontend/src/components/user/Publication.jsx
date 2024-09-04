@@ -16,6 +16,7 @@ import {
   Chip,
   MenuItem,
 } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 const Publications = () => {
   const [users, setUsers] = useState([]); // For storing the list of users
@@ -27,6 +28,9 @@ const Publications = () => {
     description: "",
     url: "", // Add URL field
   });
+
+  const { t } = useTranslation();
+  const pub = t("user");
 
   // Get the current user ID from localStorage
   const currentUserId = localStorage.getItem("userId");
@@ -44,7 +48,9 @@ const Publications = () => {
 
     const fetchPublications = async () => {
       try {
-        const response = await axios.get("http://localhost:8088/publications/allpublication");
+        const response = await axios.get(
+          "http://localhost:8088/publications/allpublication"
+        );
         const allPublications = response.data;
 
         console.log("Fetched publications:", allPublications);
@@ -143,10 +149,12 @@ const Publications = () => {
 
   // Helper function to get author names by their IDs
   const getAuthorNames = (authorIds) => {
-    return authorIds.map(id => {
-      const user = users.find(user => user._id === id);
-      return user ? user.name : "Unknown";
-    }).join(", ");
+    return authorIds
+      .map((id) => {
+        const user = users.find((user) => user._id === id);
+        return user ? user.name : "Unknown";
+      })
+      .join(", ");
   };
 
   return (
@@ -155,7 +163,7 @@ const Publications = () => {
       <Grid container spacing={2}>
         <Grid item md={4}>
           <Card>
-            <CardHeader title="Add Publications" />
+            <CardHeader title={pub["addpub"]} />
             <CardContent>
               <form onSubmit={handleSubmit}>
                 <TextField
@@ -228,7 +236,7 @@ const Publications = () => {
         </Grid>
         <Grid item md={8}>
           <Card>
-            <CardHeader title="Publications List" />
+            <CardHeader title={pub["publist"]} />
             <CardContent>
               {publications.length > 0 ? (
                 <List>
@@ -254,7 +262,14 @@ const Publications = () => {
                                 </Typography>
                                 {pub.url && (
                                   <Typography variant="body2">
-                                    <b>URL:</b> <a href={pub.url} target="_blank" rel="noopener noreferrer">{pub.url}</a>
+                                    <b>URL:</b>{" "}
+                                    <a
+                                      href={pub.url}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                    >
+                                      {pub.url}
+                                    </a>
                                   </Typography>
                                 )}
                               </div>
