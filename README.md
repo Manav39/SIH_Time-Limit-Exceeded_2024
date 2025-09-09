@@ -42,7 +42,6 @@ Our platform leverages the MERN stack to create a responsive and dynamic web app
 
 By integrating powerful data retrieval and optimization APIs, AutoReportAI ensures that institutions can manage their records with precision, ultimately enhancing operational efficiency and data accuracy.
 
-
 ## 🔗Links
 
 - [GitHub Repository](https://github.com/Manav39/SIH_Time-Limit-Exceeded_2024/new/main)
